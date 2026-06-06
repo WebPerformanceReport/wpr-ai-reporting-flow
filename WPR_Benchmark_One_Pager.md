@@ -130,7 +130,7 @@ The HTML report has these sections, in this exact order. Do not change the order
 
 ### 5.1 Top navigation
 
-Sticky bar at the top with: brand "WebPerformance.Report" (the period in accent color), and on the right "Week N · Month Year" in mono typeface.
+Sticky bar at the top with: brand "WebPerformanceReport.com" (.com in accent color), and on the right "Week N · Month Year" in mono typeface.
 
 ### 5.2 Hero (cover)
 

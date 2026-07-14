@@ -1,10 +1,10 @@
-# WebPerformance Report AI Flow for Claude
+# WPR AI Reporting Flow
 
-Open-source instructions for turning WebPerformance Report deliveries into conversational digital intelligence using Claude Projects.
+Open-source instructions for turning WebPerformance Report deliveries into conversational digital intelligence using Claude and ChatGPT.
 
 Turn your report history into digital intelligence.
 
-WPR AI Flow is a conversational intelligence layer built on top of WebPerformance Report.
+WPR AI Reporting Flow is a conversational intelligence layer built on top of WebPerformance Report.
 
 It allows users to interact with their historical reports using natural language and generate executive-ready insights across multiple dimensions:
 
@@ -17,15 +17,15 @@ Instead of manually reviewing reports one by one, users can ask questions, compa
 
 ---
 
-## What is WPR AI Flow?
+## What is WPR AI Reporting Flow?
 
-WPR AI Flow is not a chatbot.
+WPR AI Reporting Flow is not a chatbot.
 
 It is not a dashboard with AI on top.
 
 It is a specialized digital analyst that uses WebPerformance Report data as its source of truth.
 
-By combining historical reports with Claude Projects, WPR AI Flow helps teams transform monitoring data into actionable intelligence.
+By combining historical reports with Claude Projects, WPR AI Reporting Flow helps teams transform monitoring data into actionable intelligence.
 
 Examples:
 
@@ -40,7 +40,7 @@ Examples:
 ## How It Works
 
 1. Create a Claude Project.
-2. Upload the WPR AI Flow instruction files.
+2. Upload the WPR AI Reporting Flow instruction files.
 3. Connect the inbox where WebPerformance Report deliveries are received.
 4. Start asking questions.
 
@@ -76,7 +76,11 @@ For reliable retrieval, configure your inbox to automatically organize WebPerfor
    * **Action**: Apply label `WebPerformanceReport` and skip the inbox (optional, keeps it organized).
 3. Apply the filter to existing messages so historical reports are also labeled.
 
-Once the label exists, WPR AI Flow will use it as the primary search scope, which is faster and more accurate than searching by subject alone.
+Once the label exists, WPR AI Reporting Flow will use it as the primary search scope, which is faster and more accurate than searching by subject alone.
+
+**Post-Analysis Labeling (Optional but Highly Recommended)**
+
+After analyzing a WebPerformance Report, you can request the Claude Project to apply the `WebPerformanceReport` label to mark it as processed. This keeps your inbox organized and prevents re-analyzing the same reports. Simply ask: "Label this report with WebPerformanceReport."
 
 ### Outlook / Microsoft 365
 
@@ -87,6 +91,10 @@ Once the label exists, WPR AI Flow will use it as the primary search scope, whic
 3. Run the rule on existing messages to include historical reports.
 
 Alternatively, create a category named `WebPerformanceReport` and assign it via rule if you prefer to keep messages in your main inbox.
+
+**Post-Analysis Labeling (Optional but Highly Recommended)**
+
+After analyzing a WebPerformance Report, you can request the Claude Project to apply the `WebPerformanceReport` category or move it to the folder to mark it as processed. This keeps your inbox organized and prevents re-analyzing the same reports. Simply ask: "Label this report with WebPerformanceReport."
 
 ---
 
@@ -101,14 +109,14 @@ WebPerformance Report
         ↓
    Claude Project
         ↓
-     WPR AI Flow
+     WPR AI Reporting Flow
         ↓
  Executive Insights
         ↓
     Decisions
 ```
 
-WPR AI Flow does not replace WebPerformance Report.
+WPR AI Reporting Flow does not replace WebPerformance Report.
 
 It extends the value of historical reports by transforming them into conversational digital intelligence. Users can analyze trends, compare websites, generate executive benchmarks, and uncover insights across Performance, Security, Accessibility, and Analytics through natural language interactions.
 
@@ -182,11 +190,11 @@ Planned:
 
 ---
 
-## Why WPR AI Flow?
+## Why WPR AI Reporting Flow?
 
 Most monitoring platforms focus on collecting data.
 
-WPR AI Flow focuses on understanding data.
+WPR AI Reporting Flow focuses on understanding data.
 
 It combines:
 
@@ -216,7 +224,7 @@ Anyone who needs evidence-based decisions without manually reviewing dashboards 
 
 ## Relationship with WebPerformance Report
 
-WPR AI Flow depends on WebPerformance Report.
+WPR AI Reporting Flow depends on WebPerformance Report.
 
 It uses the reports generated and delivered by WPR as its source of truth.
 
@@ -224,7 +232,7 @@ Without report history, there is no historical intelligence.
 
 Without context, there are no meaningful insights.
 
-WPR AI Flow extends WebPerformance Report from automated reporting into conversational digital intelligence.
+WPR AI Reporting Flow extends WebPerformance Report from automated reporting into conversational digital intelligence.
 
 ---
 

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Repository Is
 
-WPR AI Flow is a set of instruction files uploaded to a Claude Project to create a conversational analyst on top of WebPerformance Report email deliveries. There is no build system, runtime, or application code. Changes here are changes to Claude Project behavior.
+WPR AI Reporting Flow is a set of instruction files for creating conversational analysts on top of WebPerformance Report email deliveries. This repository contains instruction sets for multiple AI Assistant platforms (Claude, ChatGPT, etc.). There is no build system, runtime, or application code. Changes here are changes to AI Assistant project behavior.
 
 ---
 

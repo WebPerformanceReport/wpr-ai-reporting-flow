@@ -2,7 +2,7 @@
 
 This instruction generates a HTML "Benchmark" report comparing multiple websites across one, two, three, or four dimensions (Performance, Security, Accessibility, Analytics). It is flexible: the client, sites, dimensions, week, and output language all change per request; the editorial criteria and visual system stay constant.
 
-This instruction complements `WPR_Claude_Instructions.md` and `WPR_Inbox_Workflow.md`. When this instruction is active, its specific flow takes precedence; when it is not active, the other project files govern Claude's behavior.
+This instruction complements `WPR_AI_Assistant_Instructions.md` and `WPR_Inbox_Workflow.md`. When this instruction is active, its specific flow takes precedence; when it is not active, the other project files govern Claude's behavior.
 
 ---
 
@@ -257,7 +257,7 @@ For each site, adjust the language to its profile. If the client provides contex
 
 ### 6.6 Benchmark threshold rules
 
-All benchmark classifications must follow the official thresholds defined in `WPR_Claude_Instructions.md` Section 5. Do not invent thresholds or create arbitrary Good / Needs Improvement / Poor classifications.
+All benchmark classifications must follow the official thresholds defined in `WPR_AI_Assistant_Instructions.md` Section 5. Do not invent thresholds or create arbitrary Good / Needs Improvement / Poor classifications.
 
 Apply thresholds in this hierarchy:
 
@@ -268,9 +268,9 @@ Apply thresholds in this hierarchy:
 
 Dimension-specific notes:
 
-- **Performance**: use the Core Web Vitals thresholds from `WPR_Claude_Instructions.md` Section 5. TTFB is a diagnostic metric, not one of the three Core Web Vitals (LCP, INP, CLS). Apply it as supporting context, not as a primary classification.
-- **Security**: follow the HTTP Observatory grading scale from `WPR_Claude_Instructions.md` Section 5.
-- **Accessibility**: follow WAVE findings and WCAG-based interpretation from `WPR_Claude_Instructions.md` Section 5.
+- **Performance**: use the Core Web Vitals thresholds from `WPR_AI_Assistant_Instructions.md` Section 5. TTFB is a diagnostic metric, not one of the three Core Web Vitals (LCP, INP, CLS). Apply it as supporting context, not as a primary classification.
+- **Security**: follow the HTTP Observatory grading scale from `WPR_AI_Assistant_Instructions.md` Section 5.
+- **Accessibility**: follow WAVE findings and WCAG-based interpretation from `WPR_AI_Assistant_Instructions.md` Section 5.
 - **Analytics**: avoid universal Good / Poor classifications. Engagement Rate, Bounce Rate, and session metrics vary significantly by industry and site type. Prefer trend-based and context-based interpretation unless the user provides a specific benchmark.
 
 If a threshold is unclear, missing, or not officially defined, state this limitation explicitly instead of forcing a rating.
@@ -338,7 +338,7 @@ All via Google Fonts. Import them in the `<head>`.
     - `benchmark_anthropic_ga4_week_25.html`
     - `benchmark_anthropic_perf_ga4_week_22.html`
 - **After creation**: use the `present_files` tool to deliver to the user.
-- **Accompanying message**: short. Summarize what the report shows, which findings are strongest, and ask if anything needs adjustment before closing. Do not explain the extraction process or mention the inbox connector (the opacity rules of `WPR_Claude_Instructions.md` apply).
+- **Accompanying message**: short. Summarize what the report shows, which findings are strongest, and ask if anything needs adjustment before closing. Do not explain the extraction process or mention the inbox connector (the opacity rules of `WPR_AI_Assistant_Instructions.md` apply).
 
 ---
 

@@ -25,7 +25,7 @@ It is not a dashboard with AI on top.
 
 It is a specialized digital analyst that uses WebPerformance Report data as its source of truth.
 
-By combining historical reports with Claude Projects, WPR AI Reporting Flow helps teams transform monitoring data into actionable intelligence.
+By combining historical reports with Claude Projects (or ChatGPT Projects), WPR AI Reporting Flow helps teams transform monitoring data into actionable intelligence.
 
 Examples:
 
@@ -39,7 +39,7 @@ Examples:
 
 ## How It Works
 
-1. Create a Claude Project.
+1. Create a Claude Project (or ChatGPT Project).
 2. Upload the WPR AI Reporting Flow instruction files.
 3. Connect the inbox where WebPerformance Report deliveries are received.
 4. Start asking questions.
@@ -50,10 +50,10 @@ Setup time is typically less than 5 minutes.
 
 ## Quick Start
 
-1. Create a Claude Project.
+1. Create a Claude Project (or ChatGPT Project).
 2. Upload the following files:
 
-   * `WPR_Claude_Instructions.md`
+   * `WPR_AI_Assistant_Instructions.md`
    * `WPR_Inbox_Workflow.md`
    * `WPR_Benchmark_One_Pager.md`
 3. Set up your inbox (see Inbox Setup below).
@@ -66,7 +66,7 @@ Typical setup time: 5–10 minutes.
 
 ## Inbox Setup
 
-For reliable retrieval, configure your inbox to automatically organize WebPerformance Report deliveries before connecting it to the Claude Project.
+For reliable retrieval, configure your inbox to automatically organize WebPerformance Report deliveries before connecting it to your AI assistant project.
 
 ### Gmail
 
@@ -80,7 +80,7 @@ Once the label exists, WPR AI Reporting Flow will use it as the primary search s
 
 **Post-Analysis Labeling (Optional but Highly Recommended)**
 
-After analyzing a WebPerformance Report, you can request the Claude Project to apply the `WebPerformanceReport` label to mark it as processed. This keeps your inbox organized and prevents re-analyzing the same reports. Simply ask: "Label this report with WebPerformanceReport."
+After analyzing a WebPerformance Report, you can request your AI assistant to apply the `WebPerformanceReport` label to mark it as processed. This keeps your inbox organized and prevents re-analyzing the same reports. Simply ask: "Label this report with WebPerformanceReport."
 
 ### Outlook / Microsoft 365
 
@@ -94,7 +94,7 @@ Alternatively, create a category named `WebPerformanceReport` and assign it via 
 
 **Post-Analysis Labeling (Optional but Highly Recommended)**
 
-After analyzing a WebPerformance Report, you can request the Claude Project to apply the `WebPerformanceReport` category or move it to the folder to mark it as processed. This keeps your inbox organized and prevents re-analyzing the same reports. Simply ask: "Label this report with WebPerformanceReport."
+After analyzing a WebPerformance Report, you can request your AI assistant to apply the `WebPerformanceReport` category or move it to the folder to mark it as processed. This keeps your inbox organized and prevents re-analyzing the same reports. Simply ask: "Label this report with WebPerformanceReport."
 
 ---
 
@@ -107,7 +107,7 @@ WebPerformance Report
         ↓
         Inbox
         ↓
-   Claude Project
+   Claude or ChatGPT Project
         ↓
      WPR AI Reporting Flow
         ↓
@@ -124,9 +124,9 @@ It extends the value of historical reports by transforming them into conversatio
 
 ## Requirements
 
-### Claude
+### Claude or ChatGPT
 
-A Claude account with Project support.
+A Claude account with Project support, or a ChatGPT account with Projects feature.
 
 ### WebPerformance Report
 

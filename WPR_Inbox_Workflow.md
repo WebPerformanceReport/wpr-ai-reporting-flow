@@ -1,6 +1,6 @@
 # WPR_Inbox_Workflow.md
 
-This file defines how to reliably retrieve, validate, and analyze WebPerformance Report deliveries from a connected inbox. It supports two connectors: **Gmail** (default) and **Outlook / Microsoft 365**. It complements `WPR_Claude_Instructions.md` and must be followed for all inbox interactions inside this Project.
+This file defines how to reliably retrieve, validate, and analyze WebPerformance Report deliveries from a connected inbox. It supports two connectors: **Gmail** (default) and **Outlook / Microsoft 365**. It complements `WPR_AI_Assistant_Instructions.md` and must be followed for all inbox interactions inside this Project.
 
 The goal is to provide a structured workflow that avoids hallucinations, incomplete searches, missing reports, or misinterpretation of API responses, regardless of which email connector is active.
 
@@ -283,7 +283,7 @@ Show me the Outlook query before executing it.
 
 ---
 
-# 9. Alignment with WPR_Claude_Instructions.md
+# 9. Alignment with WPR_AI_Assistant_Instructions.md
 
 This file is fully aligned with the main project instructions:
 

@@ -78,9 +78,7 @@ For reliable retrieval, configure your inbox to automatically organize WebPerfor
 
 Once the label exists, WPR AI Reporting Flow will use it as the primary search scope, which is faster and more accurate than searching by subject alone.
 
-**Post-Analysis Labeling (Optional but Highly Recommended)**
-
-After analyzing a WebPerformance Report, you can request your AI assistant to apply the `WebPerformanceReport` label to mark it as processed. This keeps your inbox organized and prevents re-analyzing the same reports. Simply ask: "Label this report with WebPerformanceReport."
+**Optional but Highly Recommended:** Organizing reports with a label makes inbox management easier and enables the AI assistant to search and retrieve reports more efficiently.
 
 ### Outlook / Microsoft 365
 
@@ -92,9 +90,7 @@ After analyzing a WebPerformance Report, you can request your AI assistant to ap
 
 Alternatively, create a category named `WebPerformanceReport` and assign it via rule if you prefer to keep messages in your main inbox.
 
-**Post-Analysis Labeling (Optional but Highly Recommended)**
-
-After analyzing a WebPerformance Report, you can request your AI assistant to apply the `WebPerformanceReport` category or move it to the folder to mark it as processed. This keeps your inbox organized and prevents re-analyzing the same reports. Simply ask: "Label this report with WebPerformanceReport."
+**Optional but Highly Recommended:** Organizing reports with a folder or category makes inbox management easier and enables the AI assistant to search and retrieve reports more efficiently.
 
 ---
 

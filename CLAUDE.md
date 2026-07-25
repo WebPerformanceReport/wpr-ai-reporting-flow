@@ -13,7 +13,7 @@ WPR AI Reporting Flow is a set of instruction files for creating conversational 
 | File | Role |
 |---|---|
 | `WPR_AI_Assistant_Instructions.md` | Primary AI Assistant Project instructions (Claude, ChatGPT, etc.). Defines identity, analysis pipeline, metrics, benchmarks, visualization rules, output structure, and behavior constraints. Always active. |
-| `WPR_Inbox_Workflow.md` | Inbox retrieval mechanics for Gmail (default) and Outlook/Microsoft 365. Subject-first workflow, connector detection, validation patterns, pagination, and error recovery. |
+| `WPR_Inbox_Workflow.md` | Inbox retrieval mechanics for Gmail (default) and Outlook/Microsoft 365. Retrieval contract, Fast Path and Verification Mode, connector detection, subject grammar and validation, query strategy, bounded pagination, and error recovery. |
 | `WPR_Benchmark_One_Pager.md` | Activated only when the user requests a multi-site HTML benchmark. Overrides the general output format with a fixed HTML document structure. |
 
 ---
@@ -73,5 +73,7 @@ Dimension slugs: `perf_sec_a11y_ga4` (4D), `perf_sec_a11y` / `perf_sec_ga4` / `p
 
 - These are instruction files for a Claude Project, not source code. "Correctness" means behavioral accuracy, not compilation.
 - When editing benchmarks in `WPR_AI_Assistant_Instructions.md` Section 5, verify against the official Google Core Web Vitals thresholds for the current year.
-- When adding a new report type, update: `WPR_AI_Assistant_Instructions.md` (Section 2 table, Section 2 routing, Section 4 metrics), `WPR_Inbox_Workflow.md` (Step 4 patterns, Step 5 sort list, Gmail Pattern D, Outlook Pattern E, Section 6 step 5), and `WPR_Benchmark_One_Pager.md` (Section 2 dimensions input, Section 4 dimensional logic, Section 5.4.3–5.4.4, Section 8 slugs).
+- When adding a new report type, update: `WPR_Inbox_Workflow.md` (Section 5.1 category/source table only, the grammar and query rules are generic), `WPR_AI_Assistant_Instructions.md` (Section 2 table, Section 4.2 metrics), and `WPR_Benchmark_One_Pager.md` (Section 2 dimensions input, Section 4 dimensional logic, Section 5.4.3–5.4.4, Section 8 slugs).
 - The benchmark HTML visual system spec lives entirely in `WPR_Benchmark_One_Pager.md` Section 7. Palette, typography, and spacing are defined there; do not duplicate them elsewhere.
+- One authority per rule: retrieval lives in `WPR_Inbox_Workflow.md`, analysis in `WPR_AI_Assistant_Instructions.md` (split table in `WPR_Inbox_Workflow.md` Section 11). Cross-reference instead of restating.
+- Retrieval defaults to Fast Path: narrow query, summaries first, bodies only for selected deliveries, bounded pagination, no confirmation, no exposed mechanics. Verification Mode is opt-in only. Do not reintroduce mandatory subject listing or confirmation steps.

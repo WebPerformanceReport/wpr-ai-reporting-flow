@@ -56,17 +56,29 @@ Setup time is typically less than 5 minutes.
    * `WPR_AI_Assistant_Instructions.md`
    * `WPR_Inbox_Workflow.md`
    * `WPR_Benchmark_One_Pager.md`
-3. Set up your inbox (see Inbox Setup below).
-4. Connect the inbox where WebPerformance Report deliveries are received.
-5. Start asking questions about your websites.
+3. Enable your AI assistant's email integration.
+4. Grant access to the inbox where your WebPerformance Report deliveries are received.
+5. Start asking questions about your reports.
 
-Typical setup time: 5–10 minutes.
+Enable your AI assistant's email integration and grant access to the inbox where your WebPerformance Report deliveries are received. Depending on the platform, this feature may be called an integration, connector, connected app, app, Gmail connection, or Outlook connection.
+
+No inbox configuration is required to begin. WPR AI Reporting Flow identifies your deliveries by their email subject, which always starts with `WebPerformance Report`.
+
+Typical setup time: under 5 minutes.
 
 ---
 
-## Inbox Setup
+## Optional Inbox Organization
 
-For reliable retrieval, configure your inbox to automatically organize WebPerformance Report deliveries before connecting it to your AI assistant project.
+Optional but recommended: Create a `WebPerformanceReport` label, folder, or category to keep your deliveries organized and make retrieval more focused, especially when your inbox contains a large report history.
+
+It helps you:
+
+* keep deliveries organized;
+* make searches more focused;
+* manage a large report history more easily.
+
+This step is not required. Without it, your reports are still found by subject.
 
 ### Gmail
 
@@ -75,10 +87,6 @@ For reliable retrieval, configure your inbox to automatically organize WebPerfor
    * **Subject contains**: `WebPerformance Report`
    * **Action**: Apply label `WebPerformanceReport` and skip the inbox (optional, keeps it organized).
 3. Apply the filter to existing messages so historical reports are also labeled.
-
-Once the label exists, WPR AI Reporting Flow will use it as the primary search scope, which is faster and more accurate than searching by subject alone.
-
-**Optional but Highly Recommended:** Organizing reports with a label makes inbox management easier and enables the AI assistant to search and retrieve reports more efficiently.
 
 ### Outlook / Microsoft 365
 
@@ -89,8 +97,6 @@ Once the label exists, WPR AI Reporting Flow will use it as the primary search s
 3. Run the rule on existing messages to include historical reports.
 
 Alternatively, create a category named `WebPerformanceReport` and assign it via rule if you prefer to keep messages in your main inbox.
-
-**Optional but Highly Recommended:** Organizing reports with a folder or category makes inbox management easier and enables the AI assistant to search and retrieve reports more efficiently.
 
 ---
 

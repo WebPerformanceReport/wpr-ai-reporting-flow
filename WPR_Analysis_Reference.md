@@ -134,6 +134,8 @@ Case studies describe one company's result, not an industry average. Cite the co
 
 Use one edition of one dataset for every baseline in a report, and quote the figure the source states in its chart or table caption. Never mix editions or page types (home pages and inner pages). If the source gives two different figures for the same measure, use the caption figure and say so in the methodology, or compare without a percentage.
 
+Link a source only when the link opens the page that contains the figure. If it redirects elsewhere or the figure is not on the page, find the original page or drop the link and keep the citation in text (publisher, title, year).
+
 If another source is needed, use it only if it is (a) public, (b) industry-recognized, and (c) has a documented methodology. Attribute every source inline, by name, in the sentence that uses it. Do not add a sources section (`WPR_AI_Assistant_Instructions.md` Section 4).
 
 ---

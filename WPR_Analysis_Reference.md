@@ -100,10 +100,15 @@ Automated testing finds only part of the WCAG issues, so a WAVE result never pro
 No universal thresholds exist. Engagement Rate, Bounce Rate and session metrics vary widely by industry and site type. Do not classify them as Good / Needs Improvement / Poor. Interpret them by trend and context, unless the user provides a benchmark.
 
 ### Trend magnitude language
-- Change under 5%: **stable**.
-- 5–15%: **notable** improvement or regression.
-- 15–30%: **significant**.
-- Over 30%: **major**.
+The magnitude word follows the relative change:
+- Under 5%: **stable**.
+- 5% to under 15%: **notable** improvement or regression.
+- 15% to under 30%: **significant**.
+- 30% or more: **major**.
+
+- **Direction**: a lower LCP, INP, CLS, TTFB or error count is an improvement; a lower score or grade is a regression.
+- **Rates** (Engagement Rate, Bounce Rate and other percentages): report the change in percentage points and apply the magnitude word to the relative change, stating both: "+5 pp, a notable 10% increase".
+- **Small values in the best tier**: when a metric stays in its best tier in both periods (for example Good for Core Web Vitals), report the absolute change and never call it significant or major. CLS moving from 0.01 to 0.02 is +100% but still Good.
 
 ---
 

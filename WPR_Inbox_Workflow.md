@@ -199,21 +199,23 @@ If the snippet does not show the site, read the body before choosing a delivery 
 
 Build the narrowest query the request supports. Always include the sender filter and the exclusion of resends and scheduling confirmations, then combine only the filters the request justifies:
 
-`from:info@webperformancereport.com` (always) · `-subject:("Owner - Forwarded" OR Scheduled)` (always) · `label` (when it exists) · `subject` · source tool · `newer_than` / `older_than` · period number · website or report name when present · result count.
+`from:info@webperformancereport.com` (always) · `-subject:("Owner - Forwarded" OR Scheduled)` (always) · `label` (when it exists) · `subject` · source tool in the subject · `newer_than` / `older_than` · period number · website or report name when present · result count.
 
 ```text
-from:info@webperformancereport.com -subject:("Owner - Forwarded" OR Scheduled) subject:"WebPerformance Report" "WebPageTest"
-from:info@webperformancereport.com -subject:("Owner - Forwarded" OR Scheduled) subject:"WebPerformance Report" "HTTP Observatory" newer_than:30d
-from:info@webperformancereport.com -subject:("Owner - Forwarded" OR Scheduled) subject:"WebPerformance Report" "Wave" newer_than:30d
-from:info@webperformancereport.com -subject:("Owner - Forwarded" OR Scheduled) subject:"WebPerformance Report" "GA4" newer_than:35d
+from:info@webperformancereport.com -subject:("Owner - Forwarded" OR Scheduled) subject:"WebPerformance Report" subject:"WebPageTest"
+from:info@webperformancereport.com -subject:("Owner - Forwarded" OR Scheduled) subject:"WebPerformance Report" subject:"HTTP Observatory" newer_than:30d
+from:info@webperformancereport.com -subject:("Owner - Forwarded" OR Scheduled) subject:"WebPerformance Report" subject:"Wave" newer_than:30d
+from:info@webperformancereport.com -subject:("Owner - Forwarded" OR Scheduled) subject:"WebPerformance Report" subject:"GA4" newer_than:35d
 ```
 
 If the optional label exists, use it as a narrower scope:
 
 ```text
-from:info@webperformancereport.com -subject:("Owner - Forwarded" OR Scheduled) label:WebPerformanceReport "WebPageTest"
-from:info@webperformancereport.com -subject:("Owner - Forwarded" OR Scheduled) label:WebPerformanceReport "HTTP Observatory" newer_than:30d
+from:info@webperformancereport.com -subject:("Owner - Forwarded" OR Scheduled) label:WebPerformanceReport subject:"WebPageTest"
+from:info@webperformancereport.com -subject:("Owner - Forwarded" OR Scheduled) label:WebPerformanceReport subject:"HTTP Observatory" newer_than:30d
 ```
+
+Always put the source tool in a `subject:` filter. As a free term it also matches email bodies: Search Console deliveries mention Wave, and they would fill the summary buffer of an Accessibility search.
 
 A period filter such as `"Week #"` also excludes One Time Reports. Add it only when the request names a recurring period.
 
@@ -230,6 +232,8 @@ sender is `info@webperformancereport.com` (always) · subject contains neither `
 - Sort `receivedDateTime` descending whenever the user asks for recent deliveries, and apply a result limit equal to the Fast Path buffer.
 - Apply a `receivedDateTime` range whenever the request states or implies a window.
 - Prefer folder scope, then category scope, then subject scope. Only subject always works; a missing folder or category is not an error and is never surfaced.
+- If the connector rejects a combination (for example, Microsoft Graph does not combine `$search` with `$orderby`), drop the sort, keep the filters and the result limit, and order the results by received date yourself.
+- This pattern has not yet been verified against a real Outlook connector in Claude or ChatGPT (#46).
 
 ---
 

@@ -189,7 +189,7 @@ Planned:
 ### Executive Insights
 
 * Generate an executive benchmark of all monitored websites.
-* Rank my websites by overall digital health.
+* Compare my websites across performance, security, and accessibility.
 * Create a board-ready summary for leadership.
 * Identify the most urgent issues across all dimensions.
 

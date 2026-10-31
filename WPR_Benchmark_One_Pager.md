@@ -1,6 +1,6 @@
 # WPR Benchmark One Pager
 
-This instruction generates a HTML "Benchmark" report comparing multiple websites across one, two, three, or four dimensions (Performance, Security, Accessibility, Analytics). It is flexible: the client, sites, dimensions, week, and output language all change per request; the editorial criteria and visual system stay constant.
+This instruction generates a HTML "Benchmark" report comparing multiple websites across one or more dimensions (Performance, Security, Accessibility, Analytics). It is flexible: the client, sites, dimensions, week, and output language all change per request; the editorial criteria and visual system stay constant.
 
 This instruction complements `WPR_AI_Assistant_Instructions.md` and `WPR_Inbox_Workflow.md`. When this instruction is active, its specific flow takes precedence; when it is not active, the other project files govern Claude's behavior.
 
@@ -27,9 +27,9 @@ If in doubt about applicability, ask before proceeding.
 Before extracting data or generating HTML, make sure you have these six inputs. If any are missing, ask the user in a single consolidated question:
 
 1. **Client**: commercial name of the group or company (e.g., "Anthropic"). Include legal name if relevant.
-2. **Sites**: list of URLs to compare, ideally between 3 and 6. If fewer than 3, warn that the format does not work well with so few sites and propose adjustments. If more than 6, warn that the matrix becomes illegible and propose prioritizing.
+2. **Sites**: list of URLs to compare, ideally between 3 and 6. If fewer than 3, warn that the format does not work well with so few sites and propose adjustments. If more than 6, warn that the comparison table becomes illegible and propose prioritizing.
 3. **Reporting week**: week number (e.g., "Week 20") and year (e.g., "2026").
-4. **Dimensions to include**: any combination of `performance`, `security`, `accessibility`, `analytics`. The user can request 1, 2, 3, or all 4. This is the critical input that determines the report structure. Do not assume; if the user did not specify, ask.
+4. **Dimensions to include**: any combination of the dimensions in Section 4 (`performance`, `security`, `accessibility`, `analytics`), one or more. This is the critical input that determines the report structure. Do not assume; if the user did not specify, ask.
 5. **Target audience**: one of: "non-technical C-level", "mixed executive committee", "technical team", "public communication". Default to non-technical C-level if not specified.
 6. **Output language**: English, Spanish, or other. Default to English if not specified.
 
@@ -57,69 +57,56 @@ Field and lab data follow the rule in `WPR_AI_Assistant_Instructions.md` Section
 
 ### 3.3 Missing report handling
 
-If a site has no data for a dimension (for example, the WAVE report for docs.anthropic.com did not arrive), do not fill with data from the previous week. Mark the cell as "Pending" in the consolidated matrix and omit that site from the corresponding deep-dive with a short note.
+If a site has no data for a dimension (for example, the WAVE report for docs.anthropic.com did not arrive), do not fill with data from the previous week. Mark the cell as "No data available" in the comparison table and omit that site from the corresponding deep-dive with a short note.
 
 ---
 
-## 4. Dimensional logic (1, 2, 3, or 4 dimensions)
+## 4. Dimensional logic
 
-The number of dimensions requested by the user changes the structure of several sections. The rules below apply by case.
+The user can include any combination of the dimensions below. The rules in this section work for any number of them, so a new dimension only needs a row in this table (and its charts in Section 5.4).
+
+| Dimension | Slug | Headline metric (comparison cell and site card) | Classified |
+|---|---|---|---|
+| Performance | `perf` | LCP from CrUX (Section 3.2) | Yes: Core Web Vitals |
+| Security | `sec` | HTTP Observatory grade and score | Yes: official grading chart |
+| Accessibility | `a11y` | Total WAVE errors | Yes: contextual interpretation |
+| Analytics | `ga4` | Engagement Rate | No (`WPR_AI_Assistant_Instructions.md` Section 5) |
+
+**Canonical order**: Performance, Security, Accessibility, Analytics. Titles, columns, deep-dives and slugs always follow it, whatever order the user used.
+
+**No overall score or ranking.** The benchmark compares sites dimension by dimension. Do not normalize dimensions to a common scale, average them, or give sites an overall position. If the user asks for an overall ranking, explain that the benchmark compares each dimension on its own, and offer to order the sites by one dimension's headline metric instead.
 
 ### 4.1 Document title
 
-The title adapts to the included dimensions:
-
-- **4 dimensions**: "Multidimensional Benchmark" (or "Benchmark Multidimensional" in Spanish).
-- **3 dimensions**: "Multidimensional Benchmark" (or "Benchmark Multidimensional" in Spanish).
-- **2 dimensions**: "Benchmark of [dimension 1] and [dimension 2]" (e.g., "Benchmark of Performance and Security"). Order: Performance > Security > Accessibility > Analytics.
-- **1 dimension**: "Benchmark of [dimension]" (e.g., "Benchmark of Analytics").
+- **One dimension**: "Benchmark of [dimension]" (e.g., "Benchmark of Security").
+- **Two dimensions**: "Benchmark of [dimension 1] and [dimension 2]" (e.g., "Benchmark of Performance and Security").
+- **Three or more**: "Multidimensional Benchmark" (or "Benchmark Multidimensional" in Spanish).
 
 The hero badge follows the same logic.
 
 ### 4.2 Hero KPIs
 
-Three KPI cards in all cases. The source changes:
+Three KPI cards in all cases. Choose the three strongest stories across the included dimensions, by executive impact. Do not force one per dimension, and avoid one KPI per dimension plus a generic filler.
 
-- **4 dimensions**: choose the 3 strongest stories across the four dimensions. Do not force one per dimension; pick those with the clearest executive impact.
-- **3 dimensions**: one KPI per dimension. Each KPI is chosen by the strongest story in its dimension.
-- **2 dimensions**: distribute the three KPIs between the two dimensions. Typically two from one dimension and one from the other, depending on which story is stronger. Avoid having one KPI from each dimension plus a generic third one.
-- **1 dimension**: all three KPIs come from that dimension. They must be distinct (do not repeat the same metric in three forms). Suggested types: one of magnitude ("X out of Y sites fail"), one of distribution ("range from F to B"), one of severity ("the most exposed site has Z").
+With one dimension, the three KPIs must be distinct (do not repeat the same metric in three forms). Suggested types: one of magnitude ("X out of Y sites fail"), one of distribution ("range from F to B"), one of severity ("the most exposed site has Z").
 
-### 4.3 Consolidated matrix
+### 4.3 Comparison table
 
-The matrix changes shape:
+- **Columns**: site, then one column per included dimension in canonical order. No ranking column.
+- **Cells**: the dimension's headline metric (table above), with its classification label when the dimension is classified. Analytics cells show the value and its trend, without a classification.
+- **Missing data**: "No data available" (for Performance without CrUX, "No field data available", Section 3.2). Never show it as zero, and it does not affect the site's other cells.
+- **Rows**: sites in the order the user gave them. Do not sort by an overall result.
+- **One dimension**: add that dimension's secondary metrics as extra columns (e.g., INP and CLS for Performance), since there is room for them.
 
-- **4 dimensions**: 6 columns (site | performance | security | accessibility | analytics | ranking).
-- **3 dimensions**: 5 columns (site | performance | security | accessibility | ranking).
-- **2 dimensions**: 4 columns (site | dimension 1 | dimension 2 | ranking).
-- **1 dimension**: the matrix loses its name as "matrix" and becomes a simplified ranking table. 3 columns (site | dimension | rank), with the eyebrow renamed to "Ranking" instead of "Consolidated matrix". The title also changes (suggested: "Where each site stands" or similar).
+### 4.4 Deep-dives
 
-### 4.4 Consolidated ranking
+One deep-dive per included dimension, in canonical order, labeled "Dimension X of N". With one dimension, use "Detailed analysis" (or equivalent) instead of "Dimension 1 of 1", which sounds redundant.
 
-- **4 dimensions**: equal weighting across the four dimensions, normalized score (0-100) per dimension, simple average. This is the default. The user may explicitly override the weighting.
-- **3 dimensions**: equal weighting across the three dimensions, normalized score (0-100) per dimension, simple average. This is the default. The user may explicitly override the weighting.
-- **2 dimensions**: equal weighting between the two dimensions by default. If the user requests another weighting, apply it and mention it in the matrix subtitle.
-- **1 dimension**: direct ranking by that dimension's metric. No weighting required.
+### 4.5 Recommendations
 
-In case of ties, prioritize the site with lower variance between dimensions (more balanced). For single-dimension, ties are broken by the secondary metric of that dimension.
-
-### 4.5 Deep-dives
-
-One deep-dive per included dimension, in mandatory order: Performance → Security → Accessibility → Analytics.
-
-- **4 dimensions**: four deep-dive sections, labeled "Dimension 1 of 4", "Dimension 2 of 4", "Dimension 3 of 4", "Dimension 4 of 4".
-- **3 dimensions**: three deep-dive sections, labeled "Dimension 1 of 3", "Dimension 2 of 3", "Dimension 3 of 3".
-- **2 dimensions**: two deep-dive sections, labeled "Dimension 1 of 2", "Dimension 2 of 2".
-- **1 dimension**: one deep-dive section, but the eyebrow changes to "Detailed analysis" (or equivalent) instead of "Dimension 1 of 1", which sounds redundant.
-
-### 4.6 Recommendations
-
-- **4 dimensions**: between 4 and 6 recommendations, prioritized by consolidated impact across all four dimensions.
-- **3 dimensions**: between 3 and 5 recommendations, prioritized by consolidated impact across all three dimensions.
-- **2 dimensions**: between 3 and 4 recommendations, prioritized by consolidated impact across both dimensions.
-- **1 dimension**: between 2 and 4 recommendations, all focused on the single dimension. The cards' tags drop the dimension tag (it would be redundant) and keep only the affected site tag.
-
-In all cases, the first recommendation is always the most urgent failure of the portfolio, regardless of which site it belongs to.
+- **Count**: 2 to 4 with one dimension; otherwise between N and N + 2, where N is the number of included dimensions.
+- **Priority**: by impact across the included dimensions. The first recommendation is always the most urgent failure of the portfolio, regardless of which site it belongs to.
+- **One dimension**: the cards drop the dimension tag (it would be redundant) and keep only the affected site tag.
 
 ---
 
@@ -139,22 +126,22 @@ Sticky bar at the top with: brand "WebPerformanceReport.com" (.com in accent col
 - Strip of cards with one site per column: name + URL.
 - Three KPI cards (per section 4.2).
 
-### 5.3 Consolidated matrix or ranking table
+### 5.3 Comparison table
 
 Per section 4.3. Includes:
-- Eyebrow ("Consolidated matrix" for N≥2, "Ranking" for N=1).
-- Title with last word in italic accent.
-- Subtitle that mentions the weighting used (or absence of weighting for N=1).
-- The matrix/table itself.
+- Eyebrow "Comparison".
+- Title with last word in italic accent (suggested: "Where each site stands").
+- Subtitle stating that sites are compared dimension by dimension, without an overall score.
+- The table itself.
 - Color legend at the foot.
-- "Key finding" card after the matrix: 1-2 sentences with the strongest conclusion. It is the thesis of the report.
+- "Key finding" card after the table: 1-2 sentences with the strongest conclusion. It is the thesis of the report.
 
 ### 5.4 Deep-dives (one per included dimension)
 
 Each deep-dive has the same internal structure:
 
 **5.4.1 Section header**
-- Eyebrow (per section 4.5).
+- Eyebrow (per section 4.4).
 - Large title with key word in italic accent.
 - Short subtitle.
 
@@ -186,7 +173,7 @@ This card has three visual elements:
 ### 5.5 Prioritized recommendations
 
 - Eyebrow "Action plan".
-- Title and subtitle adapted to the number of recommendations (per section 4.6).
+- Title and subtitle adapted to the number of recommendations (per section 4.5).
 - Cards with: large number (01, 02...), tags (dimension + affected site(s)), actionable title, 2-4 line description, estimated effort and timeline, impact indicator on the right (Critical/High/Medium).
 
 ### 5.6 Methodology
@@ -225,9 +212,9 @@ These style rules apply **independent of output language**:
 
 **Technical terms remain in English** regardless of output language, because they are industry-standard nomenclature: LCP, INP, CLS, TTFB, CSP, HSTS, SRI, WCAG, ARIA, CrUX, etc. Their explanation can be in the output language, but the term itself is not translated.
 
-### 6.3 Ranking and matrix
+### 6.3 Comparison without ranking
 
-Follow the rules in section 4.4. Document the weighting used in the matrix subtitle so the reader can see it transparently.
+Compare dimension by dimension (Section 4). Never name an overall winner or give sites an overall position. Within a deep-dive, charts may order sites by that dimension's metric.
 
 ### 6.4 Impact cards: quantification and differentiation
 
@@ -311,7 +298,7 @@ All via Google Fonts. Import them in the `<head>`.
 ### 7.5 Responsive
 
 - Mobile breakpoint: 880px.
-- Below: KPIs in 2 columns, matrix collapses to one column, recommendation cards in one column.
+- Below: KPIs in 2 columns, comparison table collapses to one column, recommendation cards in one column.
 
 ---
 
@@ -321,7 +308,7 @@ All via Google Fonts. Import them in the `<head>`.
 - **Location**: `/mnt/user-data/outputs/`.
 - **File name**: `benchmark_[client_slug]_[dimensions_slug]_week_[N].html`.
   - Client slug in lowercase, no diacritics, with underscores.
-  - Dimensions slug: `perf_sec_a11y_ga4` for 4D, `perf_sec_a11y` / `perf_sec_ga4` / `perf_a11y_ga4` / `sec_a11y_ga4` for 3D, `perf_sec` / `perf_a11y` / `perf_ga4` / `sec_a11y` / `sec_ga4` / `a11y_ga4` for 2D, `perf` / `sec` / `a11y` / `ga4` for 1D.
+  - Dimensions slug: the slugs of the included dimensions (Section 4), joined with underscores in canonical order. For example `perf_sec_a11y_ga4`, `perf_ga4` or `a11y`.
   - Examples:
     - `benchmark_anthropic_perf_sec_a11y_ga4_week_20.html`
     - `benchmark_anthropic_perf_sec_a11y_week_20.html`

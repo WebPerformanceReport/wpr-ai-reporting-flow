@@ -73,9 +73,12 @@ Small placeholders:
 - Tag every claim with one of: **Measured** (from the deliveries), **Market benchmark** (public datasets), **External study** (published research, shows direction, not a forecast), **Our assessment** (professional judgment).
 - Never estimate revenue, conversions or leads for the company without its own data. Say what data would be needed instead. Quantified impact from studies follows `WPR_Analysis_Reference.md` Section 3.
 - Never fabricate a value. A missing dimension or metric is shown as unavailable and explained in the methodology.
-- A cause, a prediction or a statement about intent is **Our assessment**, never **Measured**, and is worded as likely ("points to", "suggests"). Lab values in headlines and bands are tied to the test: "in the latest test".
+- A cause, a prediction or a statement about intent is **Our assessment**, never **Measured**, and is worded as likely ("points to", "suggests"). Lab values in the title, the lede, headlines and bands are tied to the test: "in the latest test". Do not state infrastructure the deliveries do not show (for example "one server").
 - Describe what changed only from the deliveries' counts and sizes. If a file count is unchanged, say "larger", not "new".
 - A title that calls a period steady or stable must hold for every metric shown next to it.
+- When a section of a delivery is missing, write "was not available in the test", never that the data does not exist.
+- When a tool's own grade and a Core Web Vitals classification of the same metric seem to disagree (for example WebPageTest's First Byte Time A next to a TTFB Needs Improvement), say in one sentence that each uses its own scale.
+- Source links follow `WPR_Analysis_Reference.md` Section 3.
 - Test IDs and public test links from the deliveries may appear in the methodology and in "Use it". Inbox identifiers, addresses and retrieval details never appear.
 - The methodology section is part of this format; the chat rule against a "Sources" block does not apply to the One Pager.
 
@@ -111,6 +114,8 @@ Rules for every theme:
 - Copy each `REPEAT` block once per item. Keep `IF history` blocks only in history mode. Delete unused components inside the evidence panels.
 - Compute bar widths and marker positions on one scale per chart, and keep every percentage between 0 and 100.
 - Remove every `{{placeholder}}` and every template comment from the final report.
+- `{{report_date}}` in the top bar is the date of the data (the test date or the period), never the date the report was generated.
+- Before delivering, check the final file with code when the platform allows it: no `{{` or `}}`, no template comments, no em dash, and balanced HTML tags. Fix and check again if anything fails.
 - Keep the result one self-contained HTML file.
 
 ---

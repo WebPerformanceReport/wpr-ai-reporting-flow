@@ -57,7 +57,7 @@ Valid subject patterns:
 ```
 benchmark_[client_slug]_[dimensions_slug]_week_[N].html
 ```
-Dimension slugs: `perf_sec_a11y_ga4` (4D), `perf_sec_a11y` / `perf_sec_ga4` / `perf_a11y_ga4` / `sec_a11y_ga4` (3D), `perf_sec` / `perf_a11y` / `perf_ga4` / `sec_a11y` / `sec_ga4` / `a11y_ga4` (2D), `perf` / `sec` / `a11y` / `ga4` (1D).
+Dimension slugs: `perf`, `sec`, `a11y`, `ga4`, joined with underscores in canonical order (for example `perf_sec_a11y_ga4`, `perf_ga4`, `a11y`). The benchmark compares sites dimension by dimension, with no overall score or ranking.
 
 ---
 
@@ -77,7 +77,7 @@ Dimension slugs: `perf_sec_a11y_ga4` (4D), `perf_sec_a11y` / `perf_sec_ga4` / `p
 
 - These are instruction files for a Claude Project, not source code. "Correctness" means behavioral accuracy, not compilation.
 - When editing benchmarks in `WPR_AI_Assistant_Instructions.md` Section 5, verify against the official Google Core Web Vitals thresholds for the current year.
-- When adding a new report type, update: `WPR_Inbox_Workflow.md` (Section 5.1 category/source table only, the grammar and query rules are generic), `WPR_AI_Assistant_Instructions.md` (Section 2 table, Section 4.2 metrics), and `WPR_Benchmark_One_Pager.md` (Section 2 dimensions input, Section 4 dimensional logic, Section 5.4.3–5.4.4, Section 8 slugs).
+- When adding a new report type, update: `WPR_Inbox_Workflow.md` (Section 5.1 category/source table only, the grammar and query rules are generic), `WPR_AI_Assistant_Instructions.md` (Section 2 table, Section 4.2 metrics), and `WPR_Benchmark_One_Pager.md` (Section 2 dimensions input, the dimension table in Section 4, Section 5.4.3–5.4.4).
 - The benchmark HTML visual system spec lives entirely in `WPR_Benchmark_One_Pager.md` Section 7. Palette, typography, and spacing are defined there; do not duplicate them elsewhere.
 - One authority per rule: retrieval lives in `WPR_Inbox_Workflow.md`, analysis in `WPR_AI_Assistant_Instructions.md` (split table in `WPR_Inbox_Workflow.md` Section 11). Cross-reference instead of restating.
 - Retrieval defaults to Fast Path: narrow query, summaries first, bodies only for selected deliveries, bounded pagination, no confirmation, no exposed mechanics. Verification Mode is opt-in only. Do not reintroduce mandatory subject listing or confirmation steps.

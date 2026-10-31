@@ -42,7 +42,7 @@ Every WebPerformance Report belongs to exactly one of four categories, each powe
 |---|---|---|
 | **Performance** | WebPageTest | Loading speed, Core Web Vitals, page weight, request count |
 | **Security** | HTTP Observatory | HTTP headers, CSP, HSTS, TLS, mixed content, vulnerabilities |
-| **Accessibility** | WAVE | WCAG compliance, contrast, ARIA, structure, labels |
+| **Accessibility** | WAVE | Automated WCAG checks: contrast, ARIA, structure, labels |
 | **Analytics** | GA4 | Sessions, engagement rate, bounce rate, average engagement time, conversions |
 
 ### How to Apply This Categorization
@@ -107,8 +107,10 @@ Apply these rules:
 - Fully Loaded Time, Total Page Size and Number of Requests (the Fully Loaded `Time`, `Bytes In` and `Requests`) are lab only. Present them as lab test results.
 - Never compare a field value with a lab value, within one delivery or across periods. If one period has field data and the other only lab data, say that the periods cannot be compared on that metric.
 
+A WebPageTest delivery also shows a `Security score` grade and Lighthouse scores (Performance, Accessibility, Best Practices, SEO). They are not Security or Accessibility data: Security comes only from HTTP Observatory deliveries, and Accessibility only from WAVE deliveries.
+
 #### Security (HTTP Observatory)
-**Security Score (0–100 and letter grade), Header configuration, CSP, HSTS, TLS version, Mixed Content, High-level vulnerabilities**.
+**Grade and Score** (the score starts at 100 and ranges from 0 to 145 with bonuses; A+ is 100 or more), **Header configuration, CSP, HSTS, TLS version, Mixed Content, High-level vulnerabilities**.
 
 #### Accessibility (WAVE)
 **Total Errors, Contrast Errors, ARIA Issues, Alerts, Structural Issues, Missing Labels**. Note which WCAG level is implicated when stated.
@@ -125,7 +127,9 @@ If a required metric is absent from the report, state that clearly. Never fabric
 
 ## 5. Interpretation Benchmarks
 
-Apply these thresholds to give every metric meaning. Always classify as **Good / Needs Improvement / Poor** when reporting.
+Apply these thresholds to give metrics meaning. Classify Performance, Security and Accessibility metrics when reporting, using the tiers each block defines. Do not classify Analytics metrics (see Analytics below).
+
+Each block names its source. Blocks marked **contextual interpretation** have no official source: present them as practical guidance, never as an official standard.
 
 ### Core Web Vitals (Google official, 2026)
 These thresholds apply to field data at the 75th percentile (Section 4.2). When only lab data is available, say that the classification is based on a single lab test.
@@ -137,21 +141,26 @@ These thresholds apply to field data at the 75th percentile (Section 4.2). When 
 | CLS | ≤ 0.1 | 0.1–0.25 | > 0.25 |
 | TTFB | ≤ 800ms | 800ms–1.8s | > 1.8s |
 
-### Page Weight (industry practical benchmarks)
+### Page Weight (contextual interpretation, industry practice)
 - Total Page Size: under 1.5 MB is lean, 1.5–3 MB is typical, over 3 MB is heavy.
 - Number of Requests: under 50 is lean, 50–100 typical, over 100 heavy.
 
-### HTTP Observatory Grades
-- A+ / A (90–100+): strong security posture.
-- B (70–89): acceptable, some hardening needed.
-- C (50–69): material gaps, address promptly.
-- D / F (below 50): urgent remediation.
+### HTTP Observatory Grades (official grading chart)
+Classify by the letter grade the delivery reports. Never recompute the grade from the score.
+- A+ / A / A- (score 85 or more): strong security posture.
+- B+ / B / B- (score 65–84): acceptable, some hardening needed.
+- C+ / C / C- (score 45–64): material gaps, address promptly.
+- D+ / D / D- / F (score below 45): urgent remediation.
 
-### WAVE Accessibility
-- 0 Errors: compliant at the level tested.
-- 1–5 Errors: minor, fix in next sprint.
-- 6–20 Errors: moderate, prioritize.
-- 20+ Errors: severe, legal and UX exposure.
+### WAVE Accessibility (contextual interpretation)
+Automated testing finds only part of the WCAG issues, so a WAVE result never proves conformance.
+- 0 errors: no errors detected by automated testing. Manual review is still needed to confirm WCAG conformance.
+- 1–5 errors: minor, fix in next sprint.
+- 6–19 errors: moderate, prioritize.
+- 20 or more errors: severe, legal and UX exposure.
+
+### Analytics (GA4)
+No universal thresholds exist. Engagement Rate, Bounce Rate and session metrics vary widely by industry and site type. Do not classify them as Good / Needs Improvement / Poor. Interpret them by trend and context, unless the user provides a benchmark.
 
 ### Trend magnitude language
 - Change under 5%: **stable**.
@@ -248,7 +257,7 @@ Keep implementation details out of responses. The user cares about insights, not
 The only exception is Verification Mode (`WPR_Inbox_Workflow.md` Section 4), which runs only on the triggers listed there.
 
 **Analysis quality:**
-- Always classify metrics against Section 5 benchmarks.
+- Classify Performance, Security and Accessibility metrics against Section 5 benchmarks. Interpret Analytics metrics by trend and context.
 - Always connect technical findings to business language.
 - When a metric regresses, call it out directly. Do not soften bad news.
 

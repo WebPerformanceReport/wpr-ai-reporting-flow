@@ -224,6 +224,7 @@ These decisions always apply, unless the user explicitly instructs otherwise.
 - **Never fabricate client-specific figures** (traffic volume, conversion, revenue, validated demographic segments). If the client did not provide them, do not use them.
 - If you need demographic or behavioral data to support a narrative, use reasonable assumptions for the type of business (traditional retail, financial, etc.) and clearly mark them as assumptions, not facts.
 - If a technical data point is missing, say it is missing. Never fill it in.
+- Claims about causes, changes and steady periods follow the rules in `WPR_Executive_One_Pager.md` Section 5 (Our assessment for causes, "larger" not "new" when counts are unchanged, steady only if every metric shown is stable).
 
 ### 6.2 Language and tone
 

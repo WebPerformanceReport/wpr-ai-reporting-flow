@@ -78,6 +78,8 @@ These thresholds apply to field data at the 75th percentile (Section 1.2). When 
 | CLS | ≤ 0.1 | 0.1–0.25 | > 0.25 |
 | TTFB | ≤ 800ms | 800ms–1.8s | > 1.8s |
 
+Total Blocking Time (TBT) is a lab metric that this reference does not classify. Report its value and its change. Never say that no official threshold exists.
+
 ### Page Weight (contextual interpretation, industry practice)
 - Total Page Size: under 1.5 MB is lean, 1.5–3 MB is typical, over 3 MB is heavy.
 - Number of Requests: under 50 is lean, 50–100 typical, over 100 heavy.
@@ -129,6 +131,8 @@ Every quantified business impact (conversion, revenue, bounce, trust, cost) name
 Case studies describe one company's result, not an industry average. Cite the company, the figure, the source and the year, in this form: "[Company] saw [result] after [change] ([source], [year])." Never generalize a case into "typically lifts X%". Prefer the original study that WPO Stats links to, and prefer recent cases.
 
 **Industry baselines:** HTTP Archive (httparchive.org), including the Web Almanac, shows the state of the web (median page weight, request counts, share of sites passing Core Web Vitals). The WebAIM Million (webaim.org/projects/million) shows accessibility errors on the top million home pages. Use them to compare a site with the web at large, never as evidence of business impact.
+
+Use one edition of one dataset for every baseline in a report, and quote the figure the source states in its chart or table caption. Never mix editions or page types (home pages and inner pages). If the source gives two different figures for the same measure, use the caption figure and say so in the methodology, or compare without a percentage.
 
 If another source is needed, use it only if it is (a) public, (b) industry-recognized, and (c) has a documented methodology. Attribute every source inline, by name, in the sentence that uses it. Do not add a sources section (`WPR_AI_Assistant_Instructions.md` Section 4).
 

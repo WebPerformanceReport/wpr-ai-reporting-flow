@@ -42,7 +42,7 @@ Apply these rules:
 A WebPageTest delivery also shows a `Security score` grade and Lighthouse scores (Performance, Accessibility, Best Practices, SEO). They are not Security or Accessibility data: Security comes only from HTTP Observatory deliveries, and Accessibility only from WAVE deliveries.
 
 #### Security (HTTP Observatory)
-**Grade and Score** (the score starts at 100 and ranges from 0 to 145 with bonuses; A+ is 100 or more), **Header configuration, CSP, HSTS, TLS version, Mixed Content, High-level vulnerabilities**.
+**Grade and Score** (the score starts at 100 and ranges from 0 to 145 with bonuses; A+ is 100 or more; report it as a plain number, never as "out of 100"), **Header configuration, CSP, HSTS, TLS version, Mixed Content, High-level vulnerabilities**.
 
 #### Accessibility (WAVE)
 The delivery's `A11y Summary` has six counts. This is the single category list for chat analyses and the benchmark:

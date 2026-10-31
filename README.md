@@ -37,18 +37,9 @@ Examples:
 
 ---
 
-## How It Works
-
-1. Create a Claude Project (or ChatGPT Project).
-2. Paste the core instructions and upload the WPR AI Reporting Flow files.
-3. Connect the inbox where WebPerformance Report deliveries are received.
-4. Start asking questions.
-
-Setup time is typically less than 5 minutes.
-
----
-
 ## Quick Start
+
+Setup takes under 5 minutes.
 
 1. Create a Claude Project (or ChatGPT Project).
 2. Paste the content of `WPR_AI_Assistant_Instructions.md` into the Project instructions field. These rules apply to every answer, so they must not depend on file retrieval.
@@ -57,15 +48,10 @@ Setup time is typically less than 5 minutes.
    * `WPR_Analysis_Reference.md`
    * `WPR_Inbox_Workflow.md`
    * `WPR_Benchmark_One_Pager.md`
-4. Enable your AI assistant's email integration.
-5. Grant access to the inbox where your WebPerformance Report deliveries are received.
-6. Start asking questions about your reports.
-
-Enable your AI assistant's email integration and grant access to the inbox where your WebPerformance Report deliveries are received. Depending on the platform, this feature may be called an integration, connector, connected app, app, Gmail connection, or Outlook connection.
+4. Enable your AI assistant's email integration and grant access to the inbox where your WebPerformance Report deliveries are received. Depending on the platform, it may be called an integration, connector, connected app, app, Gmail connection, or Outlook connection.
+5. Start asking questions about your reports.
 
 No inbox configuration is required to begin. WPR AI Reporting Flow identifies your deliveries by their email subject, which always contains `WebPerformance Report`.
-
-Typical setup time: under 5 minutes.
 
 ---
 

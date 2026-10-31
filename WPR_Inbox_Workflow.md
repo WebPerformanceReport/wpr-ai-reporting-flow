@@ -223,7 +223,7 @@ Stop immediately once the goal is satisfied:
 | Last N reports | N valid deliveries selected |
 | Date window | oldest result older than the window start |
 | Executive overview | newest valid delivery found per requested category |
-| Benchmark One Pager | one valid delivery per site and dimension for the requested week |
+| Benchmark One Pager | one valid delivery per site and dimension for the requested period or date |
 | Complete audit | audit scope covered |
 
 If a goal cannot be met after a reasonable number of pages, stop, analyze what is available, and state the gap plainly (`WPR_AI_Assistant_Instructions.md` Section 8).

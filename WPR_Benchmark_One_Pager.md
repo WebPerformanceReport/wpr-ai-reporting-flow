@@ -1,6 +1,6 @@
 # WPR Benchmark One Pager
 
-This instruction generates a HTML "Benchmark" report comparing multiple websites across one or more dimensions (Performance, Security, Accessibility, Analytics). It is flexible: the client, sites, dimensions, week, and output language all change per request; the editorial criteria and visual system stay constant.
+This instruction generates a HTML "Benchmark" report comparing multiple websites across one or more dimensions (Performance, Security, Accessibility, Analytics). It is flexible: the client, sites, dimensions, period, and output language all change per request; the editorial criteria and visual system stay constant.
 
 This instruction complements `WPR_AI_Assistant_Instructions.md` and `WPR_Inbox_Workflow.md`. When this instruction is active, its specific flow takes precedence; when it is not active, the other project files govern Claude's behavior.
 
@@ -12,6 +12,7 @@ Activate this template when the user requests any of the following:
 
 - "Make me the benchmark for [client]"
 - "Generate the one pager for [client] week #N"
+- "Quick benchmark of [sites] with their latest one-time reports"
 - "Compare the sites of [client] in [dimension(s)]"
 - "Multidimensional benchmark of [client]"
 - Any variant that combines: comparison of multiple sites + one or more WPR dimensions + HTML editorial format.
@@ -28,7 +29,7 @@ Before extracting data or generating HTML, make sure you have these six inputs. 
 
 1. **Client**: commercial name of the group or company (e.g., "Anthropic"). Include legal name if relevant.
 2. **Sites**: list of URLs to compare, ideally between 3 and 6. If fewer than 3, warn that the format does not work well with so few sites and propose adjustments. If more than 6, warn that the comparison table becomes illegible and propose prioritizing.
-3. **Reporting week**: week number (e.g., "Week 20") and year (e.g., "2026").
+3. **Reporting period**: in recurring mode (default), the period type and number plus the year (e.g., "Week 20, 2026", "Month 10, 2026" or "Day 298, 2026"). In quick mode, a date or "latest" (Section 3.1). If the user names no period, identify the recurrence of the sites' deliveries (Day, Week or Month) and propose the latest complete period of that recurrence in the consolidated question.
 4. **Dimensions to include**: any combination of the dimensions in Section 4 (`performance`, `security`, `accessibility`, `analytics`), one or more. This is the critical input that determines the report structure. Do not assume; if the user did not specify, ask.
 5. **Target audience**: one of: "non-technical C-level", "mixed executive committee", "technical team", "public communication". Default to non-technical C-level if not specified.
 6. **Output language**: English, Spanish, or other. Default to English if not specified.
@@ -43,9 +44,22 @@ Do not ask for all of these if the user has already implied them in the message.
 
 Follow the rules of `WPR_Inbox_Workflow.md` for retrieval. Specifically:
 
-- For each site and each requested dimension, find the delivery for the indicated week: filter by subject and period, then identify the site from the body header fields (`WPR_Inbox_Workflow.md` Section 5.4).
+- For each site and each requested dimension, find the delivery for the requested period: filter by subject and period, then identify the site from the body header fields (`WPR_Inbox_Workflow.md` Section 5.4).
 - Expected total: `number_of_sites × number_of_dimensions` reports.
 - If a report is missing, do NOT fabricate data. Flag the absence both in the report content and in the methodology note.
+
+**Two modes.**
+
+- **Recurring** (default): the user names a period, such as `Week #43`, `Month #10` or `Day #298` of a year. The period defines which deliveries are comparable.
+- **Quick**: the user asks for One Time Reports and gives a date or "latest", with no period. Useful for comparing a prospect with its competitors without waiting for recurring deliveries.
+
+**Comparability.** For Performance, Security and Accessibility, each delivery is one test on its `Date:`.
+
+- **Recurring mode**: a delivery belongs to the requested period when it has that period and number (same year), or when its test date falls inside that period (a One Time Report, or a delivery of another frequency, used for a site that has no delivery with that period and number). Deliveries that belong to the period are comparable. A `Month #N` benchmark can therefore combine tests up to a month apart; the methodology lists each test date.
+- **Quick mode**: deliveries are comparable when no more than 7 days separate the earliest and the latest test date.
+- **Analytics, in both modes**: deliveries are comparable only when their `Date range` covers the same dates.
+
+A site whose delivery does not meet the rule is marked "Not comparable" in that dimension (Section 3.3).
 
 ### 3.2 CrUX vs Lab handling
 
@@ -57,7 +71,9 @@ Field and lab data follow the rule in `WPR_AI_Assistant_Instructions.md` Section
 
 ### 3.3 Missing report handling
 
-If a site has no data for a dimension (for example, the WAVE report for docs.anthropic.com did not arrive), do not fill with data from the previous week. Mark the cell as "No data available" in the comparison table and omit that site from the corresponding deep-dive with a short note.
+If a site has no data for a dimension (for example, the WAVE report for docs.anthropic.com did not arrive), do not fill with data from the previous period. Mark the cell as "No data available" in the comparison table and omit that site from the corresponding deep-dive with a short note.
+
+If a site has a delivery but it fails the comparability rule (Section 3.1), handle it the same way and mark the cell "Not comparable". Say why in the methodology, for example the test date.
 
 ---
 
@@ -94,7 +110,7 @@ With one dimension, the three KPIs must be distinct (do not repeat the same metr
 
 - **Columns**: site, then one column per included dimension in canonical order. No ranking column.
 - **Cells**: the dimension's headline metric (table above), with its classification label when the dimension is classified. Analytics cells show the value and its trend, without a classification.
-- **Missing data**: "No data available" (for Performance without CrUX, "No field data available", Section 3.2). Never show it as zero, and it does not affect the site's other cells.
+- **Missing data**: "No data available" (for Performance without CrUX, "No field data available", Section 3.2; for a delivery outside the comparability rule, "Not comparable", Section 3.3). Never show it as zero, and it does not affect the site's other cells.
 - **Rows**: sites in the order the user gave them. Do not sort by an overall result.
 - **One dimension**: add that dimension's secondary metrics as extra columns (e.g., INP and CLS for Performance), since there is room for them.
 
@@ -116,7 +132,7 @@ The HTML report has these sections, in this exact order. Do not change the order
 
 ### 5.1 Top navigation
 
-Sticky bar at the top with: brand "WebPerformanceReport.com" (.com in accent color), and on the right "Week N · Month Year" in mono typeface.
+Sticky bar at the top with: brand "WebPerformanceReport.com" (.com in accent color), and on the right the period in mono typeface: "Week N · Month Year" (or "Day N", "Month N") in recurring mode, the date in quick mode.
 
 ### 5.2 Hero (cover)
 
@@ -181,11 +197,12 @@ This card has three visual elements:
 - Eyebrow "About this report".
 - Title "How we measured it" with italic accent on the last word.
 - Grid of 4 blocks in two columns: Sources and tools, Test conditions, Classification thresholds, Report coverage.
+- Report coverage lists, per site and dimension, the delivery type (recurring or One Time) and the test date or `Date range` used, plus every "No data available" or "Not comparable" cell and why.
 - **Mandatory final note** about the nature of the data: "This report uses field data (Chrome User Experience Report) reflecting the average experience of returning users over the last 28 days. Laboratory data, simulating the worst case of a first visit on poor connection, is available on request to analyze specific acquisition scenarios or validate early warnings."
 
 ### 5.7 Footer
 
-One line: "Generated by WebPerformance Report · Benchmark data week N of year · Internal document of [Client]".
+One line: "Generated by WebPerformance Report · Benchmark data [period] · Internal document of [Client]", where [period] is, for example, "week 20 of 2026" or "as of 2026-09-27".
 
 ---
 
@@ -306,7 +323,8 @@ All via Google Fonts. Import them in the `<head>`.
 
 - **A single self-contained HTML file**.
 - **Location**: `/mnt/user-data/outputs/`.
-- **File name**: `benchmark_[client_slug]_[dimensions_slug]_week_[N].html`.
+- **File name**: `benchmark_[client_slug]_[dimensions_slug]_[period_slug].html`.
+  - Period slug: `day_[N]`, `week_[N]` or `month_[N]` in recurring mode; `date_[YYYY-MM-DD]` in quick mode.
   - Client slug in lowercase, no diacritics, with underscores.
   - Dimensions slug: the slugs of the included dimensions (Section 4), joined with underscores in canonical order. For example `perf_sec_a11y_ga4`, `perf_ga4` or `a11y`.
   - Examples:
@@ -314,6 +332,8 @@ All via Google Fonts. Import them in the `<head>`.
     - `benchmark_anthropic_perf_sec_a11y_week_20.html`
     - `benchmark_anthropic_ga4_week_25.html`
     - `benchmark_anthropic_perf_ga4_week_22.html`
+    - `benchmark_anthropic_perf_a11y_month_10.html`
+    - `benchmark_anthropic_perf_sec_date_2026-09-27.html`
 - **After creation**: use the `present_files` tool to deliver to the user.
 - **Accompanying message**: short. Summarize what the report shows, which findings are strongest, and ask if anything needs adjustment before closing. Do not explain the extraction process or mention the inbox connector (the opacity rules of `WPR_AI_Assistant_Instructions.md` apply).
 

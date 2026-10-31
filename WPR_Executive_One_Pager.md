@@ -73,6 +73,9 @@ Small placeholders:
 - Tag every claim with one of: **Measured** (from the deliveries), **Market benchmark** (public datasets), **External study** (published research, shows direction, not a forecast), **Our assessment** (professional judgment).
 - Never estimate revenue, conversions or leads for the company without its own data. Say what data would be needed instead. Quantified impact from studies follows `WPR_Analysis_Reference.md` Section 3.
 - Never fabricate a value. A missing dimension or metric is shown as unavailable and explained in the methodology.
+- A cause, a prediction or a statement about intent is **Our assessment**, never **Measured**, and is worded as likely ("points to", "suggests"). Lab values in headlines and bands are tied to the test: "in the latest test".
+- Describe what changed only from the deliveries' counts and sizes. If a file count is unchanged, say "larger", not "new".
+- A title that calls a period steady or stable must hold for every metric shown next to it.
 - Test IDs and public test links from the deliveries may appear in the methodology and in "Use it". Inbox identifiers, addresses and retrieval details never appear.
 - The methodology section is part of this format; the chat rule against a "Sources" block does not apply to the One Pager.
 

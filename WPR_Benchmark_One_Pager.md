@@ -52,8 +52,8 @@ Follow the rules of `WPR_Inbox_Workflow.md` for retrieval. Specifically:
 Field and lab data follow the rule in `WPR_AI_Assistant_Instructions.md` Section 4.2. What is specific to the benchmark:
 
 - **Field data is the source for LCP, INP, CLS, and TTFB in every visible section of the report.** Do not use lab as primary data even when it looks more dramatic. It can damage the credibility of the report.
-- **If a site does not have CrUX data in WebPageTest**, before assuming no data exists, verify with PageSpeed Insights, which sometimes performs automatic origin-level fallback. If the user confirms PSI data, use it.
-- **Lab remains available as a methodology note** for analyzing specific test scenarios or validating early warnings, but does not enter the main body of the report unless the user explicitly requests it.
+- **If a site's WebPageTest delivery has no CrUX section**, show "No field data available" for its field metrics. Do not look for field data elsewhere: no PageSpeed Insights, no values supplied by the user. WebPerformance Report is the only data source. If the delivery has lab values that help the reader, show them with a visible "Lab" label, never as a substitute for field data. List the site in the "Report coverage" block of the methodology.
+- **Lab remains available as a methodology note** for analyzing specific test scenarios or validating early warnings. It does not enter the main body of the report unless the user explicitly requests it or the site has no field data.
 
 ### 3.3 Missing report handling
 
@@ -165,7 +165,7 @@ Each deep-dive has the same internal structure:
 
 **5.4.3 Per-site summary cards**
 - One card per site, with the most important data point of the dimension in large type.
-- Performance: LCP from CrUX.
+- Performance: LCP from CrUX. Without field data, "No field data available" (Section 3.2).
 - Security: grade + score.
 - Accessibility: total number of errors.
 - Analytics: Engagement Rate (GA4).

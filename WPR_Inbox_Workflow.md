@@ -93,6 +93,7 @@ A period the user states ("last two weeks", "Month #10") always overrides these 
 |---|---|---|---|---|
 | "Analyze my latest performance report." | WebPageTest only | up to 3 | 1 (newest valid) | 1 valid delivery selected |
 | "Analyze my latest performance report." (several sites) | WebPageTest only | N + 2 per site | newest valid per site | newest valid found per site |
+| "Make the Executive One Pager for example.com." (Security and Accessibility exist only as resends) | each source, first without resends, then with them | up to 3 per source | the resend used as the delivery | one valid delivery per source |
 | "Analyze my one-time accessibility report from September 27." | Wave, around that date | up to 3 | 1 | the One Time delivery sent that day selected |
 | "Compare my last five security reports." | HTTP Observatory only | about 7 | the 5 selected | 5 valid deliveries selected |
 | "Did my LCP improve vs last week?" | WebPageTest, last ~2 periods | up to 4 | the 2 selected | 2 comparable deliveries selected |
@@ -162,13 +163,14 @@ Before validating:
 - Accept the subject with or without the leading ⚡. Search summaries can drop it.
 - Read "WebPerformance Report Report" as "WebPerformance Report". It is a known template typo in some historical deliveries.
 - Match the source case-insensitively.
+- Read a trailing `| Owner - Forwarded` as the marker of a resend (Section 5.3), not as a grammar failure. Validate the rest of the subject as usual.
 
 Normalization is mandatory and always internal.
 
 ## 5.3 Validation behavior
 
 - Results that fail the sender check or the subject check are excluded from analysis.
-- Subjects ending in `| Owner - Forwarded` are excluded. They are resends of a delivery that already exists.
+- Subjects ending in `| Owner - Forwarded` are resends of a delivery. A resend is excluded when the original (same source, site and date, or period and index) is in the results. When a required source and site has no original, use the resend as the delivery (fallback below).
 - "Your WebPerformance Report is Scheduled" emails are confirmations, not deliveries. They fail the grammar.
 - **Fast Path**: exclude silently. Do not display subjects, counts of skipped items, or raw metadata.
 - **Verification Mode**: show normalized subjects and explain exclusions, including results from an unofficial sender.
@@ -191,7 +193,7 @@ If the snippet does not show the site, read the body before choosing a delivery 
 
 **Year.** The year of a `Week #N` delivery is its ISO week-year: a Week #52 or #53 sent in early January belongs to the previous year, and a Week #1 sent in late December belongs to the next one. For `Day` and `Month`, it is the year of the send date.
 
-**Duplicates.** Two deliveries are duplicates only when they have the same source, the same period and index (or the same One Time date) and the same site. Keep the newest received and ignore the rest. Matching subjects alone do not make deliveries duplicates.
+**Duplicates.** Two deliveries are duplicates only when they have the same source, the same period and index (or the same One Time date) and the same site. Keep the newest received and ignore the rest. Matching subjects alone do not make deliveries duplicates. A resend and its original are the same delivery: keep the original, ignore the resend.
 
 ---
 
@@ -219,6 +221,8 @@ Always put the source tool in a `subject:` filter. As a free term it also matche
 
 A period filter such as `"Week #"` also excludes One Time Reports. Add it only when the request names a recurring period.
 
+**Resend fallback.** The query above leaves out resends. When it returns no valid delivery for a required source and site, run the same query once without the `Owner - Forwarded` exclusion (keep the sender and `Scheduled` filters) and use what it finds, with the same validation. The fallback is silent in Fast Path.
+
 The label is an optimization only: if it does not exist, run the subject query and continue. That is not an error and is never surfaced. Never retrieve all WPR emails and filter afterward when a narrower query exists.
 
 ---
@@ -229,6 +233,7 @@ Same principle, Graph filters. Always filter by sender, then combine the narrowe
 
 sender is `info@webperformancereport.com` (always) · subject contains neither `Owner - Forwarded` nor `Scheduled` (always) · dedicated folder (when it exists) · category (when it exists) · subject contains `WebPerformance Report` · subject contains the source tool · `receivedDateTime` range · sort · result limit.
 
+- When no valid delivery is found for a required source and site, repeat the search once without the `Owner - Forwarded` exclusion and use the resends, as in Section 6.
 - Sort `receivedDateTime` descending whenever the user asks for recent deliveries, and apply a result limit equal to the Fast Path buffer.
 - Apply a `receivedDateTime` range whenever the request states or implies a window.
 - Prefer folder scope, then category scope, then subject scope. Only subject always works; a missing folder or category is not an error and is never surfaced.

@@ -114,7 +114,7 @@ Core Web Vitals and loading: **LCP, INP, CLS, TTFB, Fully Loaded Time, Total Pag
 
 **Field vs lab data.** This rule is the single authority for chat analyses and the benchmark. A WebPageTest delivery can hold two kinds of data:
 
-- **Field data** is the `Core Web Vitals - CrUX Field Data` section: LCP, CLS, INP and TTFB from real Chrome users, at the 75th percentile over the last 28 days.
+- **Field data** is the `Core Web Vitals - CrUX Field Data` section: LCP, CLS, INP and TTFB from real Chrome users, at the 75th percentile over the last 28 days, for the tested URL and device. Report it with the delivery's test date (`Date:`). When the exact period matters, note that it covers the 28 days ending about 2 days before the test.
 - **Lab data** comes from one test visit under fixed conditions (location and device in the `From:` header). It is the `Core Web Vitals - Lab Data` section (LCP, CLS, TBT) and the `Performance Results` section (First Byte, Start Render, FCP, Speed Index, Document Complete, Fully Loaded).
 
 Apply these rules:

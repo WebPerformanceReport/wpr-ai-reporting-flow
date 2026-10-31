@@ -62,7 +62,7 @@ Setup time is typically less than 5 minutes.
 
 Enable your AI assistant's email integration and grant access to the inbox where your WebPerformance Report deliveries are received. Depending on the platform, this feature may be called an integration, connector, connected app, app, Gmail connection, or Outlook connection.
 
-No inbox configuration is required to begin. WPR AI Reporting Flow identifies your deliveries by their email subject, which always starts with `WebPerformance Report`.
+No inbox configuration is required to begin. WPR AI Reporting Flow identifies your deliveries by their email subject, which always contains `WebPerformance Report`.
 
 Typical setup time: under 5 minutes.
 

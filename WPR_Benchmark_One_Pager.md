@@ -43,7 +43,7 @@ Do not ask for all of these if the user has already implied them in the message.
 
 Follow the rules of `WPR_Inbox_Workflow.md` for retrieval. Specifically:
 
-- For each site and each requested dimension, search for the corresponding report for the indicated week using the subject pattern.
+- For each site and each requested dimension, find the delivery for the indicated week: filter by subject and period, then identify the site from the body header fields (`WPR_Inbox_Workflow.md` Section 5.4).
 - Expected total: `number_of_sites × number_of_dimensions` reports.
 - If a report is missing, do NOT fabricate data. Flag the absence both in the report content and in the methodology note.
 

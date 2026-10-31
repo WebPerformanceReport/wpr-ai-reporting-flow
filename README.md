@@ -54,7 +54,24 @@ Setup takes under 5 minutes.
 4. Enable your AI assistant's email integration and grant access to the inbox where your WebPerformance Report deliveries are received. Depending on the platform, it may be called an integration, connector, connected app, app, Gmail connection, or Outlook connection.
 5. Start asking questions about your reports.
 
+Upload only the files listed above. Leave out `CLAUDE.md`, `README.md`, `one_pager/` and `tools/`: they are for developing this repository, and the assistant should not read them. In Claude, you can also add the files from this GitHub repository (Context, GitHub); select only the files above, never the whole repository.
+
 No inbox configuration is required to begin. WPR AI Reporting Flow identifies your deliveries by their email subject, which always contains `WebPerformance Report`.
+
+---
+
+## One Pagers
+
+Ask for a One Pager to get an executive report as one self-contained HTML file:
+
+* **Executive One Pager**: one site analyzed in depth (Performance, Security and Accessibility), with a 60-second summary, the evidence, a plan and a kit to put the findings to work. For example: "Make the Executive One Pager for example.com."
+* **Benchmark One Pager**: several sites compared dimension by dimension, with no overall score or ranking. For example: "Make a performance and accessibility benchmark of these sites."
+
+With three or more comparable periods, a One Pager also shows how the results evolved.
+
+Themes: **WPR** (default), **Spotlight** (high-impact style) and **Site style** (colors and typeface of the analyzed site). A report about a company that did not commission it always carries an independence notice.
+
+To receive the file, your assistant must be able to create files. In Claude, enable "Create and edit files" in Settings > Capabilities.
 
 ---
 
@@ -127,7 +144,30 @@ At least one active WebPerformance Report.
 
 Reports must arrive directly from `info@webperformancereport.com`. Reports forwarded from another address are not analyzed, so connect the inbox that receives them.
 
+Resends marked `Owner - Forwarded` are used only when the original delivery is not in the inbox.
+
 The more report history available, the more valuable the analysis becomes.
+
+### Tested platforms
+
+* **Claude Projects**: tested end to end, including the One Pagers.
+* **ChatGPT Projects**: the instructions field accepts the core file and the other files load as Project sources. Generating One Pagers is not validated yet (issue #13).
+
+---
+
+## Repository layout
+
+```text
+WPR_AI_Assistant_Instructions.md   paste into the Project instructions field
+WPR_Analysis_Reference.md          Project file: metrics, thresholds, sources, charts
+WPR_Inbox_Workflow.md              Project file: retrieval and validation
+WPR_Executive_One_Pager.md         Project file: rules for the Executive One Pager
+WPR_Benchmark_One_Pager.md         Project file: rules for the Benchmark One Pager
+templates/                         Project files: the two HTML templates (generated)
+one_pager/                         sources of the templates (not uploaded)
+tools/                             build script for the templates (not uploaded)
+CLAUDE.md                          guidance for developing this repository (not uploaded)
+```
 
 ---
 
@@ -139,6 +179,8 @@ Current:
 * Security Reports
 * Accessibility Reports
 * Analytics Reports
+
+The One Pagers cover Performance, Security and Accessibility. The Benchmark One Pager also compares Analytics.
 
 Planned:
 
@@ -181,6 +223,7 @@ Planned:
 * Generate an executive benchmark of all monitored websites.
 * Compare my websites across performance, security, and accessibility.
 * Create a board-ready summary for leadership.
+* Make the Executive One Pager for one of my websites.
 * Identify the most urgent issues across all dimensions.
 
 ---

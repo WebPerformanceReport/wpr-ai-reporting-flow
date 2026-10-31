@@ -38,7 +38,6 @@
 .cmp td:first-child{font-weight:600}
 .cell{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
 .cell .num{font-size:15px}
-.means.key p{font-size:18px;font-weight:600;line-height:1.4;color:var(--fg)}
 .intro{background:var(--panel);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
 .intro .dim{align-self:flex-start}
 .intro h3{font-size:18px;font-weight:600}
@@ -61,19 +60,11 @@
 .lot .ref b{font-size:26px;font-weight:800}
 .lot .fx{display:grid;grid-template-columns:170px minmax(0,1fr);gap:12px;padding:14px 22px;border-top:1px solid var(--line)}
 .lot .fx div:first-child{display:flex;flex-direction:column;gap:6px;align-items:flex-start;font-weight:600}
-.recs{display:flex;flex-direction:column;gap:12px}
-.rec{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:16px;background:var(--panel);border:1px solid var(--line);padding:20px 22px}
-.rec-body{display:flex;flex-direction:column;gap:8px;min-width:0}
-.rec .n{font-size:34px;font-weight:800;line-height:1;color:var(--acc)}
-.rec h3{font-size:19px;font-weight:700}
-.rec p{color:var(--fg2);font-size:15px}
-.rec .meta{font-family:var(--mono);font-size:12px;color:var(--muted)}
 .method.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 .final{border-top:1px solid var(--line);margin-top:20px;padding-top:14px;font-size:13px;color:var(--muted)}
 @media print{.cmp td,.cmp th{white-space:normal} .lot .ref{background:#FFFFFF;color:#000000;border-block:2px solid #000000}}
 @media (max-width:880px){
   .method.two{grid-template-columns:1fr}
-  .rec{grid-template-columns:48px minmax(0,1fr)} .rec .imp{grid-column:2}
   .lot .fx{grid-template-columns:1fr}
   .stack .row{grid-template-columns:1fr auto} .stack .row .stack-bar{grid-column:1/-1;grid-row:2}
 }
@@ -83,8 +74,13 @@
 
 <div class="nav tone-a">
   <div class="shell">
-    <span class="brand"><b>WebPerformanceReport</b>.com · {{client}}</span>
-    <span class="brand num">{{period_label}}</span>
+    <span class="brand"><b>WebPerformanceReport</b>.com · {{client}} · {{period_label}}</span>
+    <nav aria-label="Sections">
+      <a class="l" href="#summary">Summary</a>
+      <a class="l" href="#{{first_dimension_slug}}">Evidence</a>
+      <a class="l" href="#plan">Plan</a>
+      <a class="btn sm" href="#use">Use this benchmark</a>
+    </nav>
   </div>
 </div>
 
@@ -114,12 +110,43 @@
       </div>
       <!-- END REPEAT -->
     </div>
+    <div class="ctas">
+      <a class="btn" href="#summary">Read the 60-second summary</a>
+      <a class="btn ghost" href="#use">How to put it to work</a>
+      <span class="note">{{data_note}}</span>
+    </div>
   </div>
 </header>
 
 <main>
 
-<section class="tone-a" id="comparison">
+<section class="tone-a" id="summary">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">The 60-second summary</span>
+      <h2>{{summary_title}}</h2>
+    </div>
+    <div class="pw" role="table" aria-label="Each finding, what it means today and what fixing it is worth">
+      <div class="h" role="row"><div role="columnheader">What we measured</div><div role="columnheader">What it means today</div><div role="columnheader">What fixing it is worth</div></div>
+      <!-- REPEAT finding: 3 to 6 rows, most severe first. Name the site and the dimension in the context line. No overall score or ranking. -->
+      <div class="r" role="row">
+        <div class="m" role="cell"><b class="{{good|warn|bad}}">{{finding_value}}</b><span>{{site_names}} · {{dimension}}. {{finding_context}}</span></div>
+        <div role="cell"><span class="lbl">Today</span>{{meaning_today}}</div>
+        <div role="cell"><span class="lbl">Gain</span>{{gain_if_fixed}}</div>
+      </div>
+      <!-- END REPEAT -->
+    </div>
+  </div>
+</section>
+
+<div class="band" role="region" aria-label="Key message">
+  <div class="shell">
+    <p>{{key_message}}</p>
+    <a class="btn" href="#use">How to use it</a>
+  </div>
+</div>
+
+<section class="tone-b" id="comparison">
   <div class="shell">
     <div class="sec-head">
       <span class="eyebrow">Comparison</span>
@@ -142,12 +169,11 @@
       </tbody>
     </table></div>
     <div class="legend" style="margin-top:12px"><!-- IF a classified dimension is included --><span><i class="z zg"></i>Good</span><span><i class="z zw"></i>Needs Improvement</span><span><i class="z zb"></i>Poor</span><!-- END IF --><!-- IF Analytics is included --><span>Analytics values are not classified.</span><!-- END IF --></div>
-    <div class="means key"><b>Key finding</b><p>{{key_finding}}</p></div>
   </div>
 </section>
 
 <!-- IF history: 3 or more comparable periods for most sites -->
-<section class="tone-b" id="movement">
+<section class="{{tone}}" id="movement">
   <div class="shell">
     <div class="sec-head">
       <span class="eyebrow">Movement</span>
@@ -283,10 +309,12 @@
       <!-- REPEAT site effect -->
       <div class="fx">
         <div><span>{{site_name}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span></div>
-        <p>{{site_specific_effect}}</p>
+        <p>{{site_specific_effect}} <span class="ev o">Our assessment</span></p>
       </div>
       <!-- END REPEAT -->
     </div>
+    <!-- Evidence tags that apply to this dimension: Measured, Market benchmark, External study, Our assessment -->
+    <div class="evrow" style="margin-top:16px"><span class="ev m">Measured</span></div>
   </div>
 </section>
 <!-- END REPEAT -->
@@ -294,43 +322,120 @@
 <section class="{{tone}}" id="plan">
   <div class="shell">
     <div class="sec-head">
-      <span class="eyebrow">Action plan</span>
+      <span class="eyebrow">The plan</span>
       <h2>{{plan_title}}</h2>
-      <p>{{plan_subtitle}}</p>
+      <p>Timing and effort are our assessment.</p>
     </div>
-    <div class="recs">
-      <!-- REPEAT recommendation: most urgent failure of the portfolio first -->
-      <div class="rec">
-        <span class="n num">{{rank_01}}</span>
-        <div class="rec-body">
-          <div class="evrow"><span class="dim">{{dimension}}</span><span class="dim">{{sites_affected}}</span></div>
-          <h3>{{recommendation_title}}</h3>
-          <p>{{recommendation_description}}</p>
-          <span class="meta">Effort: {{effort}} · Timeline: {{timeline}}</span>
-        </div>
-        <!-- Critical: class "bad". High: class "warn". Medium: no status class. -->
-        <span class="pill imp {{impact_class}}">{{impact_word}}</span>
+    <div class="road">
+      <div>
+        <span class="when">Next 2 weeks</span><h3>Now</h3>
+        <ul>
+          <!-- REPEAT action: the most urgent failure of the portfolio first. One dimension: drop the dimension tag. -->
+          <li><span class="dim">{{dimension}}</span> <span class="dim">{{site_names}}</span> {{action}}<small>{{effort_or_effect}}</small></li>
+          <!-- END REPEAT -->
+        </ul>
       </div>
-      <!-- END REPEAT -->
+      <div>
+        <span class="when">This quarter</span><h3>Next</h3>
+        <ul>
+          <!-- REPEAT action -->
+          <li><span class="dim">{{dimension}}</span> <span class="dim">{{site_names}}</span> {{action}}<small>{{effort_or_effect}}</small></li>
+          <!-- END REPEAT -->
+        </ul>
+      </div>
+      <div>
+        <span class="when">Ongoing</span><h3>Then</h3>
+        <ul>
+          <!-- REPEAT action: ends with the recurring check, re-running the benchmark with the next period's deliveries -->
+          <li><span class="dim">{{dimension}}</span> <span class="dim">{{site_names}}</span> {{action}}<small>{{effort_or_effect}}</small></li>
+          <!-- END REPEAT -->
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="{{tone}}" id="method">
+<section class="{{tone}}" id="use">
   <div class="shell">
     <div class="sec-head">
-      <span class="eyebrow">About this report</span>
-      <h2>How we <em>measured it</em></h2>
+      <span class="eyebrow">Put it to work</span>
+      <!-- Commissioned: "How to use this benchmark inside {{client}}". Independent: "How to use this benchmark". -->
+      <h2>{{use_title}}</h2>
+      <p>{{use_subtitle}}</p>
     </div>
-    <div class="method two">
-      <div><b>Sources and tools</b><span>{{sources_and_tools}}</span></div>
-      <div><b>Test conditions</b><span>{{test_conditions}}</span></div>
-      <div><b>Classification thresholds</b><span>{{thresholds_used}}</span></div>
-      <div><b>Report coverage</b><span>{{coverage_per_site_and_dimension}}</span></div>
+    <div class="steps">
+      <div><span class="n">STEP 1 · SHARE</span><b>Send it to the people who decide</b><p>The owners of each site, or the team that compares them. The message below is ready to forward.</p></div>
+      <div><span class="n">STEP 2 · ASK</span><b>Ask the questions below</b><p>The answers show whether each finding is already known, planned or new.</p></div>
+      <div><span class="n">STEP 3 · CHECK</span><b>Re-run the same public tests</b><p>After each change, the same free tests show whether the result improved.</p></div>
     </div>
-    <!-- IF Performance is included -->
-    <p class="final">{{performance_data_note}}</p>
-    <!-- END IF -->
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card">
+        <span class="k">Message to forward</span>
+        <p class="fwd" id="fwd">{{forward_message}}</p>
+        <div class="copyrow"><button class="btn ghost sm" type="button" data-copy="fwd">Copy message</button><span class="copied" id="fwd-ok" hidden>Copied</span></div>
+      </div>
+      <div class="card">
+        <span class="k">{{questions_heading}}</span>
+        <ol class="list">
+          <!-- REPEAT question: 3 to 5. Commissioned: for the client's teams. Independent: for whoever compares the sites and for their owners. -->
+          <li>{{question}}</li>
+          <!-- END REPEAT -->
+        </ol>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <span class="k">Check the results yourself, free and public</span>
+      <div class="tbl"><table>
+        <thead><tr><th>Area</th><th>Public test</th><th>What to look for after a change</th></tr></thead>
+        <tbody>
+          <!-- REPEAT test: one per dimension included, with the test link from the deliveries -->
+          <tr><td>{{dimension}}</td><td><a href="{{public_test_url}}" target="_blank" rel="noopener">{{tool_name}}</a></td><td>{{what_to_look_for}}</td></tr>
+          <!-- END REPEAT -->
+        </tbody>
+      </table></div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <span class="k">To put a business number on the findings, ask for this data</span>
+      <div class="tbl"><table>
+        <thead><tr><th>To measure</th><th>Data needed</th><th>Owner</th></tr></thead>
+        <tbody>
+          <!-- REPEAT data_need -->
+          <tr><td>{{to_measure}}</td><td>{{data_needed}}</td><td>{{owner}}</td></tr>
+          <!-- END REPEAT -->
+        </tbody>
+      </table></div>
+      <p class="note">This report does not estimate revenue impact without the site owners' own data.</p>
+    </div>
+  </div>
+</section>
+
+<section class="{{tone}}" id="who">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">Who prepared this</span>
+      <h2>WebPerformance Report</h2>
+      <p>WebPerformance Report delivers recurring reports on website speed, security, accessibility and analytics. This benchmark puts those reports side by side, one dimension at a time.</p>
+    </div>
+    <p class="note">Prepared by WebPerformance Report. {{independence_sentence}}</p>
+    <details class="plain">
+      <summary>Methodology and sources</summary>
+      <div>
+        <div class="method two">
+          <div><b>Sources and tools</b><span>{{sources_and_tools}}</span></div>
+          <div><b>Test conditions</b><span>{{test_conditions}}</span></div>
+          <div><b>Classification thresholds</b><span>{{thresholds_used}}</span></div>
+          <div><b>Report coverage</b><span>{{coverage_per_site_and_dimension}}</span></div>
+        </div>
+        <!-- IF Performance is included -->
+        <p class="final">{{performance_data_note}}</p>
+        <!-- END IF -->
+        <ol class="list note" style="margin-top:20px">
+          <!-- REPEAT source: industry figures and baselines, with the link rule of WPR_Analysis_Reference.md Section 3 -->
+          <li>{{source_name}}, <a href="{{source_url}}" target="_blank" rel="noopener">{{source_title}}</a>. {{source_detail}}</li>
+          <!-- END REPEAT -->
+        </ol>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -343,7 +448,7 @@
 </footer>
 
 <script>
-window.addEventListener('beforeprint',function(){document.querySelectorAll('details').forEach(function(d){d.open=true;});});
+/*@@BASE_JS@@*/
 </script>
 </body>
 </html>

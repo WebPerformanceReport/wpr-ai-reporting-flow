@@ -3,6 +3,7 @@
 Each template in one_pager/ marks where the shared base goes:
   /*@@BASE_CSS@@*/  is replaced by one_pager/base.css
   <!--@@MOTIF@@-->  is replaced by one_pager/motif.svg
+  /*@@BASE_JS@@*/    is replaced by one_pager/base.js (copy buttons, print, hash links)
 
 The result is one self-contained HTML file per template in templates/,
 which is what users upload to their Project.
@@ -58,11 +59,14 @@ def compact_css(css):
 def build(source):
     base = compact_css((SRC / "base.css").read_text(encoding="utf-8"))
     motif = (SRC / "motif.svg").read_text(encoding="utf-8").strip()
+    script = (SRC / "base.js").read_text(encoding="utf-8").strip()
     html = (SRC / source).read_text(encoding="utf-8")
-    for marker in ("/*@@BASE_CSS@@*/", "<!--@@MOTIF@@-->"):
+    for marker in ("/*@@BASE_CSS@@*/", "<!--@@MOTIF@@-->", "/*@@BASE_JS@@*/"):
         if marker not in html:
             raise SystemExit(f"{source}: marker {marker} not found")
-    return html.replace("/*@@BASE_CSS@@*/", base).replace("<!--@@MOTIF@@-->", motif)
+    return (html.replace("/*@@BASE_CSS@@*/", base)
+                .replace("<!--@@MOTIF@@-->", motif)
+                .replace("/*@@BASE_JS@@*/", script))
 
 
 def main():

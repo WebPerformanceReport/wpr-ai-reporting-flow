@@ -270,7 +270,7 @@ Dimension-specific notes:
 - **Performance**: use the Core Web Vitals thresholds from `WPR_AI_Assistant_Instructions.md` Section 5. TTFB is a diagnostic metric, not one of the three Core Web Vitals (LCP, INP, CLS). Apply it as supporting context, not as a primary classification.
 - **Security**: follow the HTTP Observatory grading scale from `WPR_AI_Assistant_Instructions.md` Section 5.
 - **Accessibility**: follow WAVE findings and WCAG-based interpretation from `WPR_AI_Assistant_Instructions.md` Section 5.
-- **Analytics**: avoid universal Good / Poor classifications. Engagement Rate, Bounce Rate, and session metrics vary significantly by industry and site type. Prefer trend-based and context-based interpretation unless the user provides a specific benchmark.
+- **Analytics**: do not classify. Follow the Analytics rule in `WPR_AI_Assistant_Instructions.md` Section 5.
 
 If a threshold is unclear, missing, or not officially defined, state this limitation explicitly instead of forcing a rating.
 

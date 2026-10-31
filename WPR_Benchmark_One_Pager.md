@@ -85,7 +85,7 @@ The user can include any combination of the dimensions below. The rules in this 
 |---|---|---|---|
 | Performance | `perf` | LCP from CrUX (Section 3.2) | Yes: Core Web Vitals |
 | Security | `sec` | HTTP Observatory grade and score | Yes: official grading chart |
-| Accessibility | `a11y` | Total WAVE errors | Yes: contextual interpretation |
+| Accessibility | `a11y` | Total WAVE errors (Errors plus Contrast Errors) | Yes: contextual interpretation |
 | Analytics | `ga4` | Engagement Rate | No (`WPR_AI_Assistant_Instructions.md` Section 5) |
 
 **Canonical order**: Performance, Security, Accessibility, Analytics. Titles, columns, deep-dives and slugs always follow it, whatever order the user used.
@@ -170,13 +170,13 @@ Each deep-dive has the same internal structure:
 - One card per site, with the most important data point of the dimension in large type.
 - Performance: LCP from CrUX. Without field data, "No field data available" (Section 3.2).
 - Security: grade + score.
-- Accessibility: total number of errors.
+- Accessibility: total errors (Errors plus Contrast Errors, `WPR_AI_Assistant_Instructions.md` Section 4.2).
 - Analytics: Engagement Rate (GA4).
 
 **5.4.4 Main visualization**
 - Performance: horizontal bars per metric (LCP, INP, CLS, TTFB, weight). One bar per site within each metric. Include Google thresholds as visual references.
 - Security: control matrix (rows = controls, columns = sites), with pass/partial/fail marks.
-- Accessibility: stacked bars per site, segmented by error category (contrast, missing alt images, forms, structure).
+- Accessibility: stacked bars per site, one segment per error type from the delivery's Errors breakdown plus one for Contrast Errors, using the categories in `WPR_AI_Assistant_Instructions.md` Section 4.2. The segments add up to the total on the site card. Show Alerts separately, never stacked with errors. Do not chart Features, ARIA or Structural Elements as issues.
 - Analytics: grouped bars per site showing Sessions, Engagement Rate, and Average Engagement Time. Include a secondary indicator for Bounce Rate where available.
 
 **5.4.5 "What is being left on the table" closing card**

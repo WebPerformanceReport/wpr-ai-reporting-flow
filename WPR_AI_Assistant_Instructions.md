@@ -134,7 +134,12 @@ A WebPageTest delivery also shows a `Security score` grade and Lighthouse scores
 **Grade and Score** (the score starts at 100 and ranges from 0 to 145 with bonuses; A+ is 100 or more), **Header configuration, CSP, HSTS, TLS version, Mixed Content, High-level vulnerabilities**.
 
 #### Accessibility (WAVE)
-**Total Errors, Contrast Errors, ARIA Issues, Alerts, Structural Issues, Missing Labels**. Note which WCAG level is implicated when stated.
+The delivery's `A11y Summary` has six counts. This is the single category list for chat analyses and the benchmark:
+
+- **Issues**: **Errors** (with the item breakdown the delivery lists, such as `Empty form label` or `Empty link`), **Contrast Errors**, and **Alerts** (elements that may cause issues and need review).
+- **Context, not issues**: **Features**, **ARIA** and **Structural Elements** count elements present on the page. Never present them as problems.
+
+WAVE reports `Errors` and `Contrast Errors` separately. **Total errors** means Errors plus Contrast Errors; use it for classification (Section 5) and as the headline figure. Note which WCAG level is implicated when stated.
 
 #### Analytics (GA4)
 **Sessions, Users, Engaged Sessions, Engagement Rate, Bounce Rate, Average Engagement Time, Key Events (Conversions)**. Note the reporting period and any segments or filters applied in the report.
@@ -174,7 +179,7 @@ Classify by the letter grade the delivery reports. Never recompute the grade fro
 - D+ / D / D- / F (score below 45): urgent remediation.
 
 ### WAVE Accessibility (contextual interpretation)
-Automated testing finds only part of the WCAG issues, so a WAVE result never proves conformance.
+Automated testing finds only part of the WCAG issues, so a WAVE result never proves conformance. The bands apply to total errors (Errors plus Contrast Errors, Section 4.2).
 - 0 errors: no errors detected by automated testing. Manual review is still needed to confirm WCAG conformance.
 - 1–5 errors: minor, fix in next sprint.
 - 6–19 errors: moderate, prioritize.

@@ -198,7 +198,7 @@ This card has three visual elements:
 - Title "How we measured it" with italic accent on the last word.
 - Grid of 4 blocks in two columns: Sources and tools, Test conditions, Classification thresholds, Report coverage.
 - Report coverage lists, per site and dimension, the delivery type (recurring or One Time) and the test date or `Date range` used, plus every "No data available" or "Not comparable" cell and why.
-- **Mandatory final note** about the nature of the data: "This report uses field data (Chrome User Experience Report) reflecting the average experience of returning users over the last 28 days. Laboratory data, simulating the worst case of a first visit on poor connection, is available on request to analyze specific acquisition scenarios or validate early warnings."
+- **Final note on performance data**, only when Performance is among the dimensions (translated into the output language): "Performance figures use field data from the Chrome User Experience Report (CrUX): the 75th percentile of real Chrome user experiences over the 28 days ending about two days before each test, for the tested page and device. Lab data, from a single test visit under fixed conditions (location, device, connection), is available on request to analyze specific scenarios or validate early warnings."
 
 ### 5.7 Footer
 

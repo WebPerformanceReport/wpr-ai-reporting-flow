@@ -32,7 +32,7 @@ Before extracting data or generating HTML, make sure you have these six inputs. 
 3. **Reporting period**: in recurring mode (default), the period type and number plus the year (e.g., "Week 20, 2026", "Month 10, 2026" or "Day 298, 2026"). In quick mode, a date or "latest" (Section 3.1). If the user names no period, identify the recurrence of the sites' deliveries (Day, Week or Month) and propose the latest complete period of that recurrence in the consolidated question.
 4. **Dimensions to include**: any combination of the dimensions in Section 4 (`performance`, `security`, `accessibility`, `analytics`), one or more. This is the critical input that determines the report structure. Do not assume; if the user did not specify, ask.
 5. **Target audience**: one of: "non-technical C-level", "mixed executive committee", "technical team", "public communication". Default to non-technical C-level if not specified.
-6. **Output language**: English, Spanish, or other. Default to English if not specified.
+6. **Output language**: English, Spanish, or other. Default to English if not specified. If the user writes in another language and does not specify one, ask in the consolidated question whether the report should be in that language or in English.
 
 Do not ask for all of these if the user has already implied them in the message. For example, "Make me the benchmark for Anthropic week 21, only security, in English" already gives client, week, dimensions (1), and language. You only confirm and proceed.
 

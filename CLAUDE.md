@@ -69,7 +69,7 @@ Dimension slugs: `perf`, `sec`, `a11y`, `ga4`, joined with underscores in canoni
 - **Output order for multi-category analysis**: Performance → Security → Accessibility → Analytics.
 - **CrUX over lab data**: field data (Chrome User Experience Report) is the primary source for LCP, INP, CLS and TTFB. Lab data is used only on explicit request or when field data is absent, always labeled as lab. The rule lives in `WPR_AI_Assistant_Instructions.md` Section 4.2.
 - **HTML visual system**: dark palette anchored to `#0B0E1A`, fonts Fraunces + Inter + JetBrains Mono via Google Fonts, max wrapper 1100px.
-- **Benchmark default language**: English. Only changes if the user specifies otherwise.
+- **Language**: chat answers follow the language of the user's message, with technical terms in English. The benchmark defaults to English; if the user writes in another language without specifying one, the assistant asks which language to use.
 
 ---
 

@@ -4,7 +4,7 @@ Each template in one_pager/ marks where the shared base goes:
   /*@@BASE_CSS@@*/  is replaced by one_pager/base.css
   <!--@@MOTIF@@-->  is replaced by one_pager/motif.svg
 
-The result is one self-contained HTML file per template at the repository root,
+The result is one self-contained HTML file per template in templates/,
 which is what users upload to their Project.
 
 Usage:
@@ -16,6 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "one_pager"
+OUT = ROOT / "templates"
 TEMPLATES = {
     "executive.html": "WPR_Executive_One_Pager.html",
     "benchmark.html": "WPR_Benchmark_One_Pager.html",
@@ -69,11 +70,12 @@ def main():
     stale = []
     for source, target in TEMPLATES.items():
         html = build(source)
-        path = ROOT / target
+        path = OUT / target
         if check:
             if not path.exists() or path.read_text(encoding="utf-8") != html:
                 stale.append(target)
             continue
+        OUT.mkdir(exist_ok=True)
         path.write_text(html, encoding="utf-8")
         print(f"{target}: {len(html):,} characters")
     if stale:

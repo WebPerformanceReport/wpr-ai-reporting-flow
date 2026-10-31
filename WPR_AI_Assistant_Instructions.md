@@ -90,7 +90,22 @@ On a direct metric request, do not pull unrelated metrics (CLS, INP, page size, 
 ### 4.2 Full metric set by category
 
 #### Performance (WebPageTest)
-Core Web Vitals and loading: **LCP, INP, CLS, TTFB, First Byte, Fully Loaded Time, Total Page Size, Number of Requests**. Plus test context: **Location, Device, Connection**, and top opportunities or risks flagged in the report.
+Core Web Vitals and loading: **LCP, INP, CLS, TTFB, Fully Loaded Time, Total Page Size, Number of Requests**. Plus test context: **Location, Device, Connection**, and top opportunities or risks flagged in the report.
+
+**Field vs lab data.** This rule is the single authority for chat analyses and the benchmark. A WebPageTest delivery can hold two kinds of data:
+
+- **Field data** is the `Core Web Vitals - CrUX Field Data` section: LCP, CLS, INP and TTFB from real Chrome users, at the 75th percentile over the last 28 days.
+- **Lab data** comes from one test visit under fixed conditions (location and device in the `From:` header). It is the `Core Web Vitals - Lab Data` section (LCP, CLS, TBT) and the `Performance Results` section (First Byte, Start Render, FCP, Speed Index, Document Complete, Fully Loaded).
+
+Apply these rules:
+
+- LCP, INP, CLS and TTFB come from field data whenever the CrUX section is present.
+- If the CrUX section is absent, the delivery has no field data. Say so. A missing section is not a regression or an improvement.
+- Use lab values for those metrics only when the user asks for them, or when field data is absent. Always label them as lab results and give their test context.
+- INP exists only as field data. Without the CrUX section, report INP as unavailable. Never substitute TBT or any other lab metric.
+- TTFB is one metric with two sources: TTFB in the CrUX section is the field value; `First Byte` in Performance Results is the lab value.
+- Fully Loaded Time, Total Page Size and Number of Requests (the Fully Loaded `Time`, `Bytes In` and `Requests`) are lab only. Present them as lab test results.
+- Never compare a field value with a lab value, within one delivery or across periods. If one period has field data and the other only lab data, say that the periods cannot be compared on that metric.
 
 #### Security (HTTP Observatory)
 **Security Score (0–100 and letter grade), Header configuration, CSP, HSTS, TLS version, Mixed Content, High-level vulnerabilities**.
@@ -113,6 +128,8 @@ If a required metric is absent from the report, state that clearly. Never fabric
 Apply these thresholds to give every metric meaning. Always classify as **Good / Needs Improvement / Poor** when reporting.
 
 ### Core Web Vitals (Google official, 2026)
+These thresholds apply to field data at the 75th percentile (Section 4.2). When only lab data is available, say that the classification is based on a single lab test.
+
 | Metric | Good | Needs Improvement | Poor |
 |---|---|---|---|
 | LCP | ≤ 2.5s | 2.5–4.0s | > 4.0s |

@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>{{client}} · Benchmark One Pager</title>
+<!-- WPR Benchmark One Pager template. Fill it following WPR_Benchmark_One_Pager.md.
+     {{placeholders}} hold content. REPEAT blocks are copied once per item. IF history blocks
+     are kept only in history mode. Delete every template comment in the final report. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Kaushan+Script&display=swap">
+<style>
+/* ===== THEME: the only CSS that changes per report =====
+   WPR (default): keep these values, body class "theme-wpr".
+   Spotlight: body class "theme-spotlight" (the base overrides these values).
+   Site style: replace the values with the client's colors, body class "theme-site".
+   Every text pair must reach 4.5:1. Rules: WPR_Executive_One_Pager.md Section 6. */
+:root{
+  --accent:#4C97D9;       /* motif, bars, accent text on dark */
+  --accent-text:#426A90;  /* accent text on light backgrounds */
+  --band:#426A90;         /* band and button fill */
+  --band-on:#FFFFFF;      /* text on band and buttons */
+  --cover:#1A2A39;        /* cover and dark sections */
+  --cover-panel:#22364A;  /* cards on dark backgrounds */
+  /* Site style only: --font:"Brand Font","Segoe UI",system-ui,sans-serif; (Google Fonts) */
+}
+/* ===== END THEME ===== */
+/*@@BASE_CSS@@*/
+/* Benchmark components */
+.badge{align-self:flex-start;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);border:1px solid var(--acc);padding:4px 10px;border-radius:var(--radius)}
+.cover h1 .line{display:block}
+.sites{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.sites div{background:var(--panel);padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.sites b{font-size:15px;font-weight:600}
+.sites span{font-family:var(--mono);font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.cmp td,.cmp th{white-space:nowrap}
+.cmp td:first-child{font-weight:600}
+.cell{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.cell .num{font-size:15px}
+.means.key p{font-size:18px;font-weight:600;line-height:1.4;color:var(--fg)}
+.intro{background:var(--panel);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.intro .dim{align-self:flex-start}
+.intro h3{font-size:18px;font-weight:600}
+.intro p{color:var(--fg2);max-width:70ch}
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.sum .card{gap:8px}
+.sum .val{font-size:30px;font-weight:800;line-height:1}
+.matrix td,.matrix th{text-align:center}
+.matrix td:first-child,.matrix th:first-child{text-align:left}
+.st-p{color:var(--good)} .st-x{color:var(--warn)} .st-f{color:var(--bad)}
+.stack{display:flex;flex-direction:column;gap:12px}
+.stack .row{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(90px,auto);gap:12px;align-items:center;font-size:14px}
+.stack .row .v{font-family:var(--mono);font-size:13px;text-align:right}
+.seg1{background:var(--acc)} .seg2{background:var(--fg)} .seg3{background:var(--muted)}
+.seg4{background:repeating-linear-gradient(45deg,var(--acc) 0 4px,transparent 4px 8px)} .seg5{background:repeating-linear-gradient(45deg,var(--fg) 0 4px,transparent 4px 8px)}
+.stack .bd{grid-column:1/-1}
+.lot{border:1px solid var(--line);margin-top:16px;display:flex;flex-direction:column}
+.lot .head{padding:20px 22px;display:flex;flex-direction:column;gap:6px}
+.lot .ref{background:var(--band);color:var(--band-on);padding:16px 22px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+.lot .ref b{font-size:26px;font-weight:800}
+.lot .fx{display:grid;grid-template-columns:170px minmax(0,1fr);gap:12px;padding:14px 22px;border-top:1px solid var(--line)}
+.lot .fx div:first-child{display:flex;flex-direction:column;gap:6px;align-items:flex-start;font-weight:600}
+.recs{display:flex;flex-direction:column;gap:12px}
+.rec{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:16px;background:var(--panel);border:1px solid var(--line);padding:20px 22px}
+.rec-body{display:flex;flex-direction:column;gap:8px;min-width:0}
+.rec .n{font-size:34px;font-weight:800;line-height:1;color:var(--acc)}
+.rec h3{font-size:19px;font-weight:700}
+.rec p{color:var(--fg2);font-size:15px}
+.rec .meta{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.method.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.final{border-top:1px solid var(--line);margin-top:20px;padding-top:14px;font-size:13px;color:var(--muted)}
+@media print{.cmp td,.cmp th{white-space:normal} .lot .ref{background:#FFFFFF;color:#000000;border-block:2px solid #000000}}
+@media (max-width:880px){
+  .method.two{grid-template-columns:1fr}
+  .rec{grid-template-columns:48px minmax(0,1fr)} .rec .imp{grid-column:2}
+  .lot .fx{grid-template-columns:1fr}
+  .stack .row{grid-template-columns:1fr auto} .stack .row .stack-bar{grid-column:1/-1;grid-row:2}
+}
+</style>
+</head>
+<body class="theme-wpr">
+
+<div class="nav tone-a">
+  <div class="shell">
+    <span class="brand"><b>WebPerformanceReport</b>.com · {{client}}</span>
+    <span class="brand num">{{period_label}}</span>
+  </div>
+</div>
+
+<header class="cover">
+  <div class="motif"><!--@@MOTIF@@--></div>
+  <div class="shell">
+    <!-- Cover notice, one of three (WPR_Benchmark_One_Pager.md input 8):
+         Commissioned, own sites only: "Prepared by WebPerformance Report for {{client}}."
+         Commissioned, with other companies' sites: add "{{other_companies}} are analyzed independently and did not commission or endorse this report."
+         Independent: "Independent analysis by WebPerformance Report. Not affiliated with or commissioned by {{client}}." -->
+    <p class="indep">{{cover_notice}}</p>
+    <span class="badge">{{report_title}}</span>
+    <h1><span class="line">Digital portfolio</span><em>{{client}}</em><span class="script">{{script_line}}</span></h1>
+    <p class="lede">{{subtitle_naming_the_dimensions}}</p>
+    <div class="sites">
+      <!-- REPEAT site: in the order the user gave -->
+      <div><b>{{site_name}}</b><span>{{site_url}}</span></div>
+      <!-- END REPEAT -->
+    </div>
+    <div class="kpis">
+      <!-- REPEAT kpi: exactly 3 -->
+      <div class="kpi">
+        <!-- Analytics KPI: replace the pill with <span class="delta">{{trend}}</span>; Analytics is never classified -->
+        <div class="top"><span class="name">{{dimension}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span></div>
+        <div class="big">{{headline_value}}<small> {{value_context}}</small></div>
+        <p>{{kpi_story}}</p>
+      </div>
+      <!-- END REPEAT -->
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="tone-a" id="comparison">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">Comparison</span>
+      <h2>Where each site <em>stands</em></h2>
+      <p>Sites are compared dimension by dimension, without an overall score.</p>
+    </div>
+    <div class="tbl"><table class="cmp">
+      <thead><tr><th>Site</th><!-- REPEAT dimension: canonical order --><th>{{dimension}}</th><!-- END REPEAT --></tr></thead>
+      <tbody>
+        <!-- REPEAT site -->
+        <tr>
+          <td>{{site_name}}</td>
+          <!-- REPEAT cell: one per dimension. Missing: "No data available"; outside the rule: "Not comparable" -->
+          <!-- Analytics column: drop the pill and use <span class="delta">{{trend}}</span> instead.
+               No data available, No field data available or Not comparable: write it in place of the value and drop the pill. -->
+          <td><div class="cell"><span class="num">{{headline_value}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span><!-- IF history --><span class="delta">{{movement_word_and_change}}</span><!-- END IF --></div></td>
+          <!-- END REPEAT -->
+        </tr>
+        <!-- END REPEAT -->
+      </tbody>
+    </table></div>
+    <div class="legend" style="margin-top:12px"><!-- IF a classified dimension is included --><span><i class="z zg"></i>Good</span><span><i class="z zw"></i>Needs Improvement</span><span><i class="z zb"></i>Poor</span><!-- END IF --><!-- IF Analytics is included --><span>Analytics values are not classified.</span><!-- END IF --></div>
+    <div class="means key"><b>Key finding</b><p>{{key_finding}}</p></div>
+  </div>
+</section>
+
+<!-- IF history: 3 or more comparable periods for most sites -->
+<section class="tone-b" id="movement">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">Movement</span>
+      <h2>Who improved and who slipped</h2>
+      <p>{{periods_covered}}</p>
+    </div>
+    <div class="card">
+      <ul class="changes">
+        <!-- REPEAT change: status word is Improved, Slipped or Unchanged -->
+        <li><span class="pill {{good|warn|bad}}">{{change_status}}</span><span><b>{{site_name}}</b> · {{dimension}}: {{change_description}}</span></li>
+        <!-- END REPEAT -->
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- END IF -->
+
+<!-- REPEAT dimension: one section per dimension, canonical order. Tones keep alternating after Movement (WPR_Benchmark_One_Pager.md Section 7). -->
+<section class="{{tone}}" id="{{dimension_slug}}">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">{{dimension_eyebrow}}</span>
+      <h2>{{dimension_title}} <em>{{dimension_title_accent}}</em></h2>
+      <p>{{dimension_subtitle}}</p>
+    </div>
+    <div class="intro">
+      <span class="dim">{{dimension}}</span>
+      <h3>What this dimension measures and why it matters</h3>
+      <p>{{what_it_measures}}</p>
+      <p>{{why_it_matters_for_client}}</p>
+    </div>
+    <div class="sum">
+      <!-- REPEAT site card. Analytics: replace the pill with <span class="delta">{{trend}}</span>. Missing or not comparable data: no pill. -->
+      <div class="card"><span class="k">{{site_name}}</span><span class="val num">{{headline_value}}</span><span class="pill {{good|warn|bad}}" style="align-self:flex-start">{{status_word}}</span></div>
+      <!-- END REPEAT -->
+    </div>
+
+    <!-- Main visualization: keep the one block that matches this dimension and delete the others. -->
+
+    <!-- Performance: one card per metric, one row per site, with the Google thresholds as zones -->
+    <div class="grid g2">
+      <!-- REPEAT metric: LCP, INP, CLS (field when available) -->
+      <div class="card">
+        <span class="k">{{metric_name}} · {{field_or_lab}}</span>
+        <div class="vit">
+          <!-- REPEAT site -->
+          <div class="vrow">
+            <span class="lab">{{site_name}}</span>
+            <div class="zones" role="img" aria-label="{{site_name}}: {{value}}, {{status_word}}"><span class="z zg" style="width:{{good_pct}}%"></span><span class="z zw" style="width:{{warn_pct}}%"></span><span class="z zb" style="width:{{bad_pct}}%"></span><span class="mk" style="left:{{marker_pct}}%"></span></div>
+            <span class="val {{good|warn|bad}}">{{value}}<small>{{status_word}}</small></span>
+          </div>
+          <!-- END REPEAT -->
+        </div>
+      </div>
+      <!-- END REPEAT -->
+      <!-- TTFB: diagnostic context, not a Core Web Vital, so no status pill -->
+      <div class="card">
+        <span class="k">Server response · TTFB · {{field_or_lab}}</span>
+        <div class="bars">
+          <!-- REPEAT site -->
+          <div class="bar"><span>{{site_name}}</span><span class="v">{{ttfb}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
+          <!-- END REPEAT -->
+        </div>
+        <p class="note">Diagnostic context for loading speed, not a Core Web Vital.</p>
+      </div>
+      <!-- Optional: page weight is lab only and has no official threshold, so it is never classified -->
+      <div class="card">
+        <span class="k">Page weight · lab</span>
+        <div class="bars">
+          <!-- REPEAT site -->
+          <div class="bar"><span>{{site_name}}</span><span class="v">{{page_weight}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
+          <!-- END REPEAT -->
+        </div>
+        <p class="note">{{page_weight_note}}</p>
+      </div>
+    </div>
+
+    <!-- Security: control matrix, rows are controls, columns are sites -->
+    <div class="card">
+      <span class="k">Security controls by site</span>
+      <div class="tbl"><table class="matrix">
+        <thead><tr><th>Control</th><!-- REPEAT site --><th>{{site_name}}</th><!-- END REPEAT --></tr></thead>
+        <tbody>
+          <!-- REPEAT control -->
+          <tr><td>{{control_name}}</td><!-- REPEAT site: "st-p" with ✓ Pass, "st-x" with ~ Partial, "st-f" with ✕ Fail, from the delivery --><td class="{{st_class}}">{{st_mark_and_word}}</td><!-- END REPEAT --></tr>
+          <!-- END REPEAT -->
+        </tbody>
+      </table></div>
+    </div>
+
+    <!-- Accessibility: stacked bars of error types per site; alerts shown apart -->
+    <div class="card">
+      <span class="k">Errors by type, per site</span>
+      <div class="stack">
+        <!-- REPEAT site -->
+        <div class="row">
+          <span>{{site_name}}</span>
+          <div class="stack-bar" role="img" aria-label="{{site_name}}: {{segments_described}}">
+            <!-- REPEAT segment: at most 5. seg1 to seg3 for the three largest error types, seg4 for "Other errors", seg5 for Contrast Errors. Widths add up to the site total on the shared scale -->
+            <i class="seg1" style="width:{{segment_pct}}%"></i>
+            <!-- END REPEAT -->
+          </div>
+          <span class="v">{{total_errors}} errors · {{alerts}} alerts</span>
+          <span class="note bd">{{breakdown_in_words}}</span>
+        </div>
+        <!-- END REPEAT -->
+      </div>
+      <div class="legend"><!-- REPEAT segment legend --><span><i class="seg1"></i>{{error_type}}</span><!-- END REPEAT --></div>
+    </div>
+
+    <!-- Analytics: grouped bars per site, never classified -->
+    <div class="grid g3">
+      <!-- REPEAT site -->
+      <div class="card">
+        <span class="k">{{site_name}}</span>
+        <div class="bars">
+          <!-- REPEAT metric: Sessions, Engagement Rate, Average Engagement Time. Each metric uses one scale across all site cards: the largest value among the sites is 100%. -->
+          <div class="bar"><span>{{metric_name}}</span><span class="v">{{value}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
+          <!-- END REPEAT -->
+        </div>
+        <p class="note">{{bounce_rate_or_note}}</p>
+      </div>
+      <!-- END REPEAT -->
+    </div>
+
+    <div class="lot">
+      <div class="head">
+        <span class="eyebrow">What is being left on the table</span>
+        <h3>{{left_on_table_title}}</h3>
+        <p class="note">{{left_on_table_subtitle}}</p>
+      </div>
+      <div class="ref"><b>{{industry_figure}}</b><span>{{industry_statement}} ({{source_and_year}})</span></div>
+      <!-- REPEAT site effect -->
+      <div class="fx">
+        <div><span>{{site_name}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span></div>
+        <p>{{site_specific_effect}}</p>
+      </div>
+      <!-- END REPEAT -->
+    </div>
+  </div>
+</section>
+<!-- END REPEAT -->
+
+<section class="{{tone}}" id="plan">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">Action plan</span>
+      <h2>{{plan_title}}</h2>
+      <p>{{plan_subtitle}}</p>
+    </div>
+    <div class="recs">
+      <!-- REPEAT recommendation: most urgent failure of the portfolio first -->
+      <div class="rec">
+        <span class="n num">{{rank_01}}</span>
+        <div class="rec-body">
+          <div class="evrow"><span class="dim">{{dimension}}</span><span class="dim">{{sites_affected}}</span></div>
+          <h3>{{recommendation_title}}</h3>
+          <p>{{recommendation_description}}</p>
+          <span class="meta">Effort: {{effort}} · Timeline: {{timeline}}</span>
+        </div>
+        <!-- Critical: class "bad". High: class "warn". Medium: no status class. -->
+        <span class="pill imp {{impact_class}}">{{impact_word}}</span>
+      </div>
+      <!-- END REPEAT -->
+    </div>
+  </div>
+</section>
+
+<section class="{{tone}}" id="method">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">About this report</span>
+      <h2>How we <em>measured it</em></h2>
+    </div>
+    <div class="method two">
+      <div><b>Sources and tools</b><span>{{sources_and_tools}}</span></div>
+      <div><b>Test conditions</b><span>{{test_conditions}}</span></div>
+      <div><b>Classification thresholds</b><span>{{thresholds_used}}</span></div>
+      <div><b>Report coverage</b><span>{{coverage_per_site_and_dimension}}</span></div>
+    </div>
+    <!-- IF Performance is included -->
+    <p class="final">{{performance_data_note}}</p>
+    <!-- END IF -->
+  </div>
+</section>
+
+</main>
+
+<footer class="tone-a">
+  <div class="shell">
+    <span>Generated by WebPerformance Report · Benchmark data {{period_phrase}} · {{footer_note}}</span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('beforeprint',function(){document.querySelectorAll('details').forEach(function(d){d.open=true;});});
+</script>
+</body>
+</html>

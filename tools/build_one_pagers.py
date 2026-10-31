@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "one_pager"
 TEMPLATES = {
     "executive.html": "WPR_Executive_One_Pager.html",
+    "benchmark.html": "WPR_Benchmark_One_Pager.html",
 }
 
 

@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>{{client}} · Benchmark One Pager</title>
+<!-- WPR Benchmark One Pager template. Fill it following WPR_Benchmark_One_Pager.md.
+     {{placeholders}} hold content. REPEAT blocks are copied once per item. IF history blocks
+     are kept only in history mode. Delete every template comment in the final report. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Kaushan+Script&display=swap">
+<style>
+/* ===== THEME: the only CSS that changes per report =====
+   WPR (default): keep these values, body class "theme-wpr".
+   Spotlight: body class "theme-spotlight" (the base overrides these values).
+   Site style: replace the values with the client's colors, body class "theme-site".
+   Every text pair must reach 4.5:1. Rules: WPR_Executive_One_Pager.md Section 6. */
+:root{
+  --accent:#4C97D9;       /* motif, bars, accent text on dark */
+  --accent-text:#426A90;  /* accent text on light backgrounds */
+  --band:#426A90;         /* band and button fill */
+  --band-on:#FFFFFF;      /* text on band and buttons */
+  --cover:#1A2A39;        /* cover and dark sections */
+  --cover-panel:#22364A;  /* cards on dark backgrounds */
+  /* Site style only: --font:"Brand Font","Segoe UI",system-ui,sans-serif; (Google Fonts) */
+}
+/* ===== END THEME ===== */
+:where(:root){
+--font:"Inter","Segoe UI",system-ui,sans-serif;
+--mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+--script:"Kaushan Script","Brush Script MT",cursive;
+--radius:5px;
+color-scheme:light;
+}
+.theme-spotlight{
+--accent:#FF5B00; --accent-text:#B23E00; --band:#FF5B00; --band-on:#000000; --cover:#000000; --cover-panel:#111111;
+}
+.tone-a,.tone-b{
+--bg:#FFFFFF; --panel:#F5F5F5; --line:#E2E5EA; --fg:#1A1A1A; --fg2:#33383F; --muted:#5B6470;
+--acc:var(--accent-text); --good:#15803D; --warn:#A15C07; --bad:#B91C1C;
+}
+.tone-b{--bg:#F5F5F5; --panel:#FFFFFF}
+.cover,.theme-spotlight .tone-b,.dark{
+--bg:var(--cover); --panel:var(--cover-panel); --line:color-mix(in srgb,#FFFFFF 16%,var(--cover));
+--fg:#FFFFFF; --fg2:#D7DCE3; --muted:#A9B3C1;
+--acc:var(--accent); --good:#4ADE80; --warn:#FACC15; --bad:#F87171;
+color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#FFFFFF;color:#1A1A1A;font-family:var(--font);font-size:16px;line-height:1.6}
+h1,h2,h3{margin:0;line-height:1.15;text-wrap:balance}
+p{margin:0}
+a{color:var(--acc)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.shell{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{background:var(--bg);color:var(--fg);padding-block:64px;border-bottom:1px solid var(--line)}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.muted{color:var(--muted)}
+.note{font-size:13px;color:var(--muted)}
+.sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.sec-head h2{font-size:clamp(26px,3.6vw,40px);font-weight:700;letter-spacing:-.015em;max-width:26ch}
+.sec-head p{color:var(--muted);max-width:62ch}
+code{font-family:var(--mono);font-size:14px;color:var(--acc);word-break:break-all}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);color:var(--fg);border-bottom:1px solid var(--line)}
+.nav .shell{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.nav .brand{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.nav .brand b{color:var(--fg);font-weight:500}
+.nav nav{display:flex;align-items:center;gap:18px;font-size:14px}
+.nav nav a{color:var(--fg2);text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 15px var(--font);text-decoration:none;padding:12px 18px;border-radius:var(--radius);border:1px solid var(--band);background:var(--band);color:var(--band-on);cursor:pointer;line-height:1.2}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
+.btn.sm{padding:8px 12px;font-size:13px}
+.cover{position:relative;overflow:hidden;background:var(--bg);color:var(--fg)}
+.cover .shell{position:relative;padding-block:48px 56px;display:flex;flex-direction:column;gap:26px}
+.indep{font-size:13px;color:var(--muted);border:1px solid var(--line);padding:6px 10px;align-self:flex-start}
+.cover h1{font-size:clamp(32px,5.4vw,60px);font-weight:800;letter-spacing:-.025em;max-width:19ch}
+.cover h1 em,.sec-head h2 em{font-style:normal;color:var(--acc)}
+.script{display:none}
+.theme-spotlight .script{display:block;font-family:var(--script);font-weight:400;color:var(--accent);font-size:.82em;margin-top:.15em}
+.lede{font-size:clamp(17px,2vw,20px);max-width:60ch;color:var(--fg2)}
+.motif{position:absolute;right:3%;top:40px;width:min(30vw,300px);pointer-events:none}
+.motif svg{width:100%;height:auto;display:block}
+.motif .env,.motif .card,.motif .ink{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.motif .env{stroke:color-mix(in srgb,var(--accent) 18%,var(--cover));stroke-width:16}
+.motif .card,.motif .ink{stroke:color-mix(in srgb,var(--accent) 32%,var(--cover))}
+.motif .card{stroke-width:13}
+.motif .ink{stroke-width:6}
+.motif .flow,.motif .tick,.motif .speed{fill:none;stroke:var(--accent);stroke-linecap:round}
+.motif .flow{stroke-width:5;stroke-dasharray:70 1000;stroke-dashoffset:70;animation:wpr-run 8s linear infinite}
+.motif .tick{stroke-width:5;stroke-dasharray:110 1000;animation:wpr-spin 3.5s linear infinite}
+.motif .speed{stroke-width:6;stroke-dasharray:14 1000;stroke-dashoffset:14;opacity:0;animation:wpr-whoosh 2.4s ease-in infinite}
+.motif .s2{animation-delay:.25s}.motif .s3{animation-delay:.5s}
+@keyframes wpr-run{from{stroke-dashoffset:70}to{stroke-dashoffset:-1000}}
+@keyframes wpr-spin{from{stroke-dashoffset:0}to{stroke-dashoffset:-1000}}
+@keyframes wpr-whoosh{0%{stroke-dashoffset:14;opacity:0}10%{opacity:1}60%{stroke-dashoffset:-1000;opacity:1}61%,100%{opacity:0}}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.kpi{background:var(--panel);padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.kpi .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.kpi .name{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.kpi .big{font-size:44px;font-weight:800;line-height:1}
+.kpi .big small{font-size:16px;font-weight:400;color:var(--muted)}
+.kpi p{font-size:14px;color:var(--fg2)}
+.delta{font-family:var(--mono);font-size:12px;color:var(--fg2)}
+.pill{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border:1px solid currentColor;border-radius:var(--radius);white-space:nowrap}
+.good{color:var(--good)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+.dim{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid var(--line);border-radius:var(--radius);color:var(--fg2);white-space:nowrap}
+.ev{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border:1px solid currentColor;white-space:nowrap}
+.ev.m{color:var(--acc)} .ev.b{color:var(--fg)} .ev.s{color:var(--warn)} .ev.o{color:var(--muted)}
+.evrow{display:flex;flex-wrap:wrap;gap:6px}
+.band{background:var(--band);color:var(--band-on);--acc:var(--band-on)}
+.band .shell{padding-block:28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.band p{font-size:clamp(19px,2.4vw,25px);font-weight:700;max-width:42ch;line-height:1.3}
+.band .btn{background:var(--band-on);color:var(--band);border-color:var(--band-on)}
+.pw{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line)}
+.pw .h,.pw .r{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,1.3fr)}
+.pw .h div{background:var(--panel);padding:10px 16px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pw .r div{background:var(--bg);padding:16px;font-size:15px;line-height:1.5;min-width:0}
+.pw .m{display:flex;flex-direction:column;gap:4px}
+.pw .m b{font-size:20px;font-weight:700;line-height:1.15}
+.pw .m span{font-size:13.5px;color:var(--muted)}
+.pw .lbl{display:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card h3{font-size:17px;font-weight:600}
+.k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.means{border-left:3px solid var(--acc);background:var(--panel);padding:16px 20px;display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.means b{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);font-weight:500}
+.means p{color:var(--fg2)}
+.bm{display:flex;flex-direction:column;gap:18px}
+.bm .row{display:grid;grid-template-columns:200px minmax(0,1fr);gap:14px;align-items:center}
+.bm .lab{font-size:14px;font-weight:600;line-height:1.3}
+.bm .lab span{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.bm .ln{display:grid;grid-template-columns:minmax(0,1fr) 96px;gap:10px;align-items:center;font-family:var(--mono);font-size:12px}
+.bm .ln i{display:block;height:14px;background:var(--accent)}
+.bm .ln.web i{background:var(--muted)}
+.bm .ln b{font-weight:500;text-align:right}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--muted)}
+.legend i{width:12px;height:12px;display:inline-block;margin-right:6px;vertical-align:-1px}
+.vit{display:flex;flex-direction:column;gap:18px}
+.vrow{display:grid;grid-template-columns:150px minmax(0,1fr) 120px;gap:14px;align-items:center}
+.vrow .lab{font-size:14px;font-weight:600;line-height:1.3}
+.vrow .lab span{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.vrow .val{font-family:var(--mono);font-size:14px;text-align:right}
+.vrow .val small{display:block;font-size:11px;letter-spacing:.04em}
+.zones{position:relative;height:14px;display:flex}
+.zones .z{height:100%}
+.z.zg{background:color-mix(in srgb,var(--good) 35%,transparent)} .z.zw{background:color-mix(in srgb,var(--warn) 35%,transparent)} .z.zb{background:color-mix(in srgb,var(--bad) 35%,transparent)}
+.zones .mk{position:absolute;top:-6px;width:4px;height:26px;background:var(--fg);transform:translateX(-50%)}
+.bars{display:flex;flex-direction:column;gap:12px}
+.bar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 12px;font-size:14px}
+.bar .v{font-family:var(--mono);font-size:13px}
+.bar .t{grid-column:1/-1;height:10px;background:var(--line);position:relative}
+.bar .t i{position:absolute;inset:0 auto 0 0;background:var(--accent)}
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.check{display:flex;align-items:center;gap:10px;border:1px solid var(--line);padding:9px 11px;font-size:14px;min-width:0}
+.check .ic{width:22px;height:22px;flex:none;display:grid;place-items:center;font-family:var(--mono);font-size:12px;color:var(--bg)}
+.check.f .ic{background:var(--bad)} .check.p .ic{background:var(--good)}
+.check .pts{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.stack-bar{display:flex;height:30px;gap:2px}
+.stack-bar i{display:block;height:100%;min-width:3px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--muted)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl{overflow-x:auto}
+details.evd{border:1px solid var(--line);margin-top:12px;background:var(--bg)}
+details.evd>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:6px minmax(0,1fr) auto;gap:18px;align-items:center;padding:20px 22px;background:var(--panel)}
+details.evd>summary::-webkit-details-marker{display:none}
+details.evd>summary .bar6{align-self:stretch;background:var(--acc)}
+details.evd>summary .st{display:flex;flex-direction:column;gap:4px;min-width:0}
+details.evd>summary .st b{font-size:clamp(18px,2.4vw,22px);font-weight:700;line-height:1.25}
+details.evd>summary .st span.s{font-size:14px;color:var(--muted)}
+details.evd>summary .tog{font-family:var(--mono);font-size:12px;color:var(--acc);white-space:nowrap;border:1px solid var(--line);padding:6px 10px}
+details.evd>summary .tog::after{content:"Show evidence +"}
+details.evd[open]>summary .tog::after{content:"Hide evidence −"}
+details.evd .dbody{padding:20px 22px 24px}
+.trend{display:flex;flex-direction:column;gap:8px}
+.trend b{font-size:28px;font-weight:800;line-height:1}
+.trend svg{width:100%;height:56px;display:block}
+.trend polyline{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.trend circle{fill:var(--accent)}
+.trend .axis{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.changes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.changes li{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;align-items:baseline;font-size:15px}
+.road{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.road>div{background:var(--panel);padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.road h3{font-size:22px}
+.road .when{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+.road ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.road li{font-size:14.5px}
+.road li small{display:block;color:var(--muted);font-size:12.5px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.steps div{background:var(--panel);padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.steps .n{font-family:var(--mono);font-size:12px;color:var(--acc);letter-spacing:.1em}
+.steps b{font-size:18px;font-weight:600;line-height:1.3}
+.fwd{font-size:15px;color:var(--fg2);background:var(--bg);border:1px solid var(--line);padding:14px 16px;white-space:pre-line}
+.copyrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.copied{font-family:var(--mono);font-size:12px;color:var(--good)}
+ol.list{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;color:var(--fg2)}
+details.plain{margin-top:24px;border-top:1px solid var(--line)}
+details.plain>summary{cursor:pointer;padding:14px 0;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.method{font-size:13px;color:var(--muted);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.method div{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.method b{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg);font-weight:500}
+footer{background:var(--bg);color:var(--muted);padding-block:24px;font-size:12.5px}
+footer .shell{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media (max-width:880px){
+.nav nav a.l{display:none}
+.kpis,.g3,.road,.steps,.method{grid-template-columns:1fr}
+.g2{grid-template-columns:1fr}
+.pw .h{display:none} .pw .r{grid-template-columns:1fr} .pw .lbl{display:block}
+.motif{opacity:.35}
+}
+@media (max-width:560px){
+.bm .row{grid-template-columns:1fr}
+.vrow{grid-template-columns:1fr auto} .vrow .zones{grid-column:1/-1;grid-row:2}
+.checks{grid-template-columns:1fr}
+.changes li{grid-template-columns:1fr;gap:2px}
+details.evd>summary{grid-template-columns:4px minmax(0,1fr)} details.evd>summary .tog{grid-column:2}
+}
+@media (prefers-reduced-motion:reduce){
+html{scroll-behavior:auto}
+.motif .flow,.motif .tick{animation:none;stroke-dashoffset:-400}
+.motif .speed{animation:none}
+}
+@media print{
+.nav,.ctas,.copyrow button,.motif{display:none}
+section,.cover,.band,footer,.theme-spotlight .tone-b{--bg:#FFFFFF;--panel:#F5F5F5;--line:#D5D9DF;--fg:#000000;--fg2:#222222;--muted:#444444;--acc:#000000;--good:#15803D;--warn:#A15C07;--bad:#B91C1C;background:#FFFFFF;color:#000000}
+.band{border-block:2px solid #000000}
+.tbl{overflow:visible}
+.zones .z,.zones .mk,.bar .t,.bar .t i,.stack-bar i,.check .ic,.legend i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+table{font-size:12px}
+.card,.kpi,details.evd,.road>div{break-inside:avoid}
+a{color:#000000}
+}
+/* Benchmark components */
+.badge{align-self:flex-start;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);border:1px solid var(--acc);padding:4px 10px;border-radius:var(--radius)}
+.cover h1 .line{display:block}
+.sites{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.sites div{background:var(--panel);padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.sites b{font-size:15px;font-weight:600}
+.sites span{font-family:var(--mono);font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.cmp td,.cmp th{white-space:nowrap}
+.cmp td:first-child{font-weight:600}
+.cell{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.cell .num{font-size:15px}
+.means.key p{font-size:18px;font-weight:600;line-height:1.4;color:var(--fg)}
+.intro{background:var(--panel);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.intro .dim{align-self:flex-start}
+.intro h3{font-size:18px;font-weight:600}
+.intro p{color:var(--fg2);max-width:70ch}
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.sum .card{gap:8px}
+.sum .val{font-size:30px;font-weight:800;line-height:1}
+.matrix td,.matrix th{text-align:center}
+.matrix td:first-child,.matrix th:first-child{text-align:left}
+.st-p{color:var(--good)} .st-x{color:var(--warn)} .st-f{color:var(--bad)}
+.stack{display:flex;flex-direction:column;gap:12px}
+.stack .row{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(90px,auto);gap:12px;align-items:center;font-size:14px}
+.stack .row .v{font-family:var(--mono);font-size:13px;text-align:right}
+.seg1{background:var(--acc)} .seg2{background:var(--fg)} .seg3{background:var(--muted)}
+.seg4{background:repeating-linear-gradient(45deg,var(--acc) 0 4px,transparent 4px 8px)} .seg5{background:repeating-linear-gradient(45deg,var(--fg) 0 4px,transparent 4px 8px)}
+.stack .bd{grid-column:1/-1}
+.lot{border:1px solid var(--line);margin-top:16px;display:flex;flex-direction:column}
+.lot .head{padding:20px 22px;display:flex;flex-direction:column;gap:6px}
+.lot .ref{background:var(--band);color:var(--band-on);padding:16px 22px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+.lot .ref b{font-size:26px;font-weight:800}
+.lot .fx{display:grid;grid-template-columns:170px minmax(0,1fr);gap:12px;padding:14px 22px;border-top:1px solid var(--line)}
+.lot .fx div:first-child{display:flex;flex-direction:column;gap:6px;align-items:flex-start;font-weight:600}
+.recs{display:flex;flex-direction:column;gap:12px}
+.rec{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:16px;background:var(--panel);border:1px solid var(--line);padding:20px 22px}
+.rec-body{display:flex;flex-direction:column;gap:8px;min-width:0}
+.rec .n{font-size:34px;font-weight:800;line-height:1;color:var(--acc)}
+.rec h3{font-size:19px;font-weight:700}
+.rec p{color:var(--fg2);font-size:15px}
+.rec .meta{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.method.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.final{border-top:1px solid var(--line);margin-top:20px;padding-top:14px;font-size:13px;color:var(--muted)}
+@media print{.cmp td,.cmp th{white-space:normal} .lot .ref{background:#FFFFFF;color:#000000;border-block:2px solid #000000}}
+@media (max-width:880px){
+  .method.two{grid-template-columns:1fr}
+  .rec{grid-template-columns:48px minmax(0,1fr)} .rec .imp{grid-column:2}
+  .lot .fx{grid-template-columns:1fr}
+  .stack .row{grid-template-columns:1fr auto} .stack .row .stack-bar{grid-column:1/-1;grid-row:2}
+}
+</style>
+</head>
+<body class="theme-wpr">
+
+<div class="nav tone-a">
+  <div class="shell">
+    <span class="brand"><b>WebPerformanceReport</b>.com · {{client}}</span>
+    <span class="brand num">{{period_label}}</span>
+  </div>
+</div>
+
+<header class="cover">
+  <div class="motif"><svg viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+  <path class="env" d="M150 62 L200 28 L250 62"/>
+  <path class="card" d="M95 182 V100 Q95 78 117 78 H283 Q305 78 305 100 V182"/>
+  <path class="ink" d="M150 140 H184 M134 154 H180 M156 168 H190"/>
+  <circle class="ink" cx="226" cy="154" r="34"/>
+  <path class="ink" d="M226 154 L212 140 M226 154 L238 160 M218 112 H234 M226 112 V120"/>
+  <path class="env" d="M70 150 L46 172 Q40 177 40 186 V350 Q40 372 62 372 H338 Q360 372 360 350 V186 Q360 177 354 172 L330 150"/>
+  <path class="env" d="M64 194 L152 262 M336 194 L248 262 M80 348 L200 240 L320 348"/>
+  <path class="flow" pathLength="1000" d="M70 150 L46 172 Q40 177 40 186 V350 Q40 372 62 372 H338 Q360 372 360 350 V186 Q360 177 354 172 L330 150"/>
+  <circle class="tick" cx="226" cy="154" r="34" pathLength="1000" transform="rotate(-90 226 154)"/>
+  <path class="speed" pathLength="1000" d="M150 140 H184"/>
+  <path class="speed s2" pathLength="1000" d="M134 154 H180"/>
+  <path class="speed s3" pathLength="1000" d="M156 168 H190"/>
+</svg></div>
+  <div class="shell">
+    <!-- Cover notice, one of three (WPR_Benchmark_One_Pager.md input 8):
+         Commissioned, own sites only: "Prepared by WebPerformance Report for {{client}}."
+         Commissioned, with other companies' sites: add "{{other_companies}} are analyzed independently and did not commission or endorse this report."
+         Independent: "Independent analysis by WebPerformance Report. Not affiliated with or commissioned by {{client}}." -->
+    <p class="indep">{{cover_notice}}</p>
+    <span class="badge">{{report_title}}</span>
+    <h1><span class="line">Digital portfolio</span><em>{{client}}</em><span class="script">{{script_line}}</span></h1>
+    <p class="lede">{{subtitle_naming_the_dimensions}}</p>
+    <div class="sites">
+      <!-- REPEAT site: in the order the user gave -->
+      <div><b>{{site_name}}</b><span>{{site_url}}</span></div>
+      <!-- END REPEAT -->
+    </div>
+    <div class="kpis">
+      <!-- REPEAT kpi: exactly 3 -->
+      <div class="kpi">
+        <!-- Analytics KPI: replace the pill with <span class="delta">{{trend}}</span>; Analytics is never classified -->
+        <div class="top"><span class="name">{{dimension}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span></div>
+        <div class="big">{{headline_value}}<small> {{value_context}}</small></div>
+        <p>{{kpi_story}}</p>
+      </div>
+      <!-- END REPEAT -->
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="tone-a" id="comparison">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">Comparison</span>
+      <h2>Where each site <em>stands</em></h2>
+      <p>Sites are compared dimension by dimension, without an overall score.</p>
+    </div>
+    <div class="tbl"><table class="cmp">
+      <thead><tr><th>Site</th><!-- REPEAT dimension: canonical order --><th>{{dimension}}</th><!-- END REPEAT --></tr></thead>
+      <tbody>
+        <!-- REPEAT site -->
+        <tr>
+          <td>{{site_name}}</td>
+          <!-- REPEAT cell: one per dimension. Missing: "No data available"; outside the rule: "Not comparable" -->
+          <!-- Analytics column: drop the pill and use <span class="delta">{{trend}}</span> instead.
+               No data available, No field data available or Not comparable: write it in place of the value and drop the pill. -->
+          <td><div class="cell"><span class="num">{{headline_value}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span><!-- IF history --><span class="delta">{{movement_word_and_change}}</span><!-- END IF --></div></td>
+          <!-- END REPEAT -->
+        </tr>
+        <!-- END REPEAT -->
+      </tbody>
+    </table></div>
+    <div class="legend" style="margin-top:12px"><!-- IF a classified dimension is included --><span><i class="z zg"></i>Good</span><span><i class="z zw"></i>Needs Improvement</span><span><i class="z zb"></i>Poor</span><!-- END IF --><!-- IF Analytics is included --><span>Analytics values are not classified.</span><!-- END IF --></div>
+    <div class="means key"><b>Key finding</b><p>{{key_finding}}</p></div>
+  </div>
+</section>
+
+<!-- IF history: 3 or more comparable periods for most sites -->
+<section class="tone-b" id="movement">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">Movement</span>
+      <h2>Who improved and who slipped</h2>
+      <p>{{periods_covered}}</p>
+    </div>
+    <div class="card">
+      <ul class="changes">
+        <!-- REPEAT change: status word is Improved, Slipped or Unchanged -->
+        <li><span class="pill {{good|warn|bad}}">{{change_status}}</span><span><b>{{site_name}}</b> · {{dimension}}: {{change_description}}</span></li>
+        <!-- END REPEAT -->
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- END IF -->
+
+<!-- REPEAT dimension: one section per dimension, canonical order. Tones keep alternating after Movement (WPR_Benchmark_One_Pager.md Section 7). -->
+<section class="{{tone}}" id="{{dimension_slug}}">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">{{dimension_eyebrow}}</span>
+      <h2>{{dimension_title}} <em>{{dimension_title_accent}}</em></h2>
+      <p>{{dimension_subtitle}}</p>
+    </div>
+    <div class="intro">
+      <span class="dim">{{dimension}}</span>
+      <h3>What this dimension measures and why it matters</h3>
+      <p>{{what_it_measures}}</p>
+      <p>{{why_it_matters_for_client}}</p>
+    </div>
+    <div class="sum">
+      <!-- REPEAT site card. Analytics: replace the pill with <span class="delta">{{trend}}</span>. Missing or not comparable data: no pill. -->
+      <div class="card"><span class="k">{{site_name}}</span><span class="val num">{{headline_value}}</span><span class="pill {{good|warn|bad}}" style="align-self:flex-start">{{status_word}}</span></div>
+      <!-- END REPEAT -->
+    </div>
+
+    <!-- Main visualization: keep the one block that matches this dimension and delete the others. -->
+
+    <!-- Performance: one card per metric, one row per site, with the Google thresholds as zones -->
+    <div class="grid g2">
+      <!-- REPEAT metric: LCP, INP, CLS (field when available) -->
+      <div class="card">
+        <span class="k">{{metric_name}} · {{field_or_lab}}</span>
+        <div class="vit">
+          <!-- REPEAT site -->
+          <div class="vrow">
+            <span class="lab">{{site_name}}</span>
+            <div class="zones" role="img" aria-label="{{site_name}}: {{value}}, {{status_word}}"><span class="z zg" style="width:{{good_pct}}%"></span><span class="z zw" style="width:{{warn_pct}}%"></span><span class="z zb" style="width:{{bad_pct}}%"></span><span class="mk" style="left:{{marker_pct}}%"></span></div>
+            <span class="val {{good|warn|bad}}">{{value}}<small>{{status_word}}</small></span>
+          </div>
+          <!-- END REPEAT -->
+        </div>
+      </div>
+      <!-- END REPEAT -->
+      <!-- TTFB: diagnostic context, not a Core Web Vital, so no status pill -->
+      <div class="card">
+        <span class="k">Server response · TTFB · {{field_or_lab}}</span>
+        <div class="bars">
+          <!-- REPEAT site -->
+          <div class="bar"><span>{{site_name}}</span><span class="v">{{ttfb}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
+          <!-- END REPEAT -->
+        </div>
+        <p class="note">Diagnostic context for loading speed, not a Core Web Vital.</p>
+      </div>
+      <!-- Optional: page weight is lab only and has no official threshold, so it is never classified -->
+      <div class="card">
+        <span class="k">Page weight · lab</span>
+        <div class="bars">
+          <!-- REPEAT site -->
+          <div class="bar"><span>{{site_name}}</span><span class="v">{{page_weight}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
+          <!-- END REPEAT -->
+        </div>
+        <p class="note">{{page_weight_note}}</p>
+      </div>
+    </div>
+
+    <!-- Security: control matrix, rows are controls, columns are sites -->
+    <div class="card">
+      <span class="k">Security controls by site</span>
+      <div class="tbl"><table class="matrix">
+        <thead><tr><th>Control</th><!-- REPEAT site --><th>{{site_name}}</th><!-- END REPEAT --></tr></thead>
+        <tbody>
+          <!-- REPEAT control -->
+          <tr><td>{{control_name}}</td><!-- REPEAT site: "st-p" with ✓ Pass, "st-x" with ~ Partial, "st-f" with ✕ Fail, from the delivery --><td class="{{st_class}}">{{st_mark_and_word}}</td><!-- END REPEAT --></tr>
+          <!-- END REPEAT -->
+        </tbody>
+      </table></div>
+    </div>
+
+    <!-- Accessibility: stacked bars of error types per site; alerts shown apart -->
+    <div class="card">
+      <span class="k">Errors by type, per site</span>
+      <div class="stack">
+        <!-- REPEAT site -->
+        <div class="row">
+          <span>{{site_name}}</span>
+          <div class="stack-bar" role="img" aria-label="{{site_name}}: {{segments_described}}">
+            <!-- REPEAT segment: at most 5. seg1 to seg3 for the three largest error types, seg4 for "Other errors", seg5 for Contrast Errors. Widths add up to the site total on the shared scale -->
+            <i class="seg1" style="width:{{segment_pct}}%"></i>
+            <!-- END REPEAT -->
+          </div>
+          <span class="v">{{total_errors}} errors · {{alerts}} alerts</span>
+          <span class="note bd">{{breakdown_in_words}}</span>
+        </div>
+        <!-- END REPEAT -->
+      </div>
+      <div class="legend"><!-- REPEAT segment legend --><span><i class="seg1"></i>{{error_type}}</span><!-- END REPEAT --></div>
+    </div>
+
+    <!-- Analytics: grouped bars per site, never classified -->
+    <div class="grid g3">
+      <!-- REPEAT site -->
+      <div class="card">
+        <span class="k">{{site_name}}</span>
+        <div class="bars">
+          <!-- REPEAT metric: Sessions, Engagement Rate, Average Engagement Time. Each metric uses one scale across all site cards: the largest value among the sites is 100%. -->
+          <div class="bar"><span>{{metric_name}}</span><span class="v">{{value}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
+          <!-- END REPEAT -->
+        </div>
+        <p class="note">{{bounce_rate_or_note}}</p>
+      </div>
+      <!-- END REPEAT -->
+    </div>
+
+    <div class="lot">
+      <div class="head">
+        <span class="eyebrow">What is being left on the table</span>
+        <h3>{{left_on_table_title}}</h3>
+        <p class="note">{{left_on_table_subtitle}}</p>
+      </div>
+      <div class="ref"><b>{{industry_figure}}</b><span>{{industry_statement}} ({{source_and_year}})</span></div>
+      <!-- REPEAT site effect -->
+      <div class="fx">
+        <div><span>{{site_name}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span></div>
+        <p>{{site_specific_effect}}</p>
+      </div>
+      <!-- END REPEAT -->
+    </div>
+  </div>
+</section>
+<!-- END REPEAT -->
+
+<section class="{{tone}}" id="plan">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">Action plan</span>
+      <h2>{{plan_title}}</h2>
+      <p>{{plan_subtitle}}</p>
+    </div>
+    <div class="recs">
+      <!-- REPEAT recommendation: most urgent failure of the portfolio first -->
+      <div class="rec">
+        <span class="n num">{{rank_01}}</span>
+        <div class="rec-body">
+          <div class="evrow"><span class="dim">{{dimension}}</span><span class="dim">{{sites_affected}}</span></div>
+          <h3>{{recommendation_title}}</h3>
+          <p>{{recommendation_description}}</p>
+          <span class="meta">Effort: {{effort}} · Timeline: {{timeline}}</span>
+        </div>
+        <!-- Critical: class "bad". High: class "warn". Medium: no status class. -->
+        <span class="pill imp {{impact_class}}">{{impact_word}}</span>
+      </div>
+      <!-- END REPEAT -->
+    </div>
+  </div>
+</section>
+
+<section class="{{tone}}" id="method">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">About this report</span>
+      <h2>How we <em>measured it</em></h2>
+    </div>
+    <div class="method two">
+      <div><b>Sources and tools</b><span>{{sources_and_tools}}</span></div>
+      <div><b>Test conditions</b><span>{{test_conditions}}</span></div>
+      <div><b>Classification thresholds</b><span>{{thresholds_used}}</span></div>
+      <div><b>Report coverage</b><span>{{coverage_per_site_and_dimension}}</span></div>
+    </div>
+    <!-- IF Performance is included -->
+    <p class="final">{{performance_data_note}}</p>
+    <!-- END IF -->
+  </div>
+</section>
+
+</main>
+
+<footer class="tone-a">
+  <div class="shell">
+    <span>Generated by WebPerformance Report · Benchmark data {{period_phrase}} · {{footer_note}}</span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('beforeprint',function(){document.querySelectorAll('details').forEach(function(d){d.open=true;});});
+</script>
+</body>
+</html>

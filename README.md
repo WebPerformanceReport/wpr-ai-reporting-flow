@@ -48,6 +48,7 @@ Setup takes under 5 minutes.
    * `WPR_Analysis_Reference.md`
    * `WPR_Inbox_Workflow.md`
    * `WPR_Benchmark_One_Pager.md`
+   * `WPR_Benchmark_One_Pager.html`
    * `WPR_Executive_One_Pager.md`
    * `WPR_Executive_One_Pager.html`
 4. Enable your AI assistant's email integration and grant access to the inbox where your WebPerformance Report deliveries are received. Depending on the platform, it may be called an integration, connector, connected app, app, Gmail connection, or Outlook connection.

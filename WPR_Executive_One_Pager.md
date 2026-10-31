@@ -1,6 +1,6 @@
 # WPR Executive One Pager
 
-This instruction generates an HTML Executive One Pager: one site, analyzed in depth, turned into a decision for leadership. It fills the template `WPR_Executive_One_Pager.html`. It complements `WPR_AI_Assistant_Instructions.md`, `WPR_Analysis_Reference.md` and `WPR_Inbox_Workflow.md`. When active, it governs the output format only. Behavior, safety, voice and the clean response surface from `WPR_AI_Assistant_Instructions.md` still apply, and data rules always come from the reference.
+This instruction generates an HTML Executive One Pager: one site, analyzed in depth, turned into a decision for leadership. It fills the template `WPR_Executive_One_Pager.html`. It complements `WPR_AI_Assistant_Instructions.md`, `WPR_Analysis_Reference.md` and `WPR_Inbox_Workflow.md`. When active, it governs the report: inputs, structure and output, plus the selection rules written here. Behavior, safety, voice and the clean response surface from `WPR_AI_Assistant_Instructions.md` still apply. Metric extraction, field and lab data, thresholds and impact sources come from `WPR_Analysis_Reference.md`, and retrieval from `WPR_Inbox_Workflow.md`; this file never overrides them.
 
 ---
 
@@ -97,7 +97,7 @@ Rules for every theme:
 
 - The WPR logo motif stays on the cover. Only its color follows the theme.
 - Status colors (Good, Needs Improvement, Poor) are fixed in the base and always come with a word.
-- **The independence notice is mandatory** with Site style and whenever the analyzed company did not commission the report: "Independent analysis by WebPerformance Report. Not affiliated with or commissioned by {{company_name}}." The footer always credits WebPerformance Report.
+- **The independence notice is mandatory whenever the analyzed company did not commission the report**, whatever the theme: "Independent analysis by WebPerformance Report. Not affiliated with or commissioned by {{company_name}}." A commissioned report shows "Prepared by WebPerformance Report for {{company_name}}." in the same place, so a Site style report never looks like the company's own document. The footer always credits WebPerformance Report.
 
 ---
 

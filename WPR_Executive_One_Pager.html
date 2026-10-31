@@ -78,7 +78,7 @@ code{font-family:var(--mono);font-size:14px;color:var(--acc);word-break:break-al
 .cover .shell{position:relative;padding-block:48px 56px;display:flex;flex-direction:column;gap:26px}
 .indep{font-size:13px;color:var(--muted);border:1px solid var(--line);padding:6px 10px;align-self:flex-start}
 .cover h1{font-size:clamp(32px,5.4vw,60px);font-weight:800;letter-spacing:-.025em;max-width:19ch}
-.cover h1 em{font-style:normal;color:var(--acc)}
+.cover h1 em,.sec-head h2 em{font-style:normal;color:var(--acc)}
 .script{display:none}
 .theme-spotlight .script{display:block;font-family:var(--script);font-weight:400;color:var(--accent);font-size:.82em;margin-top:.15em}
 .lede{font-size:clamp(17px,2vw,20px);max-width:60ch;color:var(--fg2)}
@@ -143,10 +143,11 @@ code{font-family:var(--mono);font-size:14px;color:var(--acc);word-break:break-al
 .legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--muted)}
 .legend i{width:12px;height:12px;display:inline-block;margin-right:6px;vertical-align:-1px}
 .vit{display:flex;flex-direction:column;gap:18px}
-.vrow{display:grid;grid-template-columns:170px minmax(0,1fr) 110px;gap:14px;align-items:center}
+.vrow{display:grid;grid-template-columns:150px minmax(0,1fr) 120px;gap:14px;align-items:center}
 .vrow .lab{font-size:14px;font-weight:600;line-height:1.3}
 .vrow .lab span{display:block;font-weight:400;font-size:12px;color:var(--muted)}
 .vrow .val{font-family:var(--mono);font-size:14px;text-align:right}
+.vrow .val small{display:block;font-size:11px;letter-spacing:.04em}
 .zones{position:relative;height:14px;display:flex}
 .zones .z{height:100%}
 .z.zg{background:color-mix(in srgb,var(--good) 35%,transparent)} .z.zw{background:color-mix(in srgb,var(--warn) 35%,transparent)} .z.zb{background:color-mix(in srgb,var(--bad) 35%,transparent)}
@@ -217,7 +218,7 @@ footer .shell{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 }
 @media (max-width:560px){
 .bm .row{grid-template-columns:1fr}
-.vrow{grid-template-columns:1fr 90px} .vrow .zones{grid-column:1/-1;grid-row:2}
+.vrow{grid-template-columns:1fr auto} .vrow .zones{grid-column:1/-1;grid-row:2}
 .checks{grid-template-columns:1fr}
 .changes li{grid-template-columns:1fr;gap:2px}
 details.evd>summary{grid-template-columns:4px minmax(0,1fr)} details.evd>summary .tog{grid-column:2}
@@ -231,6 +232,9 @@ html{scroll-behavior:auto}
 .nav,.ctas,.copyrow button,.motif{display:none}
 section,.cover,.band,footer,.theme-spotlight .tone-b{--bg:#FFFFFF;--panel:#F5F5F5;--line:#D5D9DF;--fg:#000000;--fg2:#222222;--muted:#444444;--acc:#000000;--good:#15803D;--warn:#A15C07;--bad:#B91C1C;background:#FFFFFF;color:#000000}
 .band{border-block:2px solid #000000}
+.tbl{overflow:visible}
+.zones .z,.zones .mk,.bar .t,.bar .t i,.stack-bar i,.check .ic,.legend i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+table{font-size:12px}
 .card,.kpi,details.evd,.road>div{break-inside:avoid}
 a{color:#000000}
 }
@@ -266,7 +270,7 @@ a{color:#000000}
   <path class="speed s3" pathLength="1000" d="M156 168 H190"/>
 </svg></div>
   <div class="shell">
-    <!-- Mandatory with Site style, and whenever the analyzed company did not commission the report. -->
+    <!-- Independent report: keep this notice. Commissioned: replace it with "Prepared by WebPerformance Report for {{company_name}}." -->
     <p class="indep">Independent analysis by WebPerformance Report. Not affiliated with or commissioned by {{company_name}}.</p>
     <h1>{{headline}} <em>{{headline_emphasis}}</em> <span class="script">{{script_line}}</span></h1>
     <p class="lede">{{lede}}</p>
@@ -403,7 +407,7 @@ a{color:#000000}
               <div class="vrow">
                 <span class="lab">{{plain_name}}<span>{{technical_name}} · {{field_or_lab}}</span></span>
                 <div class="zones" role="img" aria-label="{{value}}, {{status_word}}"><span class="z zg" style="width:{{good_pct}}%"></span><span class="z zw" style="width:{{warn_pct}}%"></span><span class="z zb" style="width:{{bad_pct}}%"></span><span class="mk" style="left:{{marker_pct}}%"></span></div>
-                <span class="val {{good|warn|bad}}">{{value}} · {{status_word}}</span>
+                <span class="val {{good|warn|bad}}">{{value}}<small>{{status_word}}</small></span>
               </div>
               <!-- END REPEAT -->
             </div>

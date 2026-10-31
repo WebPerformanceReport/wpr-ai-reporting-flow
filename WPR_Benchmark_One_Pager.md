@@ -1,8 +1,8 @@
 # WPR Benchmark One Pager
 
-This instruction generates a HTML "Benchmark" report comparing multiple websites across one or more dimensions (Performance, Security, Accessibility, Analytics). It is flexible: the client, sites, dimensions, period, and output language all change per request; the editorial criteria and visual system stay constant.
+This instruction generates a HTML "Benchmark" report comparing multiple websites across one or more dimensions (Performance, Security, Accessibility, Analytics). It fills the template `WPR_Benchmark_One_Pager.html`. The client, sites, dimensions, period, theme and output language change per request; the editorial criteria and the template stay constant.
 
-This instruction complements `WPR_AI_Assistant_Instructions.md`, `WPR_Analysis_Reference.md` and `WPR_Inbox_Workflow.md`. When this instruction is active, its specific flow takes precedence; when it is not active, the other project files govern the assistant's behavior.
+This instruction complements `WPR_AI_Assistant_Instructions.md`, `WPR_Analysis_Reference.md` and `WPR_Inbox_Workflow.md`. When active, it governs the report: inputs, structure and output, plus the selection rules written here. Behavior, safety, voice and the clean response surface from `WPR_AI_Assistant_Instructions.md` still apply. Metric extraction, field and lab data, thresholds and impact sources come from `WPR_Analysis_Reference.md`, and retrieval from `WPR_Inbox_Workflow.md`; this file never overrides them.
 
 ---
 
@@ -25,7 +25,7 @@ If in doubt about applicability, ask before proceeding.
 
 ## 2. Required inputs before starting
 
-Before extracting data or generating HTML, make sure you have these six inputs. If any are missing, ask the user in a single consolidated question:
+Before extracting data or generating HTML, make sure you have these inputs. If any are missing, ask the user in a single consolidated question:
 
 1. **Client**: commercial name of the group or company (e.g., "Anthropic"). Include legal name if relevant.
 2. **Sites**: list of URLs to compare, ideally between 3 and 6. If fewer than 3, warn that the format does not work well with so few sites and propose adjustments. If more than 6, warn that the comparison table becomes illegible and propose prioritizing.
@@ -33,6 +33,8 @@ Before extracting data or generating HTML, make sure you have these six inputs. 
 4. **Dimensions to include**: any combination of the dimensions in Section 4 (`performance`, `security`, `accessibility`, `analytics`), one or more. This is the critical input that determines the report structure. Do not assume; if the user did not specify, ask.
 5. **Target audience**: one of: "non-technical C-level", "mixed executive committee", "technical team", "public communication". Default to non-technical C-level if not specified.
 6. **Output language**: English, Spanish, or other. Default to English if not specified. If the user writes in another language and does not specify one, ask in the consolidated question whether the report should be in that language or in English.
+7. **Theme**: WPR (default), Spotlight, or Site style, following `WPR_Executive_One_Pager.md` Section 6.
+8. **Commissioned or independent**: whether the client asked for the report. Assume commissioned only when every site belongs to the client. When the sites include other companies (for example a prospect and its competitors in quick mode) and the request does not say, ask in the consolidated question. The cover notice follows the case: own sites only, "Prepared by WebPerformance Report for [Client]."; with sites of other companies (for example competitors in quick mode), add that those companies are analyzed independently and did not commission or endorse the report; independent, the independence notice.
 
 Do not ask for all of these if the user has already implied them in the message. For example, "Make me the benchmark for Anthropic week 21, only security, in English" already gives client, week, dimensions (1), and language. You only confirm and proceed.
 
@@ -79,7 +81,7 @@ If a site has a delivery but it fails the comparability rule (Section 3.1), hand
 
 ## 4. Dimensional logic
 
-The user can include any combination of the dimensions below. The rules in this section work for any number of them, so a new dimension only needs a row in this table (and its charts in Section 5.4).
+The user can include any combination of the dimensions below. The rules in this section work for any number of them. Adding a dimension takes a row in this table, a visualization block in the template, and the rest of the checklist in `CLAUDE.md`.
 
 | Dimension | Slug | Headline metric (comparison cell and site card) | Classified |
 |---|---|---|---|
@@ -130,27 +132,34 @@ One deep-dive per included dimension, in canonical order, labeled "Dimension X o
 
 The HTML report has these sections, in this exact order. Do not change the order. Skip sections only as indicated.
 
+The template `WPR_Benchmark_One_Pager.html` implements this structure. Section 7 explains how to fill it.
+
 ### 5.1 Top navigation
 
-Sticky bar at the top with: brand "WebPerformanceReport.com" (.com in accent color), and on the right the period in mono typeface: "Week N · Month Year" (or "Day N", "Month N") in recurring mode, the date in quick mode.
+Sticky bar with the WebPerformance Report brand and the client, and on the right the period: "Week N · Month Year" (or "Day N", "Month N") in recurring mode, the date in quick mode.
 
 ### 5.2 Hero (cover)
 
+- The cover notice for the case in input 8.
 - Badge with the report title (per section 4.1).
-- Large title in two lines: "Digital portfolio" / "[Client]" (client in italic accent color).
+- Large title in two lines: "Digital portfolio" / "[Client]" (client in accent color). The script line shows only in Spotlight.
 - Subtitle of 1-2 sentences synthesizing the scope. The subtitle mentions explicitly which dimensions are included.
 - Strip of cards with one site per column: name + URL.
-- Three KPI cards (per section 4.2).
+- Three KPI cards (per section 4.2), each with a status word.
 
 ### 5.3 Comparison table
 
 Per section 4.3. Includes:
 - Eyebrow "Comparison".
-- Title with last word in italic accent (suggested: "Where each site stands").
+- Title with last word in accent color (suggested: "Where each site stands").
 - Subtitle stating that sites are compared dimension by dimension, without an overall score.
-- The table itself.
-- Color legend at the foot.
+- The table itself. Every classified cell shows the value and a status word.
+- Legend at the foot.
 - "Key finding" card after the table: 1-2 sentences with the strongest conclusion. It is the thesis of the report.
+
+### 5.3a Movement (history mode only)
+
+When most sites have 3 or more comparable periods, each comparison cell adds its movement (for example "Improved, LCP -0.4 s") and a "Who improved and who slipped" section follows the table. Each entry has a status word: Improved, Slipped or Unchanged. Comparability follows Section 3.1 and `WPR_Inbox_Workflow.md` Section 3.
 
 ### 5.4 Deep-dives (one per included dimension)
 
@@ -158,11 +167,11 @@ Each deep-dive has the same internal structure:
 
 **5.4.1 Section header**
 - Eyebrow (per section 4.4).
-- Large title with key word in italic accent.
+- Large title with key word in accent color.
 - Short subtitle.
 
 **5.4.2 Plain-language introductory block**
-- Card with large icon on the left.
+- Card with the dimension tag.
 - Title "What this dimension measures and why it matters".
 - Two paragraphs: the first explains what is being measured in non-technical terms. The second explains why it matters for the specific client (their business, their users).
 
@@ -176,7 +185,7 @@ Each deep-dive has the same internal structure:
 **5.4.4 Main visualization**
 - Performance: horizontal bars per metric (LCP, INP, CLS, TTFB, weight). One bar per site within each metric. Include Google thresholds as visual references.
 - Security: control matrix (rows = controls, columns = sites), with pass/partial/fail marks.
-- Accessibility: stacked bars per site, one segment per error type from the delivery's Errors breakdown plus one for Contrast Errors, using the categories in `WPR_Analysis_Reference.md` Section 1.2. The segments add up to the total on the site card. Show Alerts separately, never stacked with errors. Do not chart Features, ARIA or Structural Elements as issues.
+- Accessibility: stacked bars per site, using the categories in `WPR_Analysis_Reference.md` Section 1.2: one segment for each of the three largest error types, one for "Other errors" when there are more, and one for Contrast Errors. A text breakdown under each bar lists every error type with its count. The segments add up to the total on the site card. Show Alerts separately, never stacked with errors. Do not chart Features, ARIA or Structural Elements as issues.
 - Analytics: grouped bars per site showing Sessions, Engagement Rate, and Average Engagement Time. Include a secondary indicator for Bounce Rate where available.
 
 **5.4.5 "What is being left on the table" closing card**
@@ -184,25 +193,25 @@ Each deep-dive has the same internal structure:
 This card has three visual elements:
 - Header with eyebrow "What is being left on the table", dimension-adapted title, subtitle.
 - Industry reference band: quantified figure attributed to an approved source. See `WPR_Analysis_Reference.md` Section 3.
-- Per-site blocks: one block per site with its particular effect. Each block has a colored dot (good/warn/bad), the site name, and a 2-4 line paragraph that connects the technical data with the business impact specific to that site.
+- Per-site blocks: one block per site with its particular effect. Each block has the site name, a status pill with its word, and a 2-4 line paragraph that connects the technical data with the business impact specific to that site.
 
 ### 5.5 Prioritized recommendations
 
 - Eyebrow "Action plan".
 - Title and subtitle adapted to the number of recommendations (per section 4.5).
-- Cards with: large number (01, 02...), tags (dimension + affected site(s)), actionable title, 2-4 line description, estimated effort and timeline, impact indicator on the right (Critical/High/Medium).
+- Cards with: large number (01, 02...), tags (dimension + affected site(s)), actionable title, 2-4 line description, estimated effort and timeline, impact pill on the right with its word (Critical, High or Medium).
 
 ### 5.6 Methodology
 
 - Eyebrow "About this report".
-- Title "How we measured it" with italic accent on the last word.
+- Title "How we measured it" with the last words in accent color.
 - Grid of 4 blocks in two columns: Sources and tools, Test conditions, Classification thresholds, Report coverage.
 - Report coverage lists, per site and dimension, the delivery type (recurring or One Time) and the test date or `Date range` used, plus every "No data available" or "Not comparable" cell and why.
 - **Final note on performance data**, only when Performance is among the dimensions (translated into the output language): "Performance figures use field data from the Chrome User Experience Report (CrUX): the 75th percentile of real Chrome user experiences over the 28 days ending about two days before each test, for the tested page and device. Lab data, from a single test visit under fixed conditions (location, device, connection), is available on request to analyze specific scenarios or validate early warnings."
 
 ### 5.7 Footer
 
-One line: "Generated by WebPerformance Report · Benchmark data [period] · Internal document of [Client]", where [period] is, for example, "week 20 of 2026" or "as of 2026-09-27".
+One line: "Generated by WebPerformance Report · Benchmark data [period] · [footer note]", where [period] is, for example, "week 20 of 2026" or "as of 2026-09-27", and [footer note] is "Internal document of [Client]" for a commissioned benchmark or the independence notice for an independent one.
 
 ---
 
@@ -271,58 +280,24 @@ If a threshold is unclear, missing, or not officially defined, state this limita
 
 ---
 
-## 7. Visual system
+## 7. Template and theme
 
-The HTML must be self-contained (a single file, no external dependencies except Google Fonts). Maintain a consistent visual system across all reports generated by this instruction.
+The visual system lives in the shared One Pager base, built into `WPR_Benchmark_One_Pager.html`: palette, typography, spacing, components, accessibility (text contrast of at least 4.5:1, status always with a word) and print styles. Do not restate or override it.
 
-### 7.1 Palette
-
-- Base background: `#0B0E1A` (deep blue-black).
-- Elevated background: `#131729`.
-- Card background: `#1A1F36`.
-- Primary text: `#F4F1EA`.
-- Muted text: `#8C92A8`.
-- Dim text: `#5A6080`.
-- Primary accent: `#FF6B35` (orange).
-- Good: `#4ADE80` (green).
-- Warn: `#FBBF24` (amber).
-- Bad: `#F87171` (red).
-- Info: `#60A5FA` (blue).
-- Borders: `rgba(255,255,255,0.08)`.
-
-### 7.2 Typography
-
-- Display (large headlines): Fraunces, weight 300-500, letter-spacing -0.02em to -0.04em.
-- Sans (body and data): Inter, weight 300-700.
-- Mono (metadata, technical numbers, eyebrows): JetBrains Mono.
-
-All via Google Fonts. Import them in the `<head>`.
-
-### 7.3 Spacing and composition
-
-- Max wrapper: 1100px, lateral padding 32px (20px on mobile).
-- Section vertical padding: 96px (more generous than a typical dashboard).
-- Section separators: subtle border `1px solid rgba(255,255,255,0.08)`.
-- Border radius: 12px for small cards, 16-20px for large containers.
-
-### 7.4 Recurring components
-
-- **KPI card**: large number in Fraunces 72px, small label below in Inter 14px muted, with a `<strong>` highlighting the key word.
-- **Bar chart row**: 3-column grid (label 100px, bar flex, value 60px), bar with border-radius 100px, height 22px.
-- **Stacked bar**: height 32px, border-radius 8px, segments with flex proportional to value.
-- **Site impact block**: 2-column grid (140px name + 1fr text), name with colored dot (8px) on the left.
-
-### 7.5 Responsive
-
-- Mobile breakpoint: 880px.
-- Below: KPIs in 2 columns, comparison table collapses to one column, recommendation cards in one column.
+- **Theme**: WPR, Spotlight or Site style, with the rules in `WPR_Executive_One_Pager.md` Section 6, including the fixed status colors and the independence notice. Site style uses the client's brand (the company that owns the portfolio or receives the report), never the brand of one of the compared sites.
+- **Filling**: follow `WPR_Executive_One_Pager.md` Section 7. Read the whole template, change only the theme block, the body class and the placeholders, copy `REPEAT` blocks per item, keep `IF` blocks only when they apply, and remove every placeholder and template comment.
+- **Main visualization**: in each dimension section, keep only the visualization block that matches the dimension (Section 5.4.4) and delete the others. Page weight is lab only and never classified.
+- **Analytics is never classified**: in the KPIs, comparison cells, site cards and left-on-the-table blocks, replace the status pill with the trend.
+- **TTFB** is diagnostic context (Section 6.6), shown without a status pill.
+- **Missing or not comparable data** shows its text ("No data available", "No field data available", "Not comparable") without a status pill.
+- **Tones**: the comparison section is `tone-a`. Every section after it alternates, starting with `tone-b`: Movement when present, then each dimension, the action plan and the methodology.
+- **Scales**: each chart uses one scale for every site, so bars and markers compare honestly. For Analytics, each metric shares one scale across the site cards. Every percentage stays between 0 and 100.
 
 ---
 
 ## 8. Expected output
 
 - **A single self-contained HTML file**.
-- **Location**: `/mnt/user-data/outputs/`.
 - **File name**: `benchmark_[client_slug]_[dimensions_slug]_[period_slug].html`.
   - Period slug: `day_[N]`, `week_[N]` or `month_[N]` in recurring mode; `date_[YYYY-MM-DD]` in quick mode.
   - Client slug in lowercase, no diacritics, with underscores.
@@ -334,7 +309,7 @@ All via Google Fonts. Import them in the `<head>`.
     - `benchmark_anthropic_perf_ga4_week_22.html`
     - `benchmark_anthropic_perf_a11y_month_10.html`
     - `benchmark_anthropic_perf_sec_date_2026-09-27.html`
-- **After creation**: use the `present_files` tool to deliver to the user.
+- **Delivery**: as a downloadable file with the platform's file output.
 - **Accompanying message**: short. Summarize what the report shows, which findings are strongest, and ask if anything needs adjustment before closing. Do not explain the extraction process or mention the inbox connector (the opacity rules of `WPR_AI_Assistant_Instructions.md` apply).
 
 ---
@@ -348,4 +323,4 @@ All via Google Fonts. Import them in the `<head>`.
 
 ---
 
-*End of instruction · WPR Benchmark One Pager · v2 (English, N-dimensional)*
+*End of instruction · WPR Benchmark One Pager · v3 (template-based)*

@@ -46,7 +46,7 @@
 <header class="cover">
   <div class="motif"><!--@@MOTIF@@--></div>
   <div class="shell">
-    <!-- Mandatory with Site style, and whenever the analyzed company did not commission the report. -->
+    <!-- Independent report: keep this notice. Commissioned: replace it with "Prepared by WebPerformance Report for {{company_name}}." -->
     <p class="indep">Independent analysis by WebPerformance Report. Not affiliated with or commissioned by {{company_name}}.</p>
     <h1>{{headline}} <em>{{headline_emphasis}}</em> <span class="script">{{script_line}}</span></h1>
     <p class="lede">{{lede}}</p>
@@ -183,7 +183,7 @@
               <div class="vrow">
                 <span class="lab">{{plain_name}}<span>{{technical_name}} · {{field_or_lab}}</span></span>
                 <div class="zones" role="img" aria-label="{{value}}, {{status_word}}"><span class="z zg" style="width:{{good_pct}}%"></span><span class="z zw" style="width:{{warn_pct}}%"></span><span class="z zb" style="width:{{bad_pct}}%"></span><span class="mk" style="left:{{marker_pct}}%"></span></div>
-                <span class="val {{good|warn|bad}}">{{value}} · {{status_word}}</span>
+                <span class="val {{good|warn|bad}}">{{value}}<small>{{status_word}}</small></span>
               </div>
               <!-- END REPEAT -->
             </div>

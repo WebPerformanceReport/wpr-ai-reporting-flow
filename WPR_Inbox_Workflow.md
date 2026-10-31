@@ -46,7 +46,7 @@ Keep the detected provider for the whole session unless the user changes it.
 Use Fast Path for every clear, unambiguous request. It requires no confirmation before reading valid report bodies.
 
 1. Infer the report category (Performance, Security, Accessibility, Analytics, or several).
-2. Infer the time range or number of deliveries requested.
+2. Infer the time range or number of deliveries requested. If the request states none, use the default window for the detected recurrence (below).
 3. Capture any stated website, period, device, report type, or metric.
 4. Build the narrowest search the request supports (Section 6 or 7).
 5. Retrieve **summaries only** (subject, received date, internal identifier, snippet).
@@ -62,6 +62,31 @@ In Fast Path: do not list subjects, do not show queries, do not ask for confirma
 
 **Several sites.** When the request names no site and valid deliveries exist for several sites (Section 5.4), cover every site in one compact answer instead of choosing one silently. The summary buffer becomes N + 2 per site.
 
+### Recurrence and time windows
+
+**Detect the recurrence** of the deliveries the request needs, per source and site, from the subject: `Day`, `Week`, `Month` or One Time. A site can have different recurrences for different sources.
+
+**Default windows**, used only when the request states no period:
+
+| Recurrence | Single analysis ("How is my site doing?") | Trend ("How has it evolved?") |
+|---|---|---|
+| Day | latest delivery | last 3 days |
+| Week | latest delivery | last 4 weeks |
+| Month | latest delivery | last 3 months |
+| One Time only | that report | no trend, unless the site has several One Time Reports |
+
+A period the user states ("last two weeks", "Month #10") always overrides these defaults.
+
+**Diagnostic reports** (WebPageTest, HTTP Observatory, WAVE): each delivery is one test on its `Date:`, so deliveries of any recurrence, including One Time Reports, can be combined. Group them by site and test configuration instead:
+
+- Only deliveries with the same site and the same configuration (location and device in WebPageTest's `From:` header) belong in one comparison or trend. If a site has several configurations, analyze each separately or the main one, and say that the others exist.
+- The dominant recurrence of that group sets the default window. A One Time Report whose test date falls inside the window counts as one more test.
+- Two deliveries with the same site, configuration and test date (for example from two schedules) count once.
+
+**Analytics** (GA4): the data period comes from `Date range`, not from the recurrence. Compare or trend only deliveries whose `Date range` has the same length and does not overlap. Consecutive daily deliveries with a 7-day range share 6 of their 7 days; for a weekly trend, take one delivery every 7 days.
+
+**Granularity and body cap.** Use the coarsest recurrence that answers the request: for a monthly trend, use Week or Month deliveries when they exist. When only Day deliveries cover a longer window, take the newest delivery in each week and read at most 8 bodies, unless the user asks for daily detail.
+
 ### Worked patterns
 
 | Request | Search scope | Summaries | Bodies | Stop condition |
@@ -72,6 +97,8 @@ In Fast Path: do not list subjects, do not show queries, do not ask for confirma
 | "Compare my last five security reports." | HTTP Observatory only | about 7 | the 5 selected | 5 valid deliveries selected |
 | "Did my LCP improve vs last week?" | WebPageTest, last ~2 periods | up to 4 | the 2 selected | 2 comparable deliveries selected |
 | "Accessibility trend, last month." | Wave, last 30–35 days | enough to cover the window | those in the window | window fully covered |
+| "Accessibility trend, last month." (Day deliveries only) | Wave, last 30–35 days | enough to cover the window | newest per week, at most 8 | one delivery per week of the window |
+| "Analyze my latest performance reports for anthropic.com." (weekly) | WebPageTest, that site | about 6 | last 4 tests, same configuration | 4 comparable deliveries selected |
 | "Executive overview." | one query per category | up to 3 per category | newest valid per category | newest valid found per category |
 
 ---

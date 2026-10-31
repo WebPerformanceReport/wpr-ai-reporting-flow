@@ -120,11 +120,13 @@ With one dimension, the three KPIs must be distinct (do not repeat the same metr
 
 One deep-dive per included dimension, in canonical order, labeled "Dimension X of N". With one dimension, use "Detailed analysis" (or equivalent) instead of "Dimension 1 of 1", which sounds redundant.
 
-### 4.5 Recommendations
+### 4.5 Plan actions
 
-- **Count**: 2 to 4 with one dimension; otherwise between N and N + 2, where N is the number of included dimensions.
-- **Priority**: by impact across the included dimensions. The first recommendation is always the most urgent failure of the portfolio, regardless of which site it belongs to.
-- **One dimension**: the cards drop the dimension tag (it would be redundant) and keep only the affected site tag.
+- **Count**: 2 to 4 actions with one dimension; otherwise between N and N + 2, where N is the number of included dimensions. The recurring check that closes the Ongoing column is not counted.
+- **Horizon**: each action goes in Now (next 2 weeks), Next (this quarter) or Then (ongoing), as in `WPR_Executive_One_Pager.md` Section 4. The first action in Now is always the most urgent failure of the portfolio, regardless of which site it belongs to.
+- **Tags**: each action carries the affected site tag and, when more than one dimension is included, its dimension tag.
+- **Ongoing column**: it ends with the recurring check: re-run this benchmark with the next period's deliveries.
+- Timing and effort are always "our assessment".
 
 ---
 
@@ -136,7 +138,7 @@ The template `WPR_Benchmark_One_Pager.html` implements this structure. Section 7
 
 ### 5.1 Top navigation
 
-Sticky bar with the WebPerformance Report brand and the client, and on the right the period: "Week N · Month Year" (or "Day N", "Month N") in recurring mode, the date in quick mode.
+Sticky bar with the WebPerformance Report brand, the client and the period in one line: "Week N · Month Year" (or "Day N", "Month N") in recurring mode, the date in quick mode. On the right: links to Summary, Evidence (the first deep-dive) and Plan, and the button "Use this benchmark".
 
 ### 5.2 Hero (cover)
 
@@ -146,6 +148,14 @@ Sticky bar with the WebPerformance Report brand and the client, and on the right
 - Subtitle of 1-2 sentences synthesizing the scope. The subtitle mentions explicitly which dimensions are included.
 - Strip of cards with one site per column: name + URL.
 - Three KPI cards (per section 4.2), each with a status word.
+- Two buttons: "Read the 60-second summary" and "How to put it to work", with a short data note beside them: the tools and the test date or period behind the KPIs.
+
+### 5.2a The 60-second summary and key message
+
+- Eyebrow "The 60-second summary" and a title that states the situation of the portfolio.
+- 3 to 6 findings, most severe first, in three columns: what we measured, what it means today, what fixing it is worth. Each finding names its site or sites and its dimension, so the reader can tell whose result it is. Do not invent figures for the third column.
+- A findings table is not a ranking: do not name an overall winner or order findings by site.
+- The key message band follows: one sentence with the strongest conclusion of the report (the thesis), with the button "How to use it".
 
 ### 5.3 Comparison table
 
@@ -155,7 +165,6 @@ Per section 4.3. Includes:
 - Subtitle stating that sites are compared dimension by dimension, without an overall score.
 - The table itself. Every classified cell shows the value and a status word.
 - Legend at the foot.
-- "Key finding" card after the table: 1-2 sentences with the strongest conclusion. It is the thesis of the report.
 
 ### 5.3a Movement (history mode only)
 
@@ -193,23 +202,38 @@ Each deep-dive has the same internal structure:
 This card has three visual elements:
 - Header with eyebrow "What is being left on the table", dimension-adapted title, subtitle.
 - Industry reference band: quantified figure attributed to an approved source. See `WPR_Analysis_Reference.md` Section 3.
-- Per-site blocks: one block per site with its particular effect. Each block has the site name, a status pill with its word, and a 2-4 line paragraph that connects the technical data with the business impact specific to that site.
+- Per-site blocks: one block per site with its particular effect. Each block has the site name, a status pill with its word, and a 2-4 line paragraph that connects the technical data with the business impact specific to that site, tagged "Our assessment".
 
-### 5.5 Prioritized recommendations
+**5.4.6 Evidence tags**
 
-- Eyebrow "Action plan".
-- Title and subtitle adapted to the number of recommendations (per section 4.5).
-- Cards with: large number (01, 02...), tags (dimension + affected site(s)), actionable title, 2-4 line description, estimated effort and timeline, impact pill on the right with its word (Critical, High or Medium).
+Each deep-dive ends with the evidence tags that apply to it (Section 6.7).
 
-### 5.6 Methodology
+### 5.5 The plan
 
-- Eyebrow "About this report".
-- Title "How we measured it" with the last words in accent color.
-- Grid of 4 blocks in two columns: Sources and tools, Test conditions, Classification thresholds, Report coverage.
-- Report coverage lists, per site and dimension, the delivery type (recurring or One Time) and the test date or `Date range` used, plus every "No data available" or "Not comparable" cell and why.
+- Eyebrow "The plan", a title adapted to the number of actions (per section 4.5) and the line "Timing and effort are our assessment."
+- Three columns: Now (next 2 weeks), Next (this quarter), Then (ongoing). Each action has its tags, its text and its effort or effect.
+
+### 5.6 Put it to work
+
+The section "Put it to work" turns the benchmark into something the reader can act on. The three steps (share, ask, check) are fixed. The rest follows the case in input 8:
+
+- **Commissioned**: the title is "How to use this benchmark inside [Client]". The forward message and the questions are written for the client's teams (web, marketing, security, accessibility), and the data needs name the client's own owners.
+- **Independent** (the compared companies did not commission it): the title is "How to use this benchmark". The reader is whoever compares or chooses between the sites, such as an analyst, a buyer or a team benchmarking itself. The forward message and the questions help them decide what to verify and ask; the data needs name each site's owner.
+
+Content, in this order:
+- A message the reader can forward (2 to 4 sentences, neutral, no accusation).
+- 3 to 5 questions.
+- The public tests that verify each included dimension, with the test links from the deliveries (Performance: WebPageTest, Security: Mozilla HTTP Observatory, Accessibility: WAVE, Analytics: no public test, name the GA4 property owner instead).
+- The data needed to put a business number on the findings. The report never estimates revenue, conversions or leads without the owners' own data.
+
+### 5.7 Who prepared this and methodology
+
+- Eyebrow "Who prepared this", title "WebPerformance Report" and one sentence on what the benchmark does. Then the line "Prepared by WebPerformance Report." followed by the independence sentence for an independent report, or "Prepared for [Client]." for a commissioned one. No contact email.
+- A collapsible "Methodology and sources" holds: a grid of 4 blocks in two columns (Sources and tools, Test conditions, Classification thresholds, Report coverage), the final note on performance data when Performance is included, and the list of external sources with year and link.
+- Report coverage lists, per site and dimension, the delivery type (recurring or One Time) and the test date or `Date range` used, plus every "No data available" or "Not comparable" cell and why. If a delivery is left out of the report, say so and do not use it elsewhere in the report.
 - **Final note on performance data**, only when Performance is among the dimensions (translated into the output language): "Performance figures use field data from the Chrome User Experience Report (CrUX): the 75th percentile of real Chrome user experiences over the 28 days ending about two days before each test, for the tested page and device. Lab data, from a single test visit under fixed conditions (location, device, connection), is available on request to analyze specific scenarios or validate early warnings."
 
-### 5.7 Footer
+### 5.8 Footer
 
 One line: "Generated by WebPerformance Report · Benchmark data [period] · [footer note]", where [period] is, for example, "week 20 of 2026" or "as of 2026-09-27", and [footer note] is "Internal document of [Client]" for a commissioned benchmark or the independence notice for an independent one.
 
@@ -279,6 +303,13 @@ Dimension-specific notes:
 
 If a threshold is unclear, missing, or not officially defined, state this limitation explicitly instead of forcing a rating.
 
+### 6.7 Evidence tags and consistency
+
+- Tag every claim with Measured, Market benchmark, External study or Our assessment, with the rules of `WPR_Executive_One_Pager.md` Section 5: causes, predictions and the effect on each site are Our assessment, worded as likely.
+- A metric's status must agree with its thresholds in every place it appears. If any period in the history crossed a threshold, do not write that the metric "stayed Good" or "unchanged"; say that it left the range and came back.
+- A delivery excluded from the report (for example a test with an evident irregularity) is excluded everywhere: comparisons, ranges and changes.
+- An industry baseline for page weight or request counts comes from `WPR_Analysis_Reference.md` Section 3, one edition, naming the source and year. "Industry practice" without a source is not allowed.
+
 ---
 
 ## 7. Template and theme
@@ -291,7 +322,8 @@ The visual system lives in the shared One Pager base, built into `WPR_Benchmark_
 - **Analytics is never classified**: in the KPIs, comparison cells, site cards and left-on-the-table blocks, replace the status pill with the trend.
 - **TTFB** is diagnostic context (Section 6.6), shown without a status pill.
 - **Missing or not comparable data** shows its text ("No data available", "No field data available", "Not comparable") without a status pill.
-- **Tones**: the comparison section is `tone-a`. Every section after it alternates, starting with `tone-b`: Movement when present, then each dimension, the action plan and the methodology.
+- **Tones**: the summary is `tone-a` and the comparison is `tone-b`. Every section after it alternates, starting with `tone-a`: Movement when present, then each dimension, the plan, "Put it to work" and "Who prepared this".
+- **Use it and Who prepared this**: commissioned or independent follows input 8 (Section 5.6). Do not edit the script; the copy buttons work as they are.
 - **Scales**: each chart uses one scale for every site, so bars and markers compare honestly. For Analytics, each metric shares one scale across the site cards. Every percentage stays between 0 and 100.
 
 ---
@@ -324,4 +356,4 @@ The visual system lives in the shared One Pager base, built into `WPR_Benchmark_
 
 ---
 
-*End of instruction · WPR Benchmark One Pager · v3 (template-based)*
+*End of instruction · WPR Benchmark One Pager · v4 (template-based)*

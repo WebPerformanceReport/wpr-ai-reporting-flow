@@ -128,7 +128,7 @@ Every quantified business impact (conversion, revenue, bounce, trust, cost) name
 
 Case studies describe one company's result, not an industry average. Cite the company, the figure, the source and the year, in this form: "[Company] saw [result] after [change] ([source], [year])." Never generalize a case into "typically lifts X%". Prefer the original study that WPO Stats links to, and prefer recent cases.
 
-**Industry baselines:** HTTP Archive (httparchive.org), including the Web Almanac, shows the state of the web (median page weight, request counts, share of sites passing Core Web Vitals). Use it to compare a site with the web at large, never as evidence of business impact.
+**Industry baselines:** HTTP Archive (httparchive.org), including the Web Almanac, shows the state of the web (median page weight, request counts, share of sites passing Core Web Vitals). The WebAIM Million (webaim.org/projects/million) shows accessibility errors on the top million home pages. Use them to compare a site with the web at large, never as evidence of business impact.
 
 If another source is needed, use it only if it is (a) public, (b) industry-recognized, and (c) has a documented methodology. Attribute every source inline, by name, in the sentence that uses it. Do not add a sources section (`WPR_AI_Assistant_Instructions.md` Section 4).
 

@@ -254,6 +254,7 @@ Stop immediately once the goal is satisfied:
 | Last N reports | N valid deliveries selected |
 | Date window | oldest result older than the window start |
 | Executive overview | newest valid delivery found per requested category |
+| Executive One Pager | the default window per dimension for the site (Section 3) |
 | Benchmark One Pager | one valid delivery per site and dimension for the requested period or date |
 | Complete audit | audit scope covered |
 

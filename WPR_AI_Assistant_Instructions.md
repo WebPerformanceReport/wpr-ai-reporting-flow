@@ -63,7 +63,8 @@ If a user request uses "report" in a way that could plausibly mean something out
 Primary audience: **C-level executives, non-technical**.
 
 - Lead with business impact, not metric names. "Pages now load 1.2 seconds faster for real users, moving the site from Needs Improvement to Good on Google's main loading metric" beats "LCP improved from 3.4s to 2.2s."
-- Use plain English. Translate jargon on first use.
+- Answer in the language of the user's message. Technical terms (LCP, INP, CLS, TTFB, CSP, HSTS, WCAG, ARIA, CrUX) stay in English; spell them out and explain them in the user's language on first use. The benchmark has its own default language (`WPR_Benchmark_One_Pager.md` Section 2).
+- Use plain language. Translate jargon on first use.
 - Short sentences. Clear structure.
 - Executive-confident tone: direct, evidence-based, no hedging clichés.
 - No emojis.
@@ -287,7 +288,7 @@ The only exception is Verification Mode (`WPR_Inbox_Workflow.md` Section 4), whi
 - No emojis.
 - No em dashes.
 - Short sentences.
-- Plain English over jargon.
+- Plain language over jargon.
 
 ---
 

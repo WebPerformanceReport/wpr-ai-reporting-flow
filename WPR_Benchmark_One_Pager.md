@@ -118,7 +118,7 @@ With one dimension, the three KPIs must be distinct (do not repeat the same metr
 
 ### 4.4 Deep-dives
 
-One deep-dive per included dimension, in canonical order, labeled "Dimension X of N". With one dimension, use "Detailed analysis" (or equivalent) instead of "Dimension 1 of 1", which sounds redundant.
+One deep-dive per included dimension, in canonical order, as a collapsible panel inside the section "The evidence", labeled "Dimension X of N". With one dimension, use "Detailed analysis" (or equivalent) instead of "Dimension 1 of 1", which sounds redundant.
 
 ### 4.5 Plan actions
 
@@ -138,7 +138,7 @@ The template `WPR_Benchmark_One_Pager.html` implements this structure. Section 7
 
 ### 5.1 Top navigation
 
-Sticky bar with the WebPerformance Report brand, the client and the period in one line: "Week N · Month Year" (or "Day N", "Month N") in recurring mode, the date in quick mode. On the right: links to Summary, Evidence (the first deep-dive) and Plan, and the button "Use this benchmark".
+Sticky bar with the WebPerformance Report brand, the client and the period in one line: "Week N · Month Year" (or "Day N", "Month N") in recurring mode, the date in quick mode. On the right: links to Summary, Evidence and Plan, and the button "Use this benchmark".
 
 ### 5.2 Hero (cover)
 
@@ -174,10 +174,14 @@ When most sites have 3 or more comparable periods, each comparison cell adds its
 
 Each deep-dive has the same internal structure:
 
-**5.4.1 Section header**
+**5.4.1 Panel header**
+
+The section "The evidence" opens with an eyebrow, the title "The detail behind each dimension" and one line saying that each dimension opens to show the test results. Each panel's closed header shows:
 - Eyebrow (per section 4.4).
-- Large title with key word in accent color.
+- Title naming the dimension and its main story.
 - Short subtitle.
+
+The first panel starts open; the others start closed. A link to a panel's `id` (the dimension slug) opens it, and printing opens all of them. Everything below sits inside the panel body.
 
 **5.4.2 Plain-language introductory block**
 - Card with the dimension tag.
@@ -318,11 +322,11 @@ The visual system lives in the shared One Pager base, built into `WPR_Benchmark_
 
 - **Theme**: WPR, Spotlight or Site style, with the rules in `WPR_Executive_One_Pager.md` Section 6, including the fixed status colors and the independence notice. Site style uses the client's brand (the company that owns the portfolio or receives the report), never the brand of one of the compared sites.
 - **Filling**: follow `WPR_Executive_One_Pager.md` Section 7. Read the whole template, change only the theme block, the body class and the placeholders, copy `REPEAT` blocks per item, keep `IF` blocks only when they apply, and remove every placeholder and template comment.
-- **Main visualization**: in each dimension section, keep only the visualization block that matches the dimension (Section 5.4.4) and delete the others. Page weight is lab only and never classified.
+- **Main visualization**: in each dimension panel, keep only the visualization block that matches the dimension (Section 5.4.4) and delete the others. Page weight is lab only and never classified.
 - **Analytics is never classified**: in the KPIs, comparison cells, site cards and left-on-the-table blocks, replace the status pill with the trend.
 - **TTFB** is diagnostic context (Section 6.6), shown without a status pill.
 - **Missing or not comparable data** shows its text ("No data available", "No field data available", "Not comparable") without a status pill.
-- **Tones**: the summary is `tone-a` and the comparison is `tone-b`. Every section after it alternates, starting with `tone-a`: Movement when present, then each dimension, the plan, "Put it to work" and "Who prepared this".
+- **Tones**: the summary is `tone-a` and the comparison is `tone-b`. Every section after it alternates, starting with `tone-a`: Movement when present, then the evidence section (its panels are not sections, so they carry no tone), the plan, "Put it to work" and "Who prepared this".
 - **Use it and Who prepared this**: commissioned or independent follows input 8 (Section 5.6). Do not edit the script; the copy buttons work as they are.
 - **Scales**: each chart uses one scale for every site, so bars and markers compare honestly. For Analytics, each metric shares one scale across the site cards. Every percentage stays between 0 and 100.
 

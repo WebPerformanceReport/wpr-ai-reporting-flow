@@ -77,7 +77,7 @@
     <span class="brand"><b>WebPerformanceReport</b>.com · {{client}} · {{period_label}}</span>
     <nav aria-label="Sections">
       <a class="l" href="#summary">Summary</a>
-      <a class="l" href="#{{first_dimension_slug}}">Evidence</a>
+      <a class="l" href="#evidence">Evidence</a>
       <a class="l" href="#plan">Plan</a>
       <a class="btn sm" href="#use">Use this benchmark</a>
     </nav>
@@ -191,14 +191,17 @@
 </section>
 <!-- END IF -->
 
-<!-- REPEAT dimension: one section per dimension, canonical order. Tones keep alternating after Movement (WPR_Benchmark_One_Pager.md Section 7). -->
-<section class="{{tone}}" id="{{dimension_slug}}">
+<section class="{{tone}}" id="evidence">
   <div class="shell">
     <div class="sec-head">
-      <span class="eyebrow">{{dimension_eyebrow}}</span>
-      <h2>{{dimension_title}} <em>{{dimension_title_accent}}</em></h2>
-      <p>{{dimension_subtitle}}</p>
+      <span class="eyebrow">The evidence</span>
+      <h2>The detail behind each dimension</h2>
+      <p>Open a dimension to see the test results for every site. Every number traces back to a test you can rerun.</p>
     </div>
+    <!-- REPEAT dimension: one panel per dimension, canonical order. Add the attribute open to the first panel only. -->
+    <details class="evd" id="{{dimension_slug}}">
+      <summary><span class="bar6"></span><span class="st"><span class="eyebrow">{{dimension_eyebrow}}</span><b>{{dimension_title}} {{dimension_title_accent}}</b><span class="s">{{dimension_subtitle}}</span></span><span class="tog" aria-hidden="true"></span></summary>
+      <div class="dbody">
     <div class="intro">
       <span class="dim">{{dimension}}</span>
       <h3>What this dimension measures and why it matters</h3>
@@ -315,9 +318,11 @@
     </div>
     <!-- Evidence tags that apply to this dimension: Measured, Market benchmark, External study, Our assessment -->
     <div class="evrow" style="margin-top:16px"><span class="ev m">Measured</span></div>
+      </div>
+    </details>
+    <!-- END REPEAT -->
   </div>
 </section>
-<!-- END REPEAT -->
 
 <section class="{{tone}}" id="plan">
   <div class="shell">

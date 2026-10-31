@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>{{site_domain}} · Executive One Pager</title>
+<!-- WPR Executive One Pager template. Fill it following WPR_Executive_One_Pager.md.
+     {{placeholders}} hold content. REPEAT blocks are copied once per item. IF history blocks
+     are kept only in history mode. Delete every template comment in the final report. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Kaushan+Script&display=swap">
+<style>
+/* ===== THEME: the only CSS that changes per report =====
+   WPR (default): keep these values, body class "theme-wpr".
+   Spotlight: body class "theme-spotlight" (the base overrides these values).
+   Site style: replace the values with the analyzed site's colors, body class "theme-site".
+   Every text pair must reach 4.5:1. Rules: WPR_Executive_One_Pager.md Section 6. */
+:root{
+  --accent:#4C97D9;       /* motif, bars, accent text on dark */
+  --accent-text:#426A90;  /* accent text on light backgrounds */
+  --band:#426A90;         /* band and button fill */
+  --band-on:#FFFFFF;      /* text on band and buttons */
+  --cover:#1A2A39;        /* cover and dark sections */
+  --cover-panel:#22364A;  /* cards on dark backgrounds */
+  /* Site style only: --font:"Brand Font","Segoe UI",system-ui,sans-serif; (Google Fonts) */
+}
+/* ===== END THEME ===== */
+/*@@BASE_CSS@@*/
+</style>
+</head>
+<body class="theme-wpr">
+
+<div class="nav tone-a">
+  <div class="shell">
+    <span class="brand"><b>{{site_domain}}</b> · Executive One Pager · {{report_date}}</span>
+    <nav aria-label="Sections">
+      <a class="l" href="#summary">Summary</a>
+      <a class="l" href="#evidence">Evidence</a>
+      <a class="l" href="#plan">Plan</a>
+      <a class="btn sm" href="#use">Use this analysis</a>
+    </nav>
+  </div>
+</div>
+
+<header class="cover">
+  <div class="motif"><!--@@MOTIF@@--></div>
+  <div class="shell">
+    <!-- Mandatory with Site style, and whenever the analyzed company did not commission the report. -->
+    <p class="indep">Independent analysis by WebPerformance Report. Not affiliated with or commissioned by {{company_name}}.</p>
+    <h1>{{headline}} <em>{{headline_emphasis}}</em> <span class="script">{{script_line}}</span></h1>
+    <p class="lede">{{lede}}</p>
+    <div class="kpis">
+      <!-- REPEAT kpi: exactly 3, in canonical order of the dimensions covered -->
+      <div class="kpi">
+        <div class="top"><span class="name">{{dimension}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span></div>
+        <div class="big">{{headline_value}}<small> {{value_context}}</small></div>
+        <!-- IF history --><span class="delta">{{change_vs_previous_period}}</span><!-- END IF -->
+        <p>{{kpi_meaning}}</p>
+      </div>
+      <!-- END REPEAT -->
+    </div>
+    <div class="ctas">
+      <a class="btn" href="#summary">Read the 60-second summary</a>
+      <a class="btn ghost" href="#use">How to put it to work</a>
+      <span class="note">{{data_note}}</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="tone-a" id="summary">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">The 60-second summary</span>
+      <h2>{{summary_title}}</h2>
+    </div>
+    <div class="pw" role="table" aria-label="Each finding, what it means today and what fixing it is worth">
+      <div class="h" role="row"><div role="columnheader">What we measured</div><div role="columnheader">What it means today</div><div role="columnheader">What fixing it is worth</div></div>
+      <!-- REPEAT finding: 3 to 6 rows, most severe first -->
+      <div class="r" role="row">
+        <div class="m" role="cell"><b class="{{good|warn|bad}}">{{finding_value}}</b><span>{{finding_context}}</span></div>
+        <div role="cell"><span class="lbl">Today</span>{{meaning_today}}</div>
+        <div role="cell"><span class="lbl">Gain</span>{{gain_if_fixed}}</div>
+      </div>
+      <!-- END REPEAT -->
+    </div>
+  </div>
+</section>
+
+<div class="band" role="region" aria-label="Key message">
+  <div class="shell">
+    <p>{{key_message}}</p>
+    <a class="btn" href="#use">How to use it</a>
+  </div>
+</div>
+
+<!-- IF history: 3 or more comparable periods -->
+<section class="tone-b" id="evolution">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">Evolution</span>
+      <h2>{{evolution_title}}</h2>
+      <p>{{periods_covered}}</p>
+    </div>
+    <div class="grid g3">
+      <!-- REPEAT trend: one per headline metric -->
+      <div class="card trend">
+        <span class="k">{{metric_name}}</span>
+        <b class="num">{{latest_value}}</b>
+        <span class="delta">{{change_and_magnitude}}</span>
+        <svg viewBox="0 0 300 56" role="img" aria-label="{{trend_description}}"><polyline points="{{points}}"/><circle cx="{{last_x}}" cy="{{last_y}}" r="4"/></svg>
+        <div class="axis"><span>{{first_period}}</span><span>{{last_period}}</span></div>
+      </div>
+      <!-- END REPEAT -->
+    </div>
+    <div class="card" style="margin-top:16px">
+      <span class="k">What changed since the last report</span>
+      <ul class="changes">
+        <!-- REPEAT change: status word is Fixed, Improved, Regressed or Unchanged -->
+        <li><span class="pill {{good|warn|bad}}">{{change_status}}</span><span>{{change_description}}</span></li>
+        <!-- END REPEAT -->
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- END IF -->
+
+<section class="tone-a" id="position">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">Market position</span>
+      <h2>Where {{site_domain}} stands against the rest of the web</h2>
+      <p>{{position_intro}}</p>
+    </div>
+    <div class="card">
+      <span class="k">{{site_domain}} compared with a typical home page</span>
+      <div class="bm">
+        <!-- REPEAT comparison: only metrics with a published baseline -->
+        <div class="row">
+          <span class="lab">{{metric}}<span>{{lower_or_higher_is_better}}</span></span>
+          <div>
+            <div class="ln"><i style="width:{{site_pct}}%"></i><b>{{site_value}}</b></div>
+            <div class="ln web"><i style="width:{{baseline_pct}}%"></i><b>{{baseline_value}}</b></div>
+          </div>
+        </div>
+        <!-- END REPEAT -->
+      </div>
+      <div class="legend"><span><i style="background:var(--accent)"></i>{{site_domain}}</span><span><i style="background:var(--muted)"></i>Typical home page</span></div>
+      <p class="note">{{baseline_sources}}</p>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <span class="k">How to read the evidence tags</span>
+      <div class="grid g2">
+        <p class="note"><span class="ev m">Measured</span> From the WebPerformance Report tests on {{site_domain}}.</p>
+        <p class="note"><span class="ev b">Market benchmark</span> Compared with large public datasets of websites.</p>
+        <p class="note"><span class="ev s">External study</span> Published research. Shows direction, not a forecast.</p>
+        <p class="note"><span class="ev o">Our assessment</span> Professional judgment, not a measured result.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tone-b" id="evidence">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">The evidence</span>
+      <h2>The detail behind each finding</h2>
+      <p>Open a finding to see the test results. Every number traces back to a test you can rerun.</p>
+    </div>
+    <!-- REPEAT dimension: one per dimension covered, in canonical order -->
+    <details class="evd">
+      <summary><span class="bar6"></span><span class="st"><span class="eyebrow">{{dimension_number}} · {{dimension}}</span><b>{{finding_headline}}</b><span class="s">{{finding_subline}}</span></span><span class="tog" aria-hidden="true"></span></summary>
+      <div class="dbody">
+        <!-- Keep the components that fit this dimension and delete the rest. -->
+        <div class="grid g2">
+          <!-- Metric rows with threshold zones, for example field LCP, INP, CLS and TTFB -->
+          <div class="card">
+            <span class="k">{{zones_title}}</span>
+            <div class="vit">
+              <!-- REPEAT metric -->
+              <div class="vrow">
+                <span class="lab">{{plain_name}}<span>{{technical_name}} · {{field_or_lab}}</span></span>
+                <div class="zones" role="img" aria-label="{{value}}, {{status_word}}"><span class="z zg" style="width:{{good_pct}}%"></span><span class="z zw" style="width:{{warn_pct}}%"></span><span class="z zb" style="width:{{bad_pct}}%"></span><span class="mk" style="left:{{marker_pct}}%"></span></div>
+                <span class="val {{good|warn|bad}}">{{value}} · {{status_word}}</span>
+              </div>
+              <!-- END REPEAT -->
+            </div>
+            <p class="note">{{zones_note}}</p>
+          </div>
+          <!-- Pass and fail checks, for example HTTP Observatory tests -->
+          <div class="card">
+            <span class="k">{{checks_title}}</span>
+            <div class="checks">
+              <!-- REPEAT check: class "f" with ✕ for failed, class "p" with ✓ for passed -->
+              <div class="check f"><span class="ic">✕</span>{{check_name}}<span class="pts">{{points}}</span></div>
+              <!-- END REPEAT -->
+            </div>
+          </div>
+          <!-- Bars, for example WAVE error types or page weight by file type -->
+          <div class="card">
+            <span class="k">{{bars_title}}</span>
+            <div class="bars">
+              <!-- REPEAT bar -->
+              <div class="bar"><span>{{label}}</span><span class="v">{{value}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
+              <!-- END REPEAT -->
+            </div>
+            <p class="note">{{bars_note}}</p>
+          </div>
+        </div>
+        <div class="means">
+          <b>What it means for {{company_name}}</b>
+          <p>{{what_it_means}}</p>
+          <div class="evrow"><span class="ev m">Measured</span><!-- add the other tags that apply --></div>
+        </div>
+      </div>
+    </details>
+    <!-- END REPEAT -->
+  </div>
+</section>
+
+<section class="tone-a" id="plan">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">The plan</span>
+      <h2>{{plan_title}}</h2>
+      <p>Timing and effort are our assessment.</p>
+    </div>
+    <div class="road">
+      <div>
+        <span class="when">Next 2 weeks</span><h3>Now</h3>
+        <ul>
+          <!-- REPEAT action -->
+          <li><span class="dim">{{dimension}}</span> {{action}}<small>{{effort_or_effect}}</small></li>
+          <!-- END REPEAT -->
+        </ul>
+      </div>
+      <div>
+        <span class="when">This quarter</span><h3>Next</h3>
+        <ul>
+          <!-- REPEAT action -->
+          <li><span class="dim">{{dimension}}</span> {{action}}<small>{{effort_or_effect}}</small></li>
+          <!-- END REPEAT -->
+        </ul>
+      </div>
+      <div>
+        <span class="when">Ongoing</span><h3>Then</h3>
+        <ul>
+          <!-- REPEAT action -->
+          <li><span class="dim">{{dimension}}</span> {{action}}<small>{{effort_or_effect}}</small></li>
+          <!-- END REPEAT -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tone-b" id="use">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">Put it to work</span>
+      <h2>How to use this analysis inside {{company_name}}</h2>
+      <p>Your team can verify every result, act on it and measure the improvement without outside help.</p>
+    </div>
+    <div class="steps">
+      <div><span class="n">STEP 1 · SHARE</span><b>Send it to the people who own the website</b><p>Your web, marketing and security leads. The message below is ready to forward.</p></div>
+      <div><span class="n">STEP 2 · ASK</span><b>Ask the questions below</b><p>The answers show whether each finding is already known, planned or new to the team.</p></div>
+      <div><span class="n">STEP 3 · CHECK</span><b>Re-run the same public tests</b><p>After each fix, the same free tests show whether the result improved.</p></div>
+    </div>
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card">
+        <span class="k">Message to forward</span>
+        <p class="fwd" id="fwd">{{forward_message}}</p>
+        <div class="copyrow"><button class="btn ghost sm" type="button" data-copy="fwd">Copy message</button><span class="copied" id="fwd-ok" hidden>Copied</span></div>
+      </div>
+      <div class="card">
+        <span class="k">Questions for your team</span>
+        <ol class="list">
+          <!-- REPEAT question: 3 to 5 -->
+          <li>{{question}}</li>
+          <!-- END REPEAT -->
+        </ol>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <span class="k">Check the results yourself, free and public</span>
+      <div class="tbl"><table>
+        <thead><tr><th>Area</th><th>Public test</th><th>What to look for after a fix</th></tr></thead>
+        <tbody>
+          <!-- REPEAT test -->
+          <tr><td>{{dimension}}</td><td><a href="{{public_test_url}}" target="_blank" rel="noopener">{{tool_name}}</a></td><td>{{what_to_look_for}}</td></tr>
+          <!-- END REPEAT -->
+        </tbody>
+      </table></div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <span class="k">To put a business number on the findings, ask for this data</span>
+      <div class="tbl"><table>
+        <thead><tr><th>To measure</th><th>Data needed</th><th>Owner</th></tr></thead>
+        <tbody>
+          <!-- REPEAT data_need -->
+          <tr><td>{{to_measure}}</td><td>{{data_needed}}</td><td>{{owner}}</td></tr>
+          <!-- END REPEAT -->
+        </tbody>
+      </table></div>
+      <p class="note">This report does not estimate revenue impact without {{company_name}}'s own data.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tone-a" id="who">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="eyebrow">Who prepared this</span>
+      <h2>WebPerformance Report</h2>
+      <p>WebPerformance Report delivers recurring reports on website speed, security and accessibility. This analysis turns those reports into a decision for leadership.</p>
+    </div>
+    <p class="note">Prepared by {{author}}. {{independence_sentence}}</p>
+    <div class="copyrow" style="margin-top:12px"><span class="note">Questions about the method:</span><code id="mail">{{contact_email}}</code><button class="btn ghost sm" type="button" data-copy="mail">Copy email</button><span class="copied" id="mail-ok" hidden>Copied</span></div>
+    <details class="plain">
+      <summary>Methodology and sources</summary>
+      <div>
+        <div class="method">
+          <!-- REPEAT method: one per dimension, plus "Data type" (field or lab) -->
+          <div><b>{{method_label}}</b><span>{{method_detail}}</span></div>
+          <!-- END REPEAT -->
+        </div>
+        <ol class="list note" style="margin-top:20px">
+          <!-- REPEAT source -->
+          <li>{{source_name}}, <a href="{{source_url}}" target="_blank" rel="noopener">{{source_title}}</a>. {{source_detail}}</li>
+          <!-- END REPEAT -->
+        </ol>
+      </div>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer class="tone-a">
+  <div class="shell">
+    <span>WebPerformance Report · webperformancereport.com</span>
+    <span>{{footer_note}}</span>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('[data-copy]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var id=b.getAttribute('data-copy'),el=document.getElementById(id),ok=document.getElementById(id+'-ok'),t=el.textContent.trim();
+    function sel(){var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);}
+    function done(m){ok.textContent=m;ok.hidden=false;setTimeout(function(){ok.hidden=true},2500);}
+    try{navigator.clipboard.writeText(t).then(function(){done('Copied')},function(){sel();done('Selected. Press Ctrl+C or Cmd+C')});}catch(e){sel();done('Selected. Press Ctrl+C or Cmd+C')}
+  });
+});
+window.addEventListener('beforeprint',function(){document.querySelectorAll('details').forEach(function(d){d.open=true;});});
+function openFromHash(){try{var id=decodeURIComponent(location.hash.slice(1));var t=id&&document.getElementById(id);var d=t&&t.closest('details');if(d)d.open=true;}catch(e){}}
+window.addEventListener('hashchange',openFromHash);openFromHash();
+</script>
+</body>
+</html>

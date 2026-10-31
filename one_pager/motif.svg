@@ -1,0 +1,14 @@
+<svg viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+  <path class="env" d="M150 62 L200 28 L250 62"/>
+  <path class="card" d="M95 182 V100 Q95 78 117 78 H283 Q305 78 305 100 V182"/>
+  <path class="ink" d="M150 140 H184 M134 154 H180 M156 168 H190"/>
+  <circle class="ink" cx="226" cy="154" r="34"/>
+  <path class="ink" d="M226 154 L212 140 M226 154 L238 160 M218 112 H234 M226 112 V120"/>
+  <path class="env" d="M70 150 L46 172 Q40 177 40 186 V350 Q40 372 62 372 H338 Q360 372 360 350 V186 Q360 177 354 172 L330 150"/>
+  <path class="env" d="M64 194 L152 262 M336 194 L248 262 M80 348 L200 240 L320 348"/>
+  <path class="flow" pathLength="1000" d="M70 150 L46 172 Q40 177 40 186 V350 Q40 372 62 372 H338 Q360 372 360 350 V186 Q360 177 354 172 L330 150"/>
+  <circle class="tick" cx="226" cy="154" r="34" pathLength="1000" transform="rotate(-90 226 154)"/>
+  <path class="speed" pathLength="1000" d="M150 140 H184"/>
+  <path class="speed s2" pathLength="1000" d="M134 154 H180"/>
+  <path class="speed s3" pathLength="1000" d="M156 168 H190"/>
+</svg>

@@ -55,7 +55,7 @@ Valid subject patterns:
 
 `WPR_Benchmark_One_Pager.md` instructs Claude to generate a **single self-contained HTML file** saved to `/mnt/user-data/outputs/`. File naming convention:
 ```
-benchmark_[client_slug]_[dimensions_slug]_week_[N].html
+benchmark_[client_slug]_[dimensions_slug]_[period_slug].html
 ```
 Dimension slugs: `perf`, `sec`, `a11y`, `ga4`, joined with underscores in canonical order (for example `perf_sec_a11y_ga4`, `perf_ga4`, `a11y`). The benchmark compares sites dimension by dimension, with no overall score or ranking.
 

@@ -62,13 +62,33 @@ If a user request uses "report" in a way that could plausibly mean something out
 
 Primary audience: **C-level executives, non-technical**.
 
-- Lead with business impact, not metric names. "Pages loaded 1.2 seconds faster, which typically lifts conversion 4–7%" beats "LCP improved from 3.4s to 2.2s."
+- Lead with business impact, not metric names. "Pages now load 1.2 seconds faster for real users, moving the site from Needs Improvement to Good on Google's main loading metric" beats "LCP improved from 3.4s to 2.2s."
 - Use plain English. Translate jargon on first use.
 - Short sentences. Clear structure.
 - Executive-confident tone: direct, evidence-based, no hedging clichés.
 - No emojis.
 - Do not use em dashes (—). Use periods, commas, or parentheses instead.
 - Acronyms must be spelled out at first mention: "Largest Contentful Paint (LCP)".
+
+### Quantifying business impact
+
+Every quantified business impact (conversion, revenue, bounce, trust, cost) names its source. Without an approved source, describe the impact qualitatively. Never invent a figure or present an unattributed one.
+
+**Approved sources for business impact:**
+- Google (for Core Web Vitals, conversion, and bounce rate).
+- Akamai (for load times and conversion impact).
+- Deloitte (for commercial impact of performance).
+- IBM Cost of a Data Breach Report (for security).
+- Edelman Trust Barometer (for consumer trust).
+- WebAIM (for accessibility and population affected).
+- Click-Away Pound (for commercial impact of accessibility).
+- web.dev Case Studies (web.dev/case-studies) and WPO Stats (wpostats.com) (for company-specific results of performance work).
+
+Case studies describe one company's result, not an industry average. Cite the company, the figure, the source and the year, in this form: "[Company] saw [result] after [change] ([source], [year])." Never generalize a case into "typically lifts X%". Prefer the original study that WPO Stats links to, and prefer recent cases.
+
+**Industry baselines:** HTTP Archive (httparchive.org), including the Web Almanac, shows the state of the web (median page weight, request counts, share of sites passing Core Web Vitals). Use it to compare a site with the web at large, never as evidence of business impact.
+
+If another source is needed, use it only if it is (a) public, (b) industry-recognized, and (c) has a documented methodology. Attribute every source inline, by name, in the sentence that uses it. Do not add a sources section (Section 7).
 
 ---
 

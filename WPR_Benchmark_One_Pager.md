@@ -180,7 +180,7 @@ Each deep-dive has the same internal structure:
 
 This card has three visual elements:
 - Header with eyebrow "What is being left on the table", dimension-adapted title, subtitle.
-- Industry reference band: quantified range attributed to a recognized public source. See section 6.4 for valid sources.
+- Industry reference band: quantified figure attributed to an approved source. See `WPR_AI_Assistant_Instructions.md` Section 3, "Quantifying business impact".
 - Per-site blocks: one block per site with its particular effect. Each block has a colored dot (good/warn/bad), the site name, and a 2-4 line paragraph that connects the technical data with the business impact specific to that site.
 
 ### 5.5 Prioritized recommendations
@@ -231,16 +231,7 @@ Follow the rules in section 4.4. Document the weighting used in the matrix subti
 
 ### 6.4 Impact cards: quantification and differentiation
 
-**Industry layer (quantified reference)**: use ranges attributed to recognized public sources. Approved sources:
-- Google (for Core Web Vitals, conversion, and bounce rate).
-- Akamai (for load times and conversion impact).
-- Deloitte (for commercial impact of performance).
-- IBM Cost of a Data Breach Report (for security).
-- Edelman Trust Barometer (for consumer trust).
-- WebAIM (for accessibility and population affected).
-- Click-Away Pound (for commercial impact of accessibility).
-
-If a source outside this list is needed, validate it is (a) public, (b) industry-recognized, (c) with documented methodology. Attribute it explicitly.
+**Industry layer (quantified reference)**: use figures attributed to an approved source, following "Quantifying business impact" in `WPR_AI_Assistant_Instructions.md` Section 3. In the HTML, the source is named on the band itself.
 
 **Qualitative layer (per-site effects)**: for each site, differentiate the impact according to the business type and the typical customer. Use four possible mechanisms:
 - Quality signaling and brand perception.

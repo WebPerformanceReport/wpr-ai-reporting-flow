@@ -43,10 +43,13 @@ WebPerformance Report emails (Gmail or Outlook)
 
 Valid subject patterns:
 ```
-WebPerformance Report Day #X | <tool>
-WebPerformance Report Week #X | <tool>
-WebPerformance Report Month #X | <tool>
+⚡ WebPerformance Report Day #X | <tool>
+⚡ WebPerformance Report Week #X | <tool>
+⚡ WebPerformance Report Month #X | <tool>
+⚡ WebPerformance Report #YYYY-MM-DD | <tool>    (One Time Report)
 ```
+
+`#X` is the send date's day of the year, ISO 8601 week or month. The site and the period the data covers are in the email body, not the subject (`WPR_Inbox_Workflow.md` Section 5.4).
 
 ### Benchmark output
 

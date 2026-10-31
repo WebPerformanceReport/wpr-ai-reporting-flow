@@ -84,6 +84,7 @@ This step is not required. Without it, your reports are still found by subject.
 
 1. In Gmail, create a label named `WebPerformanceReport` (no spaces).
 2. Create a filter:
+   * **From**: `info@webperformancereport.com`
    * **Subject contains**: `WebPerformance Report`
    * **Action**: Apply label `WebPerformanceReport` and skip the inbox (optional, keeps it organized).
 3. Apply the filter to existing messages so historical reports are also labeled.
@@ -92,7 +93,7 @@ This step is not required. Without it, your reports are still found by subject.
 
 1. Create a folder named `WebPerformanceReport` in your mailbox.
 2. Create a rule:
-   * **Condition**: subject contains `WebPerformance Report`
+   * **Condition**: from `info@webperformancereport.com` and subject contains `WebPerformance Report`
    * **Action**: move the message to the `WebPerformanceReport` folder.
 3. Run the rule on existing messages to include historical reports.
 
@@ -133,6 +134,8 @@ A Claude account with Project support, or a ChatGPT account with Projects featur
 ### WebPerformance Report
 
 At least one active WebPerformance Report.
+
+Reports must arrive directly from `info@webperformancereport.com`. Reports forwarded from another address are not analyzed, so connect the inbox that receives them.
 
 The more report history available, the more valuable the analysis becomes.
 

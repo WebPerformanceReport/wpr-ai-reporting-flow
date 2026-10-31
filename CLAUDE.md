@@ -12,7 +12,8 @@ WPR AI Reporting Flow is a set of instruction files for creating conversational 
 
 | File | Role |
 |---|---|
-| `WPR_AI_Assistant_Instructions.md` | Primary AI Assistant Project instructions (Claude, ChatGPT, etc.). Defines identity, analysis pipeline, metrics, benchmarks, visualization rules, output structure, and behavior constraints. Always active. |
+| `WPR_AI_Assistant_Instructions.md` | Always-on instructions, pasted into the Project instructions field (Claude, ChatGPT). Defines identity and roles, analysis pipeline, report categories, voice, output structure, behavior, and safety. Keep it under 7,500 characters so it fits the smallest platform limit (about 8,000 on ChatGPT, unconfirmed). |
+| `WPR_Analysis_Reference.md` | Project file. Metric extraction, field vs lab rule, classification thresholds, business impact sources, and visualization. Consulted whenever the assistant extracts, classifies, quantifies, or charts. |
 | `WPR_Inbox_Workflow.md` | Inbox retrieval mechanics for Gmail (default) and Outlook/Microsoft 365. Retrieval contract, Fast Path and Verification Mode, connector detection, subject grammar and validation, query strategy, bounded pagination, and error recovery. |
 | `WPR_Benchmark_One_Pager.md` | Activated only when the user requests a multi-site HTML benchmark. Overrides the general output format with a fixed HTML document structure. |
 
@@ -25,7 +26,8 @@ WebPerformance Report emails (Gmail or Outlook)
         ↓
   WPR_Inbox_Workflow.md          ← connector detection, retrieval, subject validation
         ↓
-  WPR_AI_Assistant_Instructions.md     ← analysis pipeline, benchmarks, output format
+  WPR_AI_Assistant_Instructions.md     ← always on: roles, pipeline, voice, output, safety
+  WPR_Analysis_Reference.md      ← metrics, thresholds, impact sources, charts
         ↓
   WPR_Benchmark_One_Pager.md     ← activated for cross-site HTML reports
         ↓
@@ -76,8 +78,8 @@ Dimension slugs: `perf`, `sec`, `a11y`, `ga4`, joined with underscores in canoni
 ## Editing Guidelines
 
 - These are instruction files for a Claude Project, not source code. "Correctness" means behavioral accuracy, not compilation.
-- When editing benchmarks in `WPR_AI_Assistant_Instructions.md` Section 5, verify against the official Google Core Web Vitals thresholds for the current year.
-- When adding a new report type, update: `WPR_Inbox_Workflow.md` (Section 5.1 category/source table only, the grammar and query rules are generic), `WPR_AI_Assistant_Instructions.md` (Section 2 table, Section 4.2 metrics), and `WPR_Benchmark_One_Pager.md` (Section 2 dimensions input, the dimension table in Section 4, Section 5.4.3–5.4.4).
+- When editing benchmarks in `WPR_Analysis_Reference.md` Section 2, verify against the official Google Core Web Vitals thresholds for the current year.
+- When adding a new report type, update: `WPR_Inbox_Workflow.md` (Section 5.1 category/source table only, the grammar and query rules are generic), `WPR_AI_Assistant_Instructions.md` (Section 2 table), `WPR_Analysis_Reference.md` (Section 1.2 metrics, Section 2 thresholds), and `WPR_Benchmark_One_Pager.md` (Section 2 dimensions input, the dimension table in Section 4, Section 5.4.3–5.4.4).
 - The benchmark HTML visual system spec lives entirely in `WPR_Benchmark_One_Pager.md` Section 7. Palette, typography, and spacing are defined there; do not duplicate them elsewhere.
-- One authority per rule: retrieval lives in `WPR_Inbox_Workflow.md`, analysis in `WPR_AI_Assistant_Instructions.md` (split table in `WPR_Inbox_Workflow.md` Section 11). Cross-reference instead of restating.
+- One authority per rule: retrieval lives in `WPR_Inbox_Workflow.md`, behavior in `WPR_AI_Assistant_Instructions.md`, analysis in `WPR_Analysis_Reference.md` (split table in `WPR_Inbox_Workflow.md` Section 11). Cross-reference instead of restating.
 - Retrieval defaults to Fast Path: narrow query, summaries first, bodies only for selected deliveries, bounded pagination, no confirmation, no exposed mechanics. Verification Mode is opt-in only. Do not reintroduce mandatory subject listing or confirmation steps.

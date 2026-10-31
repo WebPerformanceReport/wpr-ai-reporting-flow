@@ -2,7 +2,7 @@
 
 This instruction generates a HTML "Benchmark" report comparing multiple websites across one or more dimensions (Performance, Security, Accessibility, Analytics). It is flexible: the client, sites, dimensions, period, and output language all change per request; the editorial criteria and visual system stay constant.
 
-This instruction complements `WPR_AI_Assistant_Instructions.md` and `WPR_Inbox_Workflow.md`. When this instruction is active, its specific flow takes precedence; when it is not active, the other project files govern Claude's behavior.
+This instruction complements `WPR_AI_Assistant_Instructions.md`, `WPR_Analysis_Reference.md` and `WPR_Inbox_Workflow.md`. When this instruction is active, its specific flow takes precedence; when it is not active, the other project files govern the assistant's behavior.
 
 ---
 
@@ -63,7 +63,7 @@ A site whose delivery does not meet the rule is marked "Not comparable" in that 
 
 ### 3.2 CrUX vs Lab handling
 
-Field and lab data follow the rule in `WPR_AI_Assistant_Instructions.md` Section 4.2. What is specific to the benchmark:
+Field and lab data follow the rule in `WPR_Analysis_Reference.md` Section 1.2. What is specific to the benchmark:
 
 - **Field data is the source for LCP, INP, CLS, and TTFB in every visible section of the report.** Do not use lab as primary data even when it looks more dramatic. It can damage the credibility of the report.
 - **If a site's WebPageTest delivery has no CrUX section**, show "No field data available" for its field metrics. Do not look for field data elsewhere: no PageSpeed Insights, no values supplied by the user. WebPerformance Report is the only data source. If the delivery has lab values that help the reader, show them with a visible "Lab" label, never as a substitute for field data. List the site in the "Report coverage" block of the methodology.
@@ -86,7 +86,7 @@ The user can include any combination of the dimensions below. The rules in this 
 | Performance | `perf` | LCP from CrUX (Section 3.2) | Yes: Core Web Vitals |
 | Security | `sec` | HTTP Observatory grade and score | Yes: official grading chart |
 | Accessibility | `a11y` | Total WAVE errors (Errors plus Contrast Errors) | Yes: contextual interpretation |
-| Analytics | `ga4` | Engagement Rate | No (`WPR_AI_Assistant_Instructions.md` Section 5) |
+| Analytics | `ga4` | Engagement Rate | No (`WPR_Analysis_Reference.md` Section 2) |
 
 **Canonical order**: Performance, Security, Accessibility, Analytics. Titles, columns, deep-dives and slugs always follow it, whatever order the user used.
 
@@ -170,20 +170,20 @@ Each deep-dive has the same internal structure:
 - One card per site, with the most important data point of the dimension in large type.
 - Performance: LCP from CrUX. Without field data, "No field data available" (Section 3.2).
 - Security: grade + score.
-- Accessibility: total errors (Errors plus Contrast Errors, `WPR_AI_Assistant_Instructions.md` Section 4.2).
+- Accessibility: total errors (Errors plus Contrast Errors, `WPR_Analysis_Reference.md` Section 1.2).
 - Analytics: Engagement Rate (GA4).
 
 **5.4.4 Main visualization**
 - Performance: horizontal bars per metric (LCP, INP, CLS, TTFB, weight). One bar per site within each metric. Include Google thresholds as visual references.
 - Security: control matrix (rows = controls, columns = sites), with pass/partial/fail marks.
-- Accessibility: stacked bars per site, one segment per error type from the delivery's Errors breakdown plus one for Contrast Errors, using the categories in `WPR_AI_Assistant_Instructions.md` Section 4.2. The segments add up to the total on the site card. Show Alerts separately, never stacked with errors. Do not chart Features, ARIA or Structural Elements as issues.
+- Accessibility: stacked bars per site, one segment per error type from the delivery's Errors breakdown plus one for Contrast Errors, using the categories in `WPR_Analysis_Reference.md` Section 1.2. The segments add up to the total on the site card. Show Alerts separately, never stacked with errors. Do not chart Features, ARIA or Structural Elements as issues.
 - Analytics: grouped bars per site showing Sessions, Engagement Rate, and Average Engagement Time. Include a secondary indicator for Bounce Rate where available.
 
 **5.4.5 "What is being left on the table" closing card**
 
 This card has three visual elements:
 - Header with eyebrow "What is being left on the table", dimension-adapted title, subtitle.
-- Industry reference band: quantified figure attributed to an approved source. See `WPR_AI_Assistant_Instructions.md` Section 3, "Quantifying business impact".
+- Industry reference band: quantified figure attributed to an approved source. See `WPR_Analysis_Reference.md` Section 3.
 - Per-site blocks: one block per site with its particular effect. Each block has a colored dot (good/warn/bad), the site name, and a 2-4 line paragraph that connects the technical data with the business impact specific to that site.
 
 ### 5.5 Prioritized recommendations
@@ -235,7 +235,7 @@ Compare dimension by dimension (Section 4). Never name an overall winner or give
 
 ### 6.4 Impact cards: quantification and differentiation
 
-**Industry layer (quantified reference)**: use figures attributed to an approved source, following "Quantifying business impact" in `WPR_AI_Assistant_Instructions.md` Section 3. In the HTML, the source is named on the band itself.
+**Industry layer (quantified reference)**: use figures attributed to an approved source, following `WPR_Analysis_Reference.md` Section 3. In the HTML, the source is named on the band itself.
 
 **Qualitative layer (per-site effects)**: for each site, differentiate the impact according to the business type and the typical customer. Use four possible mechanisms:
 - Quality signaling and brand perception.
@@ -251,7 +251,7 @@ For each site, adjust the language to its profile. If the client provides contex
 
 ### 6.6 Benchmark threshold rules
 
-All benchmark classifications must follow the official thresholds defined in `WPR_AI_Assistant_Instructions.md` Section 5. Do not invent thresholds or create arbitrary Good / Needs Improvement / Poor classifications.
+All benchmark classifications must follow the official thresholds defined in `WPR_Analysis_Reference.md` Section 2. Do not invent thresholds or create arbitrary Good / Needs Improvement / Poor classifications.
 
 Apply thresholds in this hierarchy:
 
@@ -262,10 +262,10 @@ Apply thresholds in this hierarchy:
 
 Dimension-specific notes:
 
-- **Performance**: use the Core Web Vitals thresholds from `WPR_AI_Assistant_Instructions.md` Section 5. TTFB is a diagnostic metric, not one of the three Core Web Vitals (LCP, INP, CLS). Apply it as supporting context, not as a primary classification.
-- **Security**: follow the HTTP Observatory grading scale from `WPR_AI_Assistant_Instructions.md` Section 5.
-- **Accessibility**: follow WAVE findings and WCAG-based interpretation from `WPR_AI_Assistant_Instructions.md` Section 5.
-- **Analytics**: do not classify. Follow the Analytics rule in `WPR_AI_Assistant_Instructions.md` Section 5.
+- **Performance**: use the Core Web Vitals thresholds from `WPR_Analysis_Reference.md` Section 2. TTFB is a diagnostic metric, not one of the three Core Web Vitals (LCP, INP, CLS). Apply it as supporting context, not as a primary classification.
+- **Security**: follow the HTTP Observatory grading scale from `WPR_Analysis_Reference.md` Section 2.
+- **Accessibility**: follow WAVE findings and WCAG-based interpretation from `WPR_Analysis_Reference.md` Section 2.
+- **Analytics**: do not classify. Follow the Analytics rule in `WPR_Analysis_Reference.md` Section 2.
 
 If a threshold is unclear, missing, or not officially defined, state this limitation explicitly instead of forcing a rating.
 

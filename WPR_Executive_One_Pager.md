@@ -42,7 +42,7 @@ Ask once, in a single consolidated question, only for what the request does not 
   - Performance: LCP from field data. Without the CrUX section, say there is no field data and use lab values only with a visible lab label.
   - Security: the HTTP Observatory letter grade as reported, with the score (0 to 145).
   - Accessibility: WAVE total errors (Errors plus Contrast Errors).
-- Never use Lighthouse scores or the WebPageTest `Security score` as headline metrics; they are not Security or Accessibility data.
+- Lighthouse scores and the WebPageTest `Security score` are supporting lab checks: label them for what they are, and never use them as headline metrics or in place of the Security and Accessibility sources.
 
 ---
 

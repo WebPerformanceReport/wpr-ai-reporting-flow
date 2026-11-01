@@ -40,10 +40,10 @@ Apply these rules:
 - Never compare a field value with a lab value, within one delivery or across periods. If one period has field data and the other only lab data, say that the periods cannot be compared on that metric.
 
 - The loading timeline (`First Byte`, `Start Render`, `FCP`, `Speed Index`, `Document Complete`, `Fully Loaded`) is lab only. Present it as lab test results, without classification, except LCP, which keeps its Core Web Vitals tier.
-- The `Lighthouse Performance` score (0 to 100) is a lab result and a supporting Performance metric. Classify it with the Lighthouse bands in Section 2, never as a headline and never as a substitute for LCP, INP or CLS.
-- The optimization grades (First Byte Time, Keep-alive, Compress Transfer, Compress Images, Cache static content, Effective use of CDN) are the letters or pass marks the delivery reports. Show them as reported and do not re-grade them.
+- The four Lighthouse scores (Performance, Accessibility, Best Practices, SEO, each 0 to 100) are lab results from one test visit and supporting metrics. Classify each with the Lighthouse bands in Section 2. They are never a headline and never a substitute for LCP, INP or CLS.
+- The optimization grades (First Byte Time, Keep-alive, Compress Transfer, Compress Images, Cache static content, Effective use of CDN) and the `Security score` are the letters or pass marks the delivery reports. Show them as reported and do not re-grade them.
 
-A WebPageTest delivery also shows a `Security score` grade and the Lighthouse Accessibility, Best Practices and SEO scores. They are not Security or Accessibility data: Security comes only from HTTP Observatory deliveries, and Accessibility only from WAVE deliveries. Do not report them in any dimension.
+Report every score the delivery carries; none is left out. Two labeling rules keep them from being misread. Name them for what they are ("Lighthouse Accessibility, lab", "WebPageTest security grade"). And remember that they are quick lab checks of one page, not the dimensions' own sources: Security comes from HTTP Observatory deliveries and Accessibility from WAVE deliveries, so these scores never replace a dimension's headline metric, comparison cell or site tile.
 
 #### Security (HTTP Observatory)
 **Grade and Score** (the score starts at 100 and ranges from 0 to 145 with bonuses; A+ is 100 or more; report it as a plain number, never as "out of 100"), **Header configuration, CSP, HSTS, TLS version, Mixed Content, High-level vulnerabilities**.
@@ -84,8 +84,8 @@ These thresholds apply to field data at the 75th percentile (Section 1.2). When 
 
 Total Blocking Time (TBT) is a lab metric that this reference does not classify. Report its value and its change. Never say that no official threshold exists.
 
-### Lighthouse Performance score (official Lighthouse scoring)
-Source: Google, Lighthouse performance scoring (developer.chrome.com/docs/lighthouse/performance/performance-scoring). It is a lab score from one test visit, so say that the classification is based on a single lab test.
+### Lighthouse scores (official Lighthouse rating)
+Source: Google, Lighthouse performance scoring (developer.chrome.com/docs/lighthouse/performance/performance-scoring), and the Lighthouse source code, where one rating applies to every category gauge: pass at 0.9, average at 0.5 (`shared/util.js` in GoogleChrome/lighthouse). The four scores (Performance, Accessibility, Best Practices, SEO) use the same bands. They are lab scores from one test visit, so say that the classification is based on a single lab test.
 
 | Score | Tier |
 |---|---|
@@ -93,10 +93,10 @@ Source: Google, Lighthouse performance scoring (developer.chrome.com/docs/lighth
 | 50–89 | Needs Improvement |
 | 0–49 | Poor |
 
-It supports the Core Web Vitals and never replaces them. It is not a Security or Accessibility measure.
+Lighthouse Performance supports the Core Web Vitals and never replaces them. Lighthouse Accessibility and the `Security score` are quick checks of one page and do not replace the WAVE or HTTP Observatory reports.
 
 ### WebPageTest optimization grades
-Report the grade or pass mark the delivery shows for each check, and nothing else. There is no official conversion from letter to status, so the report does not color or re-grade them. When a check's grade and a Core Web Vitals classification of the same metric seem to disagree, say that each uses its own scale.
+Report the grade or pass mark the delivery shows for each check, including the `Security score`, and nothing else. There is no official conversion from letter to status, so the report does not color or re-grade them. When a check's grade and a Core Web Vitals classification of the same metric seem to disagree, say that each uses its own scale.
 
 ### Page Weight (contextual interpretation, industry practice)
 - Total Page Size: under 1.5 MB is lean, 1.5–3 MB is typical, over 3 MB is heavy.

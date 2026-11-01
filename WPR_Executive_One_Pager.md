@@ -56,7 +56,7 @@ Keep every section in the template order. Rules per section:
 4. **Evolution** (history mode only): one trend card per headline metric, with the change described using the trend magnitude language. "What changed since the last report" lists each change with a status word: Fixed, Improved, Regressed or Unchanged.
 5. **Market position**: compare the site with the industry baselines in `WPR_Analysis_Reference.md` Section 3 only, naming the source, the dataset and the year. Label single lab runs as such.
 6. **Evidence**: one collapsible panel per dimension. Keep only the components that fit the dimension. Each panel closes with "What it means for {{company_name}}" and the evidence tags that apply.
-7. **Plan**: actions in Now (next 2 weeks), Next (this quarter) and Then (ongoing), each with its dimension tag and its effort or effect. Timing and effort are always "our assessment".
+7. **Plan**: actions in Now (next 2 weeks), Next (this quarter) and Then (ongoing), each with its dimension tag, its owner type, a "done when" and its effort or effect. Timing and effort are always "our assessment".
 8. **Use it**: a message the reader can forward, 3 to 5 questions for their team, the public tests to verify each result (with the test links from the deliveries), and the data needed to put a business number on the findings.
 9. **Who prepared this and methodology**: tool, location, device, test date and test ID per dimension; field or lab; derived figures; and the external sources with their year.
 
@@ -128,7 +128,16 @@ Rules for every theme:
 
 ---
 
-## 9. Behavior during generation
+## 9. Review pass
+
+Before delivering, go through these roles in order and fix what each finds. Do not narrate the review; flag in the final message only what the user must validate.
+
+1. **Data reviewer**: every figure matches its delivery, each status matches its thresholds, a figure repeated in several places has one value, and every source is named with its year.
+2. **Delivery manager**: every plan action has an owner type (for example the web, marketing, security or accessibility team), a measurable target and a "done when": which public test to rerun and what result counts. No action without them.
+3. **Executive editor**: the 60-second test. A manager reading the summary and the key message knows what is wrong, what it is worth and what decision is being asked. One headline. Cut every sentence the reader can skip, and split any over 30 words.
+4. **Art director**: a clear visual hierarchy, a number that leads each section, charts that tell the story, no color that means two things, readable labels and a layout that holds on a phone.
+
+## 10. Behavior during generation
 
 - Work silently. Do not narrate intermediate steps.
 - If an editorial decision is not covered here, make it with judgment and flag it in the final message.

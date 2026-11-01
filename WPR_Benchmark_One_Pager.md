@@ -106,7 +106,7 @@ The hero badge follows the same logic.
 
 Three KPI cards in all cases. Choose the three strongest stories across the included dimensions, by executive impact. Do not force one per dimension, and avoid one KPI per dimension plus a generic filler.
 
-With one dimension, the three KPIs must be distinct (do not repeat the same metric in three forms). Suggested types: one of magnitude ("X out of Y sites fail"), one of distribution ("range from F to B"), one of severity ("the most exposed site has Z").
+The site tiles already show each site's headline metric, so the KPIs tell other stories: how many sites fail, how far apart the sites are, which change is the biggest. With one dimension, the three KPIs must be distinct (do not repeat the same metric in three forms). Suggested types: one of magnitude ("X out of Y sites fail"), one of distribution ("range from F to B"), one of severity ("the most exposed site has Z").
 
 ### 4.3 Comparison table
 
@@ -147,8 +147,8 @@ Sticky bar with the WebPerformance Report brand, the client and the period in on
 - Badge with the report title (per section 4.1).
 - Large title in two lines: "Digital portfolio" / "[Client]" (client in accent color). The script line shows only in Spotlight.
 - Subtitle of 1-2 sentences synthesizing the scope. The subtitle mentions explicitly which dimensions are included.
-- Strip of cards with one site per column: name + URL.
-- Three KPI cards (per section 4.2), each with a status word.
+- Strip of site tiles, one per site: the site color, name and URL, then the head-to-head: the headline metric of the first included dimension in large type, its status word, its change since the first period, and (history mode) a sparkline on one scale shared by all tiles. Analytics shows the trend instead of a status. Missing data shows its text, with no status and no sparkline.
+- Three KPI cards (per section 4.2), each with a status word. They never repeat the figures of the site tiles.
 - Two buttons: "Read the 60-second summary" and "How to put it to work", with a short data note beside them: the tools and the test date or period behind the KPIs.
 
 ### 5.2a The 60-second summary and key message
@@ -201,7 +201,7 @@ The first panel starts open; the others start closed. A link to a panel's `id` (
 - Analytics: Engagement Rate (GA4).
 
 **5.4.4 Main visualization**
-- Performance: horizontal bars per metric (LCP, INP, CLS, TTFB, weight). One bar per site within each metric. Include Google thresholds as visual references. When the deliveries carry a content breakdown, add "What each page downloads": grouped bars by file type (scripts, images, fonts, stylesheets, HTML and "Other"), one bar per site on one shared scale, so that each site's rows add up to its total weight and requests. When a sourced industry baseline exists (`WPR_Analysis_Reference.md` Section 3), show it as a neutral reference bar on the totals row.
+- Performance: horizontal bars per metric (LCP, INP, CLS, TTFB, weight). One bar per site within each metric. Include Google thresholds as visual references. When the deliveries carry the loading timeline, add "When the visitor sees something": grouped bars for First Byte, Start Render, FCP, LCP, Speed Index and Fully Loaded, one bar per site on one shared scale, lab only; only LCP carries a status. When the deliveries carry a content breakdown, add "What each page downloads": grouped bars by file type (scripts, images, fonts, stylesheets, HTML and "Other"), one bar per site on one shared scale, so that each site's rows add up to its total weight and requests. When a sourced industry baseline exists (`WPR_Analysis_Reference.md` Section 3), show it as a neutral reference bar on the totals row. Supporting scores, lab only and never a headline: the Lighthouse Performance score with its official bands and the WebPageTest optimization grades exactly as reported (`WPR_Analysis_Reference.md` Sections 1.2 and 2). The Lighthouse Accessibility, Best Practices and SEO scores and the WebPageTest `Security score` are never reported.
 - Security: control matrix (rows = controls, columns = sites), with pass/partial/fail marks.
 - Accessibility: stacked bars per site, using the categories in `WPR_Analysis_Reference.md` Section 1.2: one segment for each of the three largest error types, one for "Other errors" when there are more, and one for Contrast Errors. A text breakdown under each bar lists every error type with its count. The segments add up to the total on the site card. Show Alerts separately, never stacked with errors. Do not chart Features, ARIA or Structural Elements as issues.
 - Analytics: grouped bars per site showing Sessions, Engagement Rate, and Average Engagement Time. Include a secondary indicator for Bounce Rate where available.
@@ -220,7 +220,7 @@ Each deep-dive ends with the evidence tags that apply to it (Section 6.7).
 ### 5.5 The plan
 
 - Eyebrow "The plan", a title adapted to the number of actions (per section 4.5) and the line "Timing and effort are our assessment."
-- Three columns: Now (next 2 weeks), Next (this quarter), Then (ongoing). Each action has its tags, its text and its effort or effect.
+- Three columns: Now (next 2 weeks), Next (this quarter), Then (ongoing). Each action has its tags, its text, its effort or effect, its owner type and a "done when" (which public test to rerun and what result counts).
 
 ### 5.6 Put it to work
 
@@ -326,6 +326,10 @@ If a threshold is unclear, missing, or not officially defined, state this limita
 - **Form follows the job**: magnitude across sites is a bar, change over time is a line, a single value is a figure, not a chart.
 - **One axis, one scale**: never a dual axis. Two measures of different units go in two charts. Every site in a chart uses the same scale, and each chart keeps its percentages between 0 and 100 (grouped-bar ratios between 0 and 1).
 - **Site colors**: the Nth site, in the order the user gave them, always takes color slot N (`s1` to `s6`) in every chart, key, swatch and label of the report. A site never changes color. The status colors (Good, Needs Improvement, Poor) are reserved for thresholds and status words and never identify a site. An industry baseline is always neutral gray.
+- **No color means two things**: the set of site colors comes from the theme block (`--p1` to `--p6` on light surfaces, `--pd1` to `--pd6` on dark ones) and skips the hue of the theme's accent. WPR (blue accent) starts at orange, Spotlight (orange accent) starts at blue. In Site style, if one of the first two colors is close in hue to the brand accent, replace it with the next unused color of the set.
+- **Charts you can read**: legends sit inside the chart's card. Chart text renders at 12 px or more. A line chart may carry one annotation that marks the biggest change of its metric with a measured fact ("+11.1 s in Week 43"), never a cause.
+- **Threshold bars** run at full card width under the site name and value. On dark sections the zone tints are lighter so Good, Needs Improvement and Poor stay distinct.
+- **No card for nothing**: a metric with no data for any site (typically INP without field data) is one line under the grid, not a card.
 - **Legend and labels**: a legend is always present with two or more sites. Label sparingly: the end value of a line, the value at the tip of a bar. Never a number on every point. Text uses text colors, never a series color.
 - **Direct end labels only when they do not collide**: if two end labels fall within 14 px of each other, drop them and keep the legend, the tooltips and the table view. With more than 4 sites, drop end labels.
 - **Table view and tooltips**: every chart has a table view with its values, and each mark has a tooltip. A value is never available only on hover.
@@ -370,7 +374,17 @@ The visual system lives in the shared One Pager base, built into `WPR_Benchmark_
 
 ---
 
-## 9. Behavior during generation
+## 9. Review pass
+
+Before delivering, go through these roles in order and fix what each finds. Do not narrate the review; flag in the final message only what the user must validate.
+
+1. **Data reviewer**: every figure matches its delivery, each status matches its thresholds, a figure repeated in several places has one value, excluded tests are excluded everywhere, and every source is named with its year.
+2. **Competitive analyst**: for each metric, state the gap between each site and the best result on that metric, and how fast each site moves between periods. Never name an overall winner or give a ranking across dimensions.
+3. **Delivery manager**: every plan action has an owner type (for example each site's web, marketing, security or accessibility team), a measurable target and a "done when": which public test to rerun and what result counts. No action without them.
+4. **Executive editor**: the 60-second test. A manager reading the summary and the key message knows what is wrong, what it is worth and what decision is being asked. One headline. Cut every sentence the reader can skip, and split any over 30 words.
+5. **Art director**: the cover has a head-to-head moment (the site tiles), each section has a number that leads it, charts tell the story (annotate the biggest change), no color means two things, labels are readable, no card is empty, and the layout holds on a phone.
+
+## 10. Behavior during generation
 
 - Work silently. Do not narrate intermediate steps to the user ("now I'm creating the styles", "now I'm extracting site data"). Deliver only the final result.
 - If you must make an editorial decision not covered by this instruction, make it with judgment and briefly flag it in the final message so the user can validate it.

@@ -96,7 +96,7 @@ Source: Google, Lighthouse performance scoring (developer.chrome.com/docs/lighth
 Lighthouse Performance supports the Core Web Vitals and never replaces them. Lighthouse Accessibility and the `Security score` are quick checks of one page and do not replace the WAVE or HTTP Observatory reports.
 
 ### WebPageTest optimization grades
-Report the grade or pass mark the delivery shows for each check, including the `Security score`, and nothing else. There is no official conversion from letter to status, so the report does not color or re-grade them. When a check's grade and a Core Web Vitals classification of the same metric seem to disagree, say that each uses its own scale.
+Report the grade or pass mark the delivery shows for each check, including the `Security score`, and nothing else. There is no official conversion from letter to status, so the report does not re-grade them. Each cell keeps the background color its delivery gives it (the deliveries use green `#9bce54` for A, A+ and the check mark, yellow `#f1c52e` for C, red `#e33535` for D, white for NA); if a delivery gives no color, the cell has none, and no color is ever invented. When a check's grade and a Core Web Vitals classification of the same metric seem to disagree, say that each uses its own scale.
 
 ### Page Weight (contextual interpretation, industry practice)
 - Total Page Size: under 1.5 MB is lean, 1.5–3 MB is typical, over 3 MB is heavy.

@@ -39,7 +39,11 @@ Apply these rules:
 - Fully Loaded Time, Total Page Size and Number of Requests (the Fully Loaded `Time`, `Bytes In` and `Requests`) are lab only. Present them as lab test results.
 - Never compare a field value with a lab value, within one delivery or across periods. If one period has field data and the other only lab data, say that the periods cannot be compared on that metric.
 
-A WebPageTest delivery also shows a `Security score` grade and Lighthouse scores (Performance, Accessibility, Best Practices, SEO). They are not Security or Accessibility data: Security comes only from HTTP Observatory deliveries, and Accessibility only from WAVE deliveries.
+- The loading timeline (`First Byte`, `Start Render`, `FCP`, `Speed Index`, `Document Complete`, `Fully Loaded`) is lab only. Present it as lab test results, without classification, except LCP, which keeps its Core Web Vitals tier.
+- The `Lighthouse Performance` score (0 to 100) is a lab result and a supporting Performance metric. Classify it with the Lighthouse bands in Section 2, never as a headline and never as a substitute for LCP, INP or CLS.
+- The optimization grades (First Byte Time, Keep-alive, Compress Transfer, Compress Images, Cache static content, Effective use of CDN) are the letters or pass marks the delivery reports. Show them as reported and do not re-grade them.
+
+A WebPageTest delivery also shows a `Security score` grade and the Lighthouse Accessibility, Best Practices and SEO scores. They are not Security or Accessibility data: Security comes only from HTTP Observatory deliveries, and Accessibility only from WAVE deliveries. Do not report them in any dimension.
 
 #### Security (HTTP Observatory)
 **Grade and Score** (the score starts at 100 and ranges from 0 to 145 with bonuses; A+ is 100 or more; report it as a plain number, never as "out of 100"), **Header configuration, CSP, HSTS, TLS version, Mixed Content, High-level vulnerabilities**.
@@ -79,6 +83,20 @@ These thresholds apply to field data at the 75th percentile (Section 1.2). When 
 | TTFB | ≤ 800ms | 800ms–1.8s | > 1.8s |
 
 Total Blocking Time (TBT) is a lab metric that this reference does not classify. Report its value and its change. Never say that no official threshold exists.
+
+### Lighthouse Performance score (official Lighthouse scoring)
+Source: Google, Lighthouse performance scoring (developer.chrome.com/docs/lighthouse/performance/performance-scoring). It is a lab score from one test visit, so say that the classification is based on a single lab test.
+
+| Score | Tier |
+|---|---|
+| 90–100 | Good |
+| 50–89 | Needs Improvement |
+| 0–49 | Poor |
+
+It supports the Core Web Vitals and never replaces them. It is not a Security or Accessibility measure.
+
+### WebPageTest optimization grades
+Report the grade or pass mark the delivery shows for each check, and nothing else. There is no official conversion from letter to status, so the report does not color or re-grade them. When a check's grade and a Core Web Vitals classification of the same metric seem to disagree, say that each uses its own scale.
 
 ### Page Weight (contextual interpretation, industry practice)
 - Total Page Size: under 1.5 MB is lean, 1.5–3 MB is typical, over 3 MB is heavy.

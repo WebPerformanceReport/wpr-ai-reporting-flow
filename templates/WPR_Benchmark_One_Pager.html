@@ -577,6 +577,40 @@ a{color:#000000}
       </div>
     </div>
 
+    <!-- Optional, Performance: when the visitor sees something. Lab only, from the delivery's Performance Results. -->
+    <div class="card" style="margin-top:16px">
+      <span class="k">When the visitor sees something · lab</span>
+      <div class="legend">
+        <!-- REPEAT site key -->
+        <span><i class="sw {{site_slot}}"></i>{{site_name}}</span>
+        <!-- END REPEAT -->
+      </div>
+      <div class="gb">
+        <!-- REPEAT milestone in order of time: First Byte, Start Render, FCP, LCP, Speed Index, Fully Loaded. Keep only those every site reports. One scale: ratio = value / largest value of all rows, between 0 and 1. -->
+        <div class="cat">
+          <span class="name">{{milestone}}<span>{{plain_meaning}}</span></span>
+          <div class="rows">
+            <!-- REPEAT site -->
+            <div class="b {{site_slot}}"><i style="--p:{{ratio}}"></i><span class="v">{{seconds}} s</span></div>
+            <!-- END REPEAT -->
+          </div>
+        </div>
+        <!-- END REPEAT -->
+      </div>
+      <p class="note">{{timeline_note}} Only LCP carries a status (shown above). The other milestones are lab results without a classification.</p>
+      <details class="plain tv">
+        <summary>Table view</summary>
+        <div class="tbl"><table>
+          <thead><tr><th>Milestone</th><!-- REPEAT site --><th>{{site_name}}</th><!-- END REPEAT --></tr></thead>
+          <tbody>
+            <!-- REPEAT milestone -->
+            <tr><td>{{milestone}}</td><!-- REPEAT site --><td class="num">{{seconds}} s</td><!-- END REPEAT --></tr>
+            <!-- END REPEAT -->
+          </tbody>
+        </table></div>
+      </details>
+    </div>
+
     <!-- Optional, Performance: what each page downloads, by file type (from each delivery's content breakdown) -->
     <div class="card" style="margin-top:16px">
       <span class="k">What each page downloads · lab</span>
@@ -622,6 +656,35 @@ a{color:#000000}
           </tbody>
         </table></div>
       </details>
+    </div>
+
+    <!-- Optional, Performance: supporting scores. Lab only. Never a headline, never a substitute for Core Web Vitals. -->
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card">
+        <span class="k">Lighthouse Performance score · lab</span>
+        <div class="vit">
+          <!-- REPEAT site. Scale 0 to 100, higher is better, so the zones run Poor, Needs Improvement, Good from left to right: 50%, 40% and 10% wide. Marker left = score. -->
+          <div class="vrow">
+            <span class="lab"><i class="sw {{site_slot}}"></i>{{site_name}}</span>
+            <div class="zones" role="img" aria-label="{{site_name}}: {{score}}, {{status_word}}"><span class="z zb" style="width:50%"></span><span class="z zw" style="width:40%"></span><span class="z zg" style="width:10%"></span><span class="mk" style="left:{{score}}%"></span></div>
+            <span class="val {{good|warn|bad}}">{{score}}<small>{{status_word}}</small></span>
+          </div>
+          <!-- END REPEAT -->
+        </div>
+        <p class="note">Lighthouse bands: 0 to 49 Poor, 50 to 89 Needs Improvement, 90 to 100 Good (Google). Based on a single lab test. It supports the Core Web Vitals and does not replace them.</p>
+      </div>
+      <div class="card">
+        <span class="k">WebPageTest optimization grades</span>
+        <div class="tbl"><table class="matrix">
+          <thead><tr><th>Check</th><!-- REPEAT site --><th>{{site_name}}</th><!-- END REPEAT --></tr></thead>
+          <tbody>
+            <!-- REPEAT check: First Byte Time, Keep-alive Enabled, Compress Transfer, Compress Images, Cache static content, Effective use of CDN. Write the grade or mark exactly as the delivery reports it. -->
+            <tr><td>{{check_name}}</td><!-- REPEAT site --><td class="num">{{grade_as_reported}}</td><!-- END REPEAT --></tr>
+            <!-- END REPEAT -->
+          </tbody>
+        </table></div>
+        <p class="note">Grades as reported by WebPageTest. Each uses its own scale, which can differ from the Core Web Vitals tier of the same metric.</p>
+      </div>
     </div>
 
     <!-- Security: control matrix, rows are controls, columns are sites -->

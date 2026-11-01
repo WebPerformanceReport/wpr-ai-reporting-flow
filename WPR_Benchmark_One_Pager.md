@@ -220,7 +220,7 @@ Each deep-dive ends with the evidence tags that apply to it (Section 6.7).
 ### 5.5 The plan
 
 - Eyebrow "The plan", a title adapted to the number of actions (per section 4.5) and the line "Timing and effort are our assessment."
-- Three columns: Now (next 2 weeks), Next (this quarter), Then (ongoing). Each action has its tags, its text and its effort or effect.
+- Three columns: Now (next 2 weeks), Next (this quarter), Then (ongoing). Each action has its tags, its text, its effort or effect, its owner type and a "done when" (which public test to rerun and what result counts).
 
 ### 5.6 Put it to work
 
@@ -374,7 +374,17 @@ The visual system lives in the shared One Pager base, built into `WPR_Benchmark_
 
 ---
 
-## 9. Behavior during generation
+## 9. Review pass
+
+Before delivering, go through these roles in order and fix what each finds. Do not narrate the review; flag in the final message only what the user must validate.
+
+1. **Data reviewer**: every figure matches its delivery, each status matches its thresholds, a figure repeated in several places has one value, excluded tests are excluded everywhere, and every source is named with its year.
+2. **Competitive analyst**: for each metric, state the gap between each site and the best result on that metric, and how fast each site moves between periods. Never name an overall winner or give a ranking across dimensions.
+3. **Delivery manager**: every plan action has an owner type (for example each site's web, marketing, security or accessibility team), a measurable target and a "done when": which public test to rerun and what result counts. No action without them.
+4. **Executive editor**: the 60-second test. A manager reading the summary and the key message knows what is wrong, what it is worth and what decision is being asked. One headline. Cut every sentence the reader can skip, and split any over 30 words.
+5. **Art director**: the cover has a head-to-head moment (the site tiles), each section has a number that leads it, charts tell the story (annotate the biggest change), no color means two things, labels are readable, no card is empty, and the layout holds on a phone.
+
+## 10. Behavior during generation
 
 - Work silently. Do not narrate intermediate steps to the user ("now I'm creating the styles", "now I'm extracting site data"). Deliver only the final result.
 - If you must make an editorial decision not covered by this instruction, make it with judgment and briefly flag it in the final message so the user can validate it.

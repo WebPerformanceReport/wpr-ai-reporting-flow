@@ -819,7 +819,7 @@ a{color:#000000}
         <span class="when">Next 2 weeks</span><h3>Now</h3>
         <ul>
           <!-- REPEAT action: the most urgent failure of the portfolio first. One dimension: drop the dimension tag. -->
-          <li><span class="dim">{{dimension}}</span> <span class="dim">{{site_names}}</span> {{action}}<small>{{effort_or_effect}}</small></li>
+          <li><span class="dim">{{dimension}}</span> <span class="dim">{{site_names}}</span> {{action}}<small>{{effort_or_effect}}</small><small>Owner: {{owner_type}}. Done when: {{done_when}}.</small></li>
           <!-- END REPEAT -->
         </ul>
       </div>
@@ -827,7 +827,7 @@ a{color:#000000}
         <span class="when">This quarter</span><h3>Next</h3>
         <ul>
           <!-- REPEAT action -->
-          <li><span class="dim">{{dimension}}</span> <span class="dim">{{site_names}}</span> {{action}}<small>{{effort_or_effect}}</small></li>
+          <li><span class="dim">{{dimension}}</span> <span class="dim">{{site_names}}</span> {{action}}<small>{{effort_or_effect}}</small><small>Owner: {{owner_type}}. Done when: {{done_when}}.</small></li>
           <!-- END REPEAT -->
         </ul>
       </div>
@@ -835,7 +835,7 @@ a{color:#000000}
         <span class="when">Ongoing</span><h3>Then</h3>
         <ul>
           <!-- REPEAT action: ends with the recurring check, re-running the benchmark with the next period's deliveries -->
-          <li><span class="dim">{{dimension}}</span> <span class="dim">{{site_names}}</span> {{action}}<small>{{effort_or_effect}}</small></li>
+          <li><span class="dim">{{dimension}}</span> <span class="dim">{{site_names}}</span> {{action}}<small>{{effort_or_effect}}</small><small>Owner: {{owner_type}}. Done when: {{done_when}}.</small></li>
           <!-- END REPEAT -->
         </ul>
       </div>

@@ -85,6 +85,7 @@
 .lc .ann line{stroke:var(--fg2);stroke-width:1}
 .lc .ann text{fill:var(--fg);font-weight:500;paint-order:stroke;stroke:var(--bg);stroke-width:4px;stroke-linejoin:round}
 .cardlegend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--fg2)}
+.cardlegend .sw{display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-1px}
 .lc text.end{fill:var(--fg);font-weight:500}
 .lc .bg-g{fill:color-mix(in srgb,var(--good) 12%,transparent)} .lc .bg-w{fill:color-mix(in srgb,var(--warn) 12%,transparent)} .lc .bg-b{fill:color-mix(in srgb,var(--bad) 12%,transparent)}
 .lc .ln{fill:none;stroke:var(--sc);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
@@ -102,6 +103,7 @@
 .gb .b.base i{background:var(--muted)}
 .gb .b .v{white-space:nowrap;color:var(--fg2)}
 .gb .tot{border-top:1px solid var(--line);padding-top:14px}
+.gb.wide .b i{width:calc((100% - 210px) * var(--p))}
 .tv{margin-top:8px}
 /* Threshold bars: name and value on one line, the track below at full card width */
 .vrow{grid-template-columns:minmax(0,1fr) auto}
@@ -403,7 +405,7 @@
     <!-- Performance, INP when no site has field data: one line instead of a card -->
     <p class="strip"><b>INP</b>{{inp_unavailable_message}}</p>
 
-    <!-- Optional, Performance: when the visitor sees something. Lab only, from the delivery's Performance Results. -->
+    <!-- Performance: when the visitor sees something. Lab only, from the delivery's Performance Results. Always present; a site without the section shows "No data available". -->
     <div class="card" style="margin-top:16px">
       <span class="k">When the visitor sees something · lab</span>
       <div class="legend">
@@ -412,7 +414,7 @@
         <!-- END REPEAT -->
       </div>
       <div class="gb">
-        <!-- REPEAT milestone in order of time: First Byte, Start Render, FCP, LCP, Speed Index, Fully Loaded. Keep only those every site reports. One scale: ratio = value / largest value of all rows, between 0 and 1. -->
+        <!-- REPEAT milestone in order of time: First Byte, Start Render, FCP, LCP, Speed Index, Document Complete, Fully Loaded. One scale: ratio = value / largest value of all rows, between 0 and 1. A site without a value: write "No data available" in place of the bar. -->
         <div class="cat">
           <span class="name">{{milestone}}<span>{{plain_meaning}}</span></span>
           <div class="rows">
@@ -437,7 +439,7 @@
       </details>
     </div>
 
-    <!-- Optional, Performance: what each page downloads, by file type (from each delivery's content breakdown) -->
+    <!-- Performance: what each page downloads, by file type (from each delivery's content breakdown). Always present; a site without the section shows "No data available". -->
     <div class="card" style="margin-top:16px">
       <span class="k">What each page downloads · lab</span>
       <div class="legend">
@@ -484,33 +486,50 @@
       </details>
     </div>
 
-    <!-- Optional, Performance: supporting scores. Lab only. Never a headline, never a substitute for Core Web Vitals. -->
-    <div class="grid g2" style="margin-top:16px">
-      <div class="card">
-        <span class="k">Lighthouse Performance score · lab</span>
-        <div class="vit">
-          <!-- REPEAT site. Scale 0 to 100, higher is better, so the zones run Poor, Needs Improvement, Good from left to right: 50%, 40% and 10% wide. Marker left = score. -->
-          <div class="vrow">
-            <span class="lab"><i class="sw {{site_slot}}"></i>{{site_name}}</span>
-            <div class="zones" role="img" aria-label="{{site_name}}: {{score}}, {{status_word}}"><span class="z zb" style="width:50%"></span><span class="z zw" style="width:40%"></span><span class="z zg" style="width:10%"></span><span class="mk" style="left:{{score}}%"></span></div>
-            <span class="val {{good|warn|bad}}">{{score}}<small>{{status_word}}</small></span>
-          </div>
-          <!-- END REPEAT -->
-        </div>
-        <p class="note">Lighthouse bands: 0 to 49 Poor, 50 to 89 Needs Improvement, 90 to 100 Good (Google). Based on a single lab test. It supports the Core Web Vitals and does not replace them.</p>
+    <!-- Performance: supporting scores from the WebPageTest delivery. Lab only. Always present. Labeled for what they are, never a headline, never a substitute for Core Web Vitals or for the Security and Accessibility sources. -->
+    <div class="card" style="margin-top:16px">
+      <span class="k">Lighthouse scores · lab</span>
+      <div class="cardlegend">
+        <!-- REPEAT site key -->
+        <span><i class="sw {{site_slot}}"></i>{{site_name}}</span>
+        <!-- END REPEAT -->
       </div>
-      <div class="card">
-        <span class="k">WebPageTest optimization grades</span>
-        <div class="tbl"><table class="matrix">
-          <thead><tr><th>Check</th><!-- REPEAT site --><th>{{site_name}}</th><!-- END REPEAT --></tr></thead>
+      <div class="gb wide">
+        <!-- REPEAT category: Performance, Accessibility, Best Practices, SEO. One scale 0 to 100: ratio = score / 100. Tier word beside the score: Good 90 to 100 (class "good"), Needs Improvement 50 to 89 (class "warn"), Poor 0 to 49 (class "bad"). -->
+        <div class="cat">
+          <span class="name">{{category}}</span>
+          <div class="rows">
+            <!-- REPEAT site -->
+            <div class="b {{site_slot}}"><i style="--p:{{ratio}}"></i><span class="v">{{score}} · <span class="{{good|warn|bad}}">{{tier_word}}</span></span></div>
+            <!-- END REPEAT -->
+          </div>
+        </div>
+        <!-- END REPEAT -->
+      </div>
+      <p class="note">Lighthouse bands: 0 to 49 Poor, 50 to 89 Needs Improvement, 90 to 100 Good (Google), the same for all four categories. Each score comes from one lab test of one page. Lighthouse Accessibility does not replace the WAVE report, and Lighthouse Performance does not replace the Core Web Vitals.</p>
+      <details class="plain tv">
+        <summary>Table view</summary>
+        <div class="tbl"><table>
+          <thead><tr><th>Category</th><!-- REPEAT site --><th>{{site_name}}</th><!-- END REPEAT --></tr></thead>
           <tbody>
-            <!-- REPEAT check: First Byte Time, Keep-alive Enabled, Compress Transfer, Compress Images, Cache static content, Effective use of CDN. Write the grade or mark exactly as the delivery reports it. -->
-            <tr><td>{{check_name}}</td><!-- REPEAT site --><td class="num">{{grade_as_reported}}</td><!-- END REPEAT --></tr>
+            <!-- REPEAT category -->
+            <tr><td>{{category}}</td><!-- REPEAT site --><td class="num">{{score}} · {{tier_word}}</td><!-- END REPEAT --></tr>
             <!-- END REPEAT -->
           </tbody>
         </table></div>
-        <p class="note">Grades as reported by WebPageTest. Each uses its own scale, which can differ from the Core Web Vitals tier of the same metric.</p>
-      </div>
+      </details>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <span class="k">WebPageTest optimization grades</span>
+      <div class="tbl"><table class="matrix">
+        <thead><tr><th>Check</th><!-- REPEAT site --><th>{{site_name}}</th><!-- END REPEAT --></tr></thead>
+        <tbody>
+          <!-- REPEAT check: First Byte Time, Keep-alive Enabled, Compress Transfer, Compress Images, Cache static content, Effective use of CDN, Security score. Write the grade or mark exactly as the delivery reports it. -->
+          <tr><td>{{check_name}}</td><!-- REPEAT site --><td class="num">{{grade_as_reported}}</td><!-- END REPEAT --></tr>
+          <!-- END REPEAT -->
+        </tbody>
+      </table></div>
+      <p class="note">Grades as reported by WebPageTest. Each uses its own scale, which can differ from the Core Web Vitals tier of the same metric. The security grade is a quick check of one page and does not replace the HTTP Observatory report.</p>
     </div>
 
     <!-- Security: control matrix, rows are controls, columns are sites -->

@@ -62,7 +62,49 @@
 .lot .fx div:first-child{display:flex;flex-direction:column;gap:6px;align-items:flex-start;font-weight:600}
 .method.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 .final{border-top:1px solid var(--line);margin-top:20px;padding-top:14px;font-size:13px;color:var(--muted)}
-@media print{.cmp td,.cmp th{white-space:normal} .lot .ref{background:#FFFFFF;color:#000000;border-block:2px solid #000000}}
+/* Site colors: slot N is the Nth site in the order the user gave them, in every chart, key and label.
+   Validated for light and dark surfaces. Status colors never identify a site. */
+.tone-a,.tone-b{--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4;--s6:#008300}
+.cover,.theme-spotlight .tone-b,.dark{--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--s6:#008300}
+.s1{--sc:var(--s1)} .s2{--sc:var(--s2)} .s3{--sc:var(--s3)} .s4{--sc:var(--s4)} .s5{--sc:var(--s5)} .s6{--sc:var(--s6)}
+.sw{background:var(--sc)}
+.lab>.sw,.k>.sw,.cmp td:first-child>.sw,.bar>span>.sw{display:inline-block;width:10px;height:10px;margin-right:8px;vertical-align:0}
+.lk{display:inline-block;width:18px;height:0;border-top:2px solid var(--sc);margin-right:6px;vertical-align:middle}
+.bar.s1 .t i,.bar.s2 .t i,.bar.s3 .t i,.bar.s4 .t i,.bar.s5 .t i,.bar.s6 .t i{background:var(--sc)}
+.bar.base .t i{background:var(--muted)}
+/* Trend line chart */
+.lc{width:100%;height:auto;display:block}
+.lc .gl{stroke:var(--line);stroke-width:1}
+.lc text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.lc text.end{fill:var(--fg);font-weight:500}
+.lc .bg-g{fill:color-mix(in srgb,var(--good) 12%,transparent)} .lc .bg-w{fill:color-mix(in srgb,var(--warn) 12%,transparent)} .lc .bg-b{fill:color-mix(in srgb,var(--bad) 12%,transparent)}
+.lc .ln{fill:none;stroke:var(--sc);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.lc .dot{fill:var(--sc);stroke:var(--bg);stroke-width:2}
+.lc .hit{fill:transparent}
+.lc .hit:hover{fill:color-mix(in srgb,var(--sc) 18%,transparent)}
+/* Grouped bars: one group per category, one bar per site, one shared scale */
+.gb{display:flex;flex-direction:column;gap:18px}
+.gb .cat{display:grid;grid-template-columns:150px minmax(0,1fr);gap:6px 14px;align-items:center}
+.gb .name{font-size:14px;font-weight:600;line-height:1.3}
+.gb .name span{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.gb .rows{display:flex;flex-direction:column;gap:2px}
+.gb .b{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px}
+.gb .b i{flex:none;height:12px;min-width:2px;width:calc((100% - 140px) * var(--p));background:var(--sc);border-radius:0 4px 4px 0}
+.gb .b.base i{background:var(--muted)}
+.gb .b .v{white-space:nowrap;color:var(--fg2)}
+.gb .tot{border-top:1px solid var(--line);padding-top:14px}
+.tv{margin-top:8px}
+@media print{.cmp td,.cmp th{white-space:normal} .lot .ref{background:#FFFFFF;color:#000000;border-block:2px solid #000000}
+  section,.cover,.band,footer,.theme-spotlight .tone-b{--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4;--s6:#008300}
+  .lc .hit{display:none}}
+@media (max-width:560px){
+  .gb .cat{grid-template-columns:1fr}
+  .cmp thead{display:none}
+  .cmp,.cmp tbody,.cmp tr,.cmp td{display:block;width:100%}
+  .cmp tr{border:1px solid var(--line);margin-bottom:12px;background:var(--panel)}
+  .cmp td{white-space:normal;padding:10px 14px}
+  .cmp td[data-label]::before{content:attr(data-label);display:block;margin-bottom:4px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+}
 @media (max-width:880px){
   .method.two{grid-template-columns:1fr}
   .lot .fx{grid-template-columns:1fr}
@@ -158,11 +200,11 @@
       <tbody>
         <!-- REPEAT site -->
         <tr>
-          <td>{{site_name}}</td>
+          <td><i class="sw {{site_slot}}"></i>{{site_name}}</td>
           <!-- REPEAT cell: one per dimension. Missing: "No data available"; outside the rule: "Not comparable" -->
           <!-- Analytics column: drop the pill and use <span class="delta">{{trend}}</span> instead.
                No data available, No field data available or Not comparable: write it in place of the value and drop the pill. -->
-          <td><div class="cell"><span class="num">{{headline_value}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span><!-- IF history --><span class="delta">{{movement_word_and_change}}</span><!-- END IF --></div></td>
+          <td data-label="{{dimension}}"><div class="cell"><span class="num">{{headline_value}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span><!-- IF history --><span class="delta">{{movement_word_and_change}}</span><!-- END IF --></div></td>
           <!-- END REPEAT -->
         </tr>
         <!-- END REPEAT -->
@@ -180,10 +222,65 @@
       <h2>Who improved and who slipped</h2>
       <p>{{periods_covered}}</p>
     </div>
+    <div class="legend" style="margin-bottom:12px">
+      <!-- REPEAT site key: same slot as the site has everywhere else -->
+      <span><span class="lk {{site_slot}}"></span>{{site_name}}</span>
+      <!-- END REPEAT -->
+    </div>
+    <div class="grid g2" style="margin-bottom:16px">
+      <!-- REPEAT trend: one card per included dimension, for its headline metric (WPR_Benchmark_One_Pager.md Section 4). Performance may add page weight. -->
+      <div class="card">
+        <span class="k">{{metric_name}} · {{field_or_lab}} · by period</span>
+        <!-- Geometry (viewBox 560 x 220): plot area x 56 to 440, y 16 to 180. N = number of periods.
+             x_i = 56 + i * 384 / (N - 1). y = 180 - value / axis_max * 164. axis_max is a round number at or above the largest value of every site.
+             One scale for every site. Ticks at 0, half and axis_max. -->
+        <svg class="lc" viewBox="0 0 560 220" role="img" aria-label="{{chart_description_in_words}}">
+          <!-- Classified metrics only (LCP, INP, CLS): threshold bands behind the lines, bottom to top Good, Needs Improvement, Poor. Skip them for TTFB, TBT, weight and Analytics. -->
+          <rect class="bg-g" x="56" y="{{y_good_top}}" width="384" height="{{h_good}}"/>
+          <rect class="bg-w" x="56" y="{{y_warn_top}}" width="384" height="{{h_warn}}"/>
+          <rect class="bg-b" x="56" y="16" width="384" height="{{h_bad}}"/>
+          <line class="gl" x1="56" x2="440" y1="180" y2="180"/>
+          <line class="gl" x1="56" x2="440" y1="98" y2="98"/>
+          <line class="gl" x1="56" x2="440" y1="16" y2="16"/>
+          <text x="48" y="184" text-anchor="end">0</text>
+          <text x="48" y="102" text-anchor="end">{{tick_half}}</text>
+          <text x="48" y="20" text-anchor="end">{{axis_max}}</text>
+          <!-- REPEAT period label -->
+          <text x="{{x_i}}" y="204" text-anchor="middle">{{period_label}}</text>
+          <!-- END REPEAT -->
+          <!-- REPEAT site: class s1 to s6 -->
+          <g class="{{site_slot}}">
+            <!-- A period with no data or left out breaks the line: one polyline per run of consecutive periods, no dot for the gap. A run of one period is just a dot. -->
+            <polyline class="ln" points="{{x_i,y_i for each period of the run}}"/>
+            <!-- REPEAT period with data: the dot, then a larger transparent target that carries the tooltip -->
+            <circle class="dot" cx="{{x_i}}" cy="{{y_i}}" r="4"/>
+            <circle class="hit" cx="{{x_i}}" cy="{{y_i}}" r="12"><title>{{site_name}}, {{period_label}}: {{value}}</title></circle>
+            <!-- END REPEAT -->
+            <!-- End value label at x 448, y of the last point. Keep it only when it sits at least 14 px from the other sites' end labels; otherwise drop it, the legend and the table carry it. -->
+            <text class="end" x="448" y="{{y_last_plus_4}}">{{last_value}}</text>
+          </g>
+          <!-- END REPEAT -->
+        </svg>
+        <p class="note">{{trend_note}} A gap in a line is a period without a comparable test.</p>
+        <details class="plain tv">
+          <summary>Table view</summary>
+          <div class="tbl"><table>
+            <thead><tr><th>Period</th><!-- REPEAT site --><th>{{site_name}}</th><!-- END REPEAT --></tr></thead>
+            <tbody>
+              <!-- REPEAT period -->
+              <tr><td>{{period_label}}</td><!-- REPEAT site --><td class="num">{{value_or_no_data}}</td><!-- END REPEAT --></tr>
+              <!-- END REPEAT -->
+            </tbody>
+          </table></div>
+        </details>
+      </div>
+      <!-- END REPEAT -->
+    </div>
     <div class="card">
       <ul class="changes">
         <!-- REPEAT change: status word is Improved, Slipped or Unchanged -->
-        <li><span class="pill {{good|warn|bad}}">{{change_status}}</span><span><b>{{site_name}}</b> · {{dimension}}: {{change_description}}</span></li>
+        <!-- Improved: class "good". Slipped: class "bad". Unchanged: no status class, only class "pill". -->
+        <li><span class="pill {{good|bad}}">{{change_status}}</span><span><b>{{site_name}}</b> · {{dimension}}: {{change_description}}</span></li>
         <!-- END REPEAT -->
       </ul>
     </div>
@@ -210,7 +307,7 @@
     </div>
     <div class="sum">
       <!-- REPEAT site card. Analytics: replace the pill with <span class="delta">{{trend}}</span>. Missing or not comparable data: no pill. -->
-      <div class="card"><span class="k">{{site_name}}</span><span class="val num">{{headline_value}}</span><span class="pill {{good|warn|bad}}" style="align-self:flex-start">{{status_word}}</span></div>
+      <div class="card"><span class="k"><i class="sw {{site_slot}}"></i>{{site_name}}</span><span class="val num">{{headline_value}}</span><span class="pill {{good|warn|bad}}" style="align-self:flex-start">{{status_word}}</span></div>
       <!-- END REPEAT -->
     </div>
 
@@ -224,7 +321,7 @@
         <div class="vit">
           <!-- REPEAT site -->
           <div class="vrow">
-            <span class="lab">{{site_name}}</span>
+            <span class="lab"><i class="sw {{site_slot}}"></i>{{site_name}}</span>
             <div class="zones" role="img" aria-label="{{site_name}}: {{value}}, {{status_word}}"><span class="z zg" style="width:{{good_pct}}%"></span><span class="z zw" style="width:{{warn_pct}}%"></span><span class="z zb" style="width:{{bad_pct}}%"></span><span class="mk" style="left:{{marker_pct}}%"></span></div>
             <span class="val {{good|warn|bad}}">{{value}}<small>{{status_word}}</small></span>
           </div>
@@ -237,7 +334,7 @@
         <span class="k">Server response · TTFB · {{field_or_lab}}</span>
         <div class="bars">
           <!-- REPEAT site -->
-          <div class="bar"><span>{{site_name}}</span><span class="v">{{ttfb}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
+          <div class="bar {{site_slot}}"><span><i class="sw {{site_slot}}"></i>{{site_name}}</span><span class="v">{{ttfb}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
           <!-- END REPEAT -->
         </div>
         <p class="note">Diagnostic context for loading speed, not a Core Web Vital.</p>
@@ -247,11 +344,60 @@
         <span class="k">Page weight · lab</span>
         <div class="bars">
           <!-- REPEAT site -->
-          <div class="bar"><span>{{site_name}}</span><span class="v">{{page_weight}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
+          <div class="bar {{site_slot}}"><span><i class="sw {{site_slot}}"></i>{{site_name}}</span><span class="v">{{page_weight}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
           <!-- END REPEAT -->
+          <!-- Industry baseline, when a sourced one exists: a neutral reference bar, never a site color -->
+          <div class="bar base"><span>{{baseline_name}}</span><span class="v">{{baseline_value}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
         </div>
         <p class="note">{{page_weight_note}}</p>
       </div>
+    </div>
+
+    <!-- Optional, Performance: what each page downloads, by file type (from each delivery's content breakdown) -->
+    <div class="card" style="margin-top:16px">
+      <span class="k">What each page downloads · lab</span>
+      <div class="legend">
+        <!-- REPEAT site key -->
+        <span><i class="sw {{site_slot}}"></i>{{site_name}}</span>
+        <!-- END REPEAT -->
+        <!-- IF a sourced industry baseline exists --><span><i class="sw" style="--sc:var(--muted)"></i>{{baseline_name}}</span><!-- END IF -->
+      </div>
+      <div class="gb">
+        <!-- REPEAT file type: Scripts, Images, Fonts, Stylesheets, HTML, then "Other" so that each site's rows add up to its total weight and requests. One scale for every row: ratio = value / largest value of all rows, between 0 and 1. -->
+        <div class="cat">
+          <span class="name">{{file_type}}</span>
+          <div class="rows">
+            <!-- REPEAT site -->
+            <div class="b {{site_slot}}"><i style="--p:{{ratio}}"></i><span class="v">{{kb}} KB · {{files}}</span></div>
+            <!-- END REPEAT -->
+          </div>
+        </div>
+        <!-- END REPEAT -->
+        <!-- Totals row, with the industry baseline as a neutral bar when a sourced one exists -->
+        <div class="cat tot">
+          <span class="name">Total<span>weight · requests</span></span>
+          <div class="rows">
+            <!-- REPEAT site -->
+            <div class="b {{site_slot}}"><i style="--p:{{ratio}}"></i><span class="v">{{total_kb}} KB · {{requests}}</span></div>
+            <!-- END REPEAT -->
+            <!-- IF a sourced industry baseline exists -->
+            <div class="b base"><i style="--p:{{ratio}}"></i><span class="v">{{baseline_kb}} KB · {{baseline_requests}}</span></div>
+            <!-- END IF -->
+          </div>
+        </div>
+      </div>
+      <p class="note">{{composition_note}}</p>
+      <details class="plain tv">
+        <summary>Table view</summary>
+        <div class="tbl"><table>
+          <thead><tr><th>File type</th><!-- REPEAT site --><th>{{site_name}}</th><!-- END REPEAT --></tr></thead>
+          <tbody>
+            <!-- REPEAT file type, including Other and Total -->
+            <tr><td>{{file_type}}</td><!-- REPEAT site --><td class="num">{{files}} · {{kb}} KB</td><!-- END REPEAT --></tr>
+            <!-- END REPEAT -->
+          </tbody>
+        </table></div>
+      </details>
     </div>
 
     <!-- Security: control matrix, rows are controls, columns are sites -->

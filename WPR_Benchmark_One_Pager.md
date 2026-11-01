@@ -106,7 +106,7 @@ The hero badge follows the same logic.
 
 Three KPI cards in all cases. Choose the three strongest stories across the included dimensions, by executive impact. Do not force one per dimension, and avoid one KPI per dimension plus a generic filler.
 
-With one dimension, the three KPIs must be distinct (do not repeat the same metric in three forms). Suggested types: one of magnitude ("X out of Y sites fail"), one of distribution ("range from F to B"), one of severity ("the most exposed site has Z").
+The site tiles already show each site's headline metric, so the KPIs tell other stories: how many sites fail, how far apart the sites are, which change is the biggest. With one dimension, the three KPIs must be distinct (do not repeat the same metric in three forms). Suggested types: one of magnitude ("X out of Y sites fail"), one of distribution ("range from F to B"), one of severity ("the most exposed site has Z").
 
 ### 4.3 Comparison table
 
@@ -147,8 +147,8 @@ Sticky bar with the WebPerformance Report brand, the client and the period in on
 - Badge with the report title (per section 4.1).
 - Large title in two lines: "Digital portfolio" / "[Client]" (client in accent color). The script line shows only in Spotlight.
 - Subtitle of 1-2 sentences synthesizing the scope. The subtitle mentions explicitly which dimensions are included.
-- Strip of cards with one site per column: name + URL.
-- Three KPI cards (per section 4.2), each with a status word.
+- Strip of site tiles, one per site: the site color, name and URL, then the head-to-head: the headline metric of the first included dimension in large type, its status word, its change since the first period, and (history mode) a sparkline on one scale shared by all tiles. Analytics shows the trend instead of a status. Missing data shows its text, with no status and no sparkline.
+- Three KPI cards (per section 4.2), each with a status word. They never repeat the figures of the site tiles.
 - Two buttons: "Read the 60-second summary" and "How to put it to work", with a short data note beside them: the tools and the test date or period behind the KPIs.
 
 ### 5.2a The 60-second summary and key message
@@ -326,6 +326,10 @@ If a threshold is unclear, missing, or not officially defined, state this limita
 - **Form follows the job**: magnitude across sites is a bar, change over time is a line, a single value is a figure, not a chart.
 - **One axis, one scale**: never a dual axis. Two measures of different units go in two charts. Every site in a chart uses the same scale, and each chart keeps its percentages between 0 and 100 (grouped-bar ratios between 0 and 1).
 - **Site colors**: the Nth site, in the order the user gave them, always takes color slot N (`s1` to `s6`) in every chart, key, swatch and label of the report. A site never changes color. The status colors (Good, Needs Improvement, Poor) are reserved for thresholds and status words and never identify a site. An industry baseline is always neutral gray.
+- **No color means two things**: the set of site colors comes from the theme block (`--p1` to `--p6` on light surfaces, `--pd1` to `--pd6` on dark ones) and skips the hue of the theme's accent. WPR (blue accent) starts at orange, Spotlight (orange accent) starts at blue. In Site style, if one of the first two colors is close in hue to the brand accent, replace it with the next unused color of the set.
+- **Charts you can read**: legends sit inside the chart's card. Chart text renders at 12 px or more. A line chart may carry one annotation that marks the biggest change of its metric with a measured fact ("+11.1 s in Week 43"), never a cause.
+- **Threshold bars** run at full card width under the site name and value. On dark sections the zone tints are lighter so Good, Needs Improvement and Poor stay distinct.
+- **No card for nothing**: a metric with no data for any site (typically INP without field data) is one line under the grid, not a card.
 - **Legend and labels**: a legend is always present with two or more sites. Label sparingly: the end value of a line, the value at the tip of a bar. Never a number on every point. Text uses text colors, never a series color.
 - **Direct end labels only when they do not collide**: if two end labels fall within 14 px of each other, drop them and keep the legend, the tooltips and the table view. With more than 4 sites, drop end labels.
 - **Table view and tooltips**: every chart has a table view with its values, and each mark has a tooltip. A value is never available only on hover.

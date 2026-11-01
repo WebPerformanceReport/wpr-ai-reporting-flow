@@ -316,6 +316,49 @@ a{color:#000000}
 .gb .tot{border-top:1px solid var(--line);padding-top:14px}
 .gb.wide .b i{width:calc((100% - 210px) * var(--p))}
 .tv{margin-top:8px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* Weekly vertical bars: one group per period, one bar per site, one scale */
+.vb{display:flex;flex-direction:column;gap:8px;padding-left:52px}
+.vb .plot{position:relative;height:220px;display:flex;margin-top:24px;border-bottom:1px solid var(--muted)}
+.vb .bands{position:absolute;inset:0;display:flex;flex-direction:column-reverse}
+.vb .bands i{display:block}
+.vb .bd.g{background:color-mix(in srgb,var(--good) 14%,transparent)} .vb .bd.w{background:color-mix(in srgb,var(--warn) 14%,transparent)} .vb .bd.b{background:color-mix(in srgb,var(--bad) 14%,transparent)}
+.cover .vb .bd.g,.theme-spotlight .tone-b .vb .bd.g,.dark .vb .bd.g{background:color-mix(in srgb,var(--good) 24%,transparent)}
+.cover .vb .bd.w,.theme-spotlight .tone-b .vb .bd.w,.dark .vb .bd.w{background:color-mix(in srgb,var(--warn) 24%,transparent)}
+.cover .vb .bd.b,.theme-spotlight .tone-b .vb .bd.b,.dark .vb .bd.b{background:color-mix(in srgb,var(--bad) 24%,transparent)}
+.vb .tk{position:absolute;left:0;right:0;height:0;border-top:1px solid var(--line)}
+.vb .tk em{position:absolute;right:calc(100% + 8px);top:-9px;font:12px var(--mono);font-style:normal;color:var(--muted);white-space:nowrap}
+.vb .grp{position:relative;z-index:1;flex:1;min-width:0;display:flex;align-items:flex-end;justify-content:center;gap:5px}
+.vb .col{position:relative;width:min(40px,42%);height:calc(var(--p) * 100%);min-height:2px;background:var(--sc);border-radius:4px 4px 0 0}
+.vb .col .val{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:4px;font:12px var(--mono);color:var(--fg);white-space:nowrap}
+.vb .col.na{height:0;min-height:0;background:none}
+.vb .col.na .val{bottom:0;color:var(--muted)}
+.vb .xl{display:flex}
+.vb .xl span{flex:1;text-align:center;font:12px var(--mono);color:var(--muted)}
+.vbs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:880px){.vbs{grid-template-columns:1fr}}
+/* Summary rows */
+.sm{display:flex;flex-direction:column;gap:12px}
+.sm .row{--st:var(--muted);display:grid;grid-template-columns:270px minmax(0,1fr);gap:28px;padding:22px 24px 22px 28px;background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--st)}
+.sm .row.good{--st:var(--good)} .sm .row.warn{--st:var(--warn)} .sm .row.bad{--st:var(--bad)}
+.sm .fig{display:flex;flex-direction:column;gap:10px;min-width:0}
+.sm .fig b{font-size:34px;font-weight:800;line-height:1.05;color:var(--fg)}
+.sm .chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.sm .chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;border:1px solid var(--line);padding:3px 8px;color:var(--fg2)}
+.sm .chip .sw{display:inline-block;width:10px;height:10px}
+.sm .ctx{font-size:15px;color:var(--fg2);margin-bottom:12px}
+.sm .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.sm .lbl{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.sm .two div{font-size:15px;color:var(--fg)}
+@media (max-width:880px){.sm .row{grid-template-columns:1fr;gap:14px}.sm .two{grid-template-columns:1fr}}
+/* Mini bar under a comparison value: the value against the larger site */
+.mini{display:block;width:100%;max-width:150px;height:6px;background:var(--line)}
+.mini i{display:block;height:100%;width:calc(var(--p) * 100%);background:var(--sc)}
+/* Grade cells take the background color the delivery gives them */
+.grades th{text-align:center}
+.grades th .sw{display:inline-block;width:12px;height:12px}
+.grades td.gc{text-align:center;font-family:var(--mono);font-weight:700;font-size:15px;min-width:44px}
+.grades td.gc.nc{background:none;color:var(--muted)}
 /* Threshold bars: name and value on one line, the track below at full card width */
 .vrow{grid-template-columns:minmax(0,1fr) auto}
 .vrow .zones{grid-column:1/-1;grid-row:2;height:16px}
@@ -337,9 +380,6 @@ a{color:#000000}
 .tile .url{font-family:var(--mono);font-size:12px;color:var(--muted);overflow-wrap:anywhere}
 .tile .hv{font-size:44px;font-weight:800;line-height:1.05;margin-top:8px;color:var(--fg)}
 .tile .hm{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-family:var(--font);font-size:14px;color:var(--fg2)}
-.tile .spark{width:160px;height:36px;display:block;margin-top:6px;align-self:flex-start}
-.tile .spark polyline{fill:none;stroke:var(--sc);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
-.tile .spark circle{fill:var(--sc);stroke:var(--panel);stroke-width:2}
 .sites .good{color:var(--good)} .sites .warn{color:var(--warn)} .sites .bad{color:var(--bad)}
 .tile .delta{color:var(--fg2)}
 @media print{.cmp td,.cmp th{white-space:normal} .lot .ref{background:#FFFFFF;color:#000000;border-block:2px solid #000000}
@@ -401,15 +441,12 @@ a{color:#000000}
     <p class="lede">{{subtitle_naming_the_dimensions}}</p>
     <div class="sites">
       <!-- REPEAT site: in the order the user gave. The tile is the head-to-head: the headline metric of the first included dimension, its status word and its change.
-           Analytics: use the trend instead of a status. Missing or not comparable data: write it in place of the value, no pill and no sparkline. -->
+           Analytics: use the trend instead of a status. Missing or not comparable data: write it in place of the value, no pill. No charts on the cover. -->
       <div class="tile {{site_slot}}">
         <span class="who"><i class="sw {{site_slot}}"></i><b>{{site_name}}</b></span>
         <span class="url">{{site_url}}</span>
         <span class="hv num">{{headline_value}}</span>
         <span class="hm">{{headline_metric_label}} <span class="pill {{good|warn|bad}}">{{status_word}}</span> <span class="delta">{{change_since_first_period}}</span></span>
-        <!-- IF history: sparkline of the headline metric. viewBox 160 x 36. x_i = 4 + i * 152 / (N - 1). y = 32 - (value - min) / (max - min) * 28, with min and max taken over every site so the tiles share one scale. A period with no data breaks the line. Dot on the last point. -->
-        <svg class="spark" viewBox="0 0 160 36" role="img" aria-label="{{headline_metric_label}} by period: {{values_in_words}}"><polyline points="{{x_i,y_i for each period of the run}}"/><circle cx="{{x_last}}" cy="{{y_last}}" r="3.5"/></svg>
-        <!-- END IF -->
       </div>
       <!-- END REPEAT -->
     </div>
@@ -439,13 +476,21 @@ a{color:#000000}
       <span class="eyebrow">The 60-second summary</span>
       <h2>{{summary_title}}</h2>
     </div>
-    <div class="pw" role="table" aria-label="Each finding, what it means today and what fixing it is worth">
-      <div class="h" role="row"><div role="columnheader">What we measured</div><div role="columnheader">What it means today</div><div role="columnheader">What fixing it is worth</div></div>
-      <!-- REPEAT finding: 3 to 6 rows, most severe first. Name the site and the dimension in the context line. No overall score or ranking. -->
-      <div class="r" role="row">
-        <div class="m" role="cell"><b class="{{good|warn|bad}}">{{finding_value}}</b><span>{{site_names}} · {{dimension}}. {{finding_context}}</span></div>
-        <div role="cell"><span class="lbl">Today</span>{{meaning_today}}</div>
-        <div role="cell"><span class="lbl">Gain</span>{{gain_if_fixed}}</div>
+    <div class="sm" role="list" aria-label="Each finding, what it means today and what fixing it is worth">
+      <!-- REPEAT finding: 3 to 6 rows, most severe first. The row class is the severity of the finding: good, warn, bad, or neutral for a value without a status.
+           One chip per site named in the finding (its color) and one for the dimension. No overall score or ranking. -->
+      <div class="row {{good|warn|bad|neutral}}" role="listitem">
+        <div class="fig">
+          <b class="num">{{finding_value}}</b>
+          <span class="chips"><!-- REPEAT site named --><span class="chip"><i class="sw {{site_slot}}"></i>{{site_name}}</span><!-- END REPEAT --><span class="chip">{{dimension}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span></span>
+        </div>
+        <div>
+          <p class="ctx">{{finding_context}}</p>
+          <div class="two">
+            <div><span class="lbl">What it means today</span>{{meaning_today}}</div>
+            <div><span class="lbl">What fixing it is worth</span>{{gain_if_fixed}}</div>
+          </div>
+        </div>
       </div>
       <!-- END REPEAT -->
     </div>
@@ -469,13 +514,15 @@ a{color:#000000}
     <div class="tbl"><table class="cmp">
       <thead><tr><th>Site</th><!-- REPEAT dimension: canonical order --><th>{{dimension}}</th><!-- END REPEAT --></tr></thead>
       <tbody>
-        <!-- REPEAT site -->
-        <tr>
+        <!-- REPEAT site: the row carries the site class so the mini bars take its color -->
+        <tr class="{{site_slot}}">
           <td><i class="sw {{site_slot}}"></i>{{site_name}}</td>
           <!-- REPEAT cell: one per dimension. Missing: "No data available"; outside the rule: "Not comparable" -->
           <!-- Analytics column: drop the pill and use <span class="delta">{{trend}}</span> instead.
-               No data available, No field data available or Not comparable: write it in place of the value and drop the pill. -->
-          <td data-label="{{dimension}}"><div class="cell"><span class="num">{{headline_value}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span><!-- IF history --><span class="delta">{{movement_word_and_change}}</span><!-- END IF --></div></td>
+               No data available or Not comparable: write it in place of the value and drop the pill and the mini bar.
+               Field metrics (LCP, INP, CLS, TTFB from CrUX): when no site has field data, show no field column and no message about it. When at least one site has it, show it for that site and "No field data available" for the others.
+               Mini bar: for a numeric metric where sites can be compared, <span class="mini"><i style="--p:{{ratio}}"></i></span> under the value, ratio = the site's value / the largest value of that column, between 0 and 1. -->
+          <td data-label="{{dimension}}"><div class="cell"><span class="num">{{headline_value}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span><span class="mini"><i style="--p:{{ratio}}"></i></span><!-- IF history --><span class="delta">{{movement_word_and_change}}</span><!-- END IF --></div></td>
           <!-- END REPEAT -->
         </tr>
         <!-- END REPEAT -->
@@ -493,8 +540,46 @@ a{color:#000000}
       <h2>Who improved and who slipped</h2>
       <p>{{periods_covered}}</p>
     </div>
-    <div class="grid g2" style="margin-bottom:16px">
-      <!-- REPEAT trend: one card per included dimension, for its headline metric (WPR_Benchmark_One_Pager.md Section 4). Performance may add page weight. -->
+    <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:16px">
+      <!-- REPEAT trend: one full-width chart per row, for the headline metric of each included dimension (WPR_Benchmark_One_Pager.md Section 4). Performance adds page weight. Up to 8 periods: weekly vertical bars as below. -->
+      <div class="card">
+        <span class="k">{{metric_name}} · {{field_or_lab}} · by period</span>
+        <div class="cardlegend">
+          <!-- REPEAT site key -->
+          <span><i class="sw {{site_slot}}"></i>{{site_name}}</span>
+          <!-- END REPEAT -->
+        </div>
+        <!-- One scale for every site and every period: axis_max is a round number at or above the largest value. Ticks at 0, half and axis_max. -->
+        <div class="vb" role="img" aria-label="{{chart_description_in_words}}">
+          <div class="plot">
+            <div class="bands"><!-- Classified metric (LCP, INP, CLS): bands bottom to top Good, Needs Improvement, Poor. Each height is its share of axis_max in percent; the three add up to 100. -->
+            <i class="bd g" style="height:{{good_pct}}%"></i><i class="bd w" style="height:{{warn_pct}}%"></i><i class="bd b" style="height:{{bad_pct}}%"></i></div>
+            <span class="tk" style="bottom:0"><em>0</em></span><span class="tk" style="bottom:50%"><em>{{tick_half}}</em></span><span class="tk" style="bottom:100%"><em>{{axis_max}}</em></span>
+            <!-- REPEAT period: one group, in time order -->
+            <div class="grp">
+              <!-- REPEAT site: one bar. ratio = value / axis_max, between 0 and 1. A period with no comparable test or no data: class "col na", no --p, and "n/a" as the value. -->
+              <div class="col {{site_slot}}" style="--p:{{ratio}}" title="{{site_name}}, {{period_label}}: {{value_with_unit}}"><span class="val">{{value_short}}</span></div>
+              <!-- END REPEAT -->
+            </div>
+            <!-- END REPEAT -->
+          </div>
+          <div class="xl"><!-- REPEAT period --><span>{{period_label}}</span><!-- END REPEAT --></div>
+        </div>
+        <p class="note">{{trend_note}} "n/a" marks a period without a comparable test.</p>
+        <details class="plain tv">
+          <summary>Table view</summary>
+          <div class="tbl"><table>
+            <thead><tr><th>Period</th><!-- REPEAT site --><th>{{site_name}}</th><!-- END REPEAT --></tr></thead>
+            <tbody>
+              <!-- REPEAT period -->
+              <tr><td>{{period_label}}</td><!-- REPEAT site --><td class="num">{{value_or_no_data}}</td><!-- END REPEAT --></tr>
+              <!-- END REPEAT -->
+            </tbody>
+          </table></div>
+        </details>
+      </div>
+      <!-- END REPEAT -->
+      <!-- IF more than 8 periods: this line chart card replaces the bars -->
       <div class="card">
         <span class="k">{{metric_name}} · {{field_or_lab}} · by period</span>
         <div class="cardlegend">
@@ -547,7 +632,7 @@ a{color:#000000}
           </table></div>
         </details>
       </div>
-      <!-- END REPEAT -->
+      <!-- END IF -->
     </div>
     <div class="card">
       <ul class="changes">
@@ -586,86 +671,61 @@ a{color:#000000}
 
     <!-- Main visualization: keep the one block that matches this dimension and delete the others. -->
 
-    <!-- Performance: one card per metric, one row per site, with the Google thresholds as zones -->
-    <div class="grid g2">
-      <!-- REPEAT metric: LCP, INP, CLS (field when available). If no site has field data, INP gets no card: use the strip below the grid. -->
+    <!-- Performance. Every chart in this block is the same weekly "vb" card: the LCP card below is the master. One group per period, one bar per site, one scale.
+         Field data rule: when no site has CrUX field data, show nothing about it (no INP chart, no strip, no "No field data available"); the methodology says once that field data was not available.
+         When at least one site has it, show it for that site and "No field data available" for the others. -->
+    <p class="k" style="margin:28px 0 12px">Core Web Vitals</p>
+    <div style="display:flex;flex-direction:column;gap:16px">
       <div class="card">
-        <span class="k">{{metric_name}} · {{field_or_lab}}</span>
-        <div class="vit">
-          <!-- REPEAT site -->
-          <div class="vrow">
-            <span class="lab"><i class="sw {{site_slot}}"></i>{{site_name}}</span>
-            <div class="zones" role="img" aria-label="{{site_name}}: {{value}}, {{status_word}}"><span class="z zg" style="width:{{good_pct}}%"></span><span class="z zw" style="width:{{warn_pct}}%"></span><span class="z zb" style="width:{{bad_pct}}%"></span><span class="mk" style="left:{{marker_pct}}%"></span></div>
-            <span class="val {{good|warn|bad}}">{{value}}<small>{{status_word}}</small></span>
-          </div>
+        <span class="k">Loading · LCP · {{field_or_lab}}</span>
+        <div class="cardlegend">
+          <!-- REPEAT site key -->
+          <span><i class="sw {{site_slot}}"></i>{{site_name}}</span>
           <!-- END REPEAT -->
         </div>
-      </div>
-      <!-- END REPEAT -->
-      <!-- TTFB: diagnostic context, not a Core Web Vital, so no status pill -->
-      <div class="card">
-        <span class="k">Server response · TTFB · {{field_or_lab}}</span>
-        <div class="bars">
-          <!-- REPEAT site -->
-          <div class="bar {{site_slot}}"><span><i class="sw {{site_slot}}"></i>{{site_name}}</span><span class="v">{{ttfb}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
-          <!-- END REPEAT -->
-        </div>
-        <p class="note">Diagnostic context for loading speed, not a Core Web Vital.</p>
-      </div>
-      <!-- Optional: page weight is lab only and has no official threshold, so it is never classified -->
-      <div class="card">
-        <span class="k">Page weight · lab</span>
-        <div class="bars">
-          <!-- REPEAT site -->
-          <div class="bar {{site_slot}}"><span><i class="sw {{site_slot}}"></i>{{site_name}}</span><span class="v">{{page_weight}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
-          <!-- END REPEAT -->
-          <!-- Industry baseline, when a sourced one exists: a neutral reference bar, never a site color -->
-          <div class="bar base"><span>{{baseline_name}}</span><span class="v">{{baseline_value}}</span><div class="t"><i style="width:{{pct}}%"></i></div></div>
-        </div>
-        <p class="note">{{page_weight_note}}</p>
-      </div>
-    </div>
-
-    <!-- Performance, INP when no site has field data: one line instead of a card -->
-    <p class="strip"><b>INP</b>{{inp_unavailable_message}}</p>
-
-    <!-- Performance: when the visitor sees something. Lab only, from the delivery's Performance Results. Always present; a site without the section shows "No data available". -->
-    <div class="card" style="margin-top:16px">
-      <span class="k">When the visitor sees something · lab</span>
-      <div class="legend">
-        <!-- REPEAT site key -->
-        <span><i class="sw {{site_slot}}"></i>{{site_name}}</span>
-        <!-- END REPEAT -->
-      </div>
-      <div class="gb">
-        <!-- REPEAT milestone in order of time: First Byte, Start Render, FCP, LCP, Speed Index, Document Complete, Fully Loaded. One scale: ratio = value / largest value of all rows, between 0 and 1. A site without a value: write "No data available" in place of the bar. -->
-        <div class="cat">
-          <span class="name">{{milestone}}<span>{{plain_meaning}}</span></span>
-          <div class="rows">
-            <!-- REPEAT site -->
-            <div class="b {{site_slot}}"><i style="--p:{{ratio}}"></i><span class="v">{{seconds}} s</span></div>
+        <!-- One scale for every site and period: axis_max is a round number at or above the largest value. Ticks at 0, half and axis_max. -->
+        <div class="vb" role="img" aria-label="{{chart_description_in_words}}">
+          <div class="plot">
+            <div class="bands"><!-- Classified metric (LCP, INP, CLS): bands bottom to top Good, Needs Improvement, Poor. Each height is its share of axis_max in percent; the three add up to 100. -->
+        <i class="bd g" style="height:{{good_pct}}%"></i><i class="bd w" style="height:{{warn_pct}}%"></i><i class="bd b" style="height:{{bad_pct}}%"></i></div>
+            <span class="tk" style="bottom:0"><em>0</em></span><span class="tk" style="bottom:50%"><em>{{tick_half}}</em></span><span class="tk" style="bottom:100%"><em>{{axis_max}}</em></span>
+            <!-- REPEAT period: one group, in time order -->
+            <div class="grp">
+              <!-- REPEAT site: one bar. ratio = value / axis_max, between 0 and 1. A period with no comparable test or no data: class "col na", no --p, and "n/a" as the value. -->
+              <div class="col {{site_slot}}" style="--p:{{ratio}}" title="{{site_name}}, {{period_label}}: {{value_with_unit}}"><span class="val">{{value_short}}</span></div>
+              <!-- END REPEAT -->
+            </div>
             <!-- END REPEAT -->
           </div>
+          <div class="xl"><!-- REPEAT period --><span>{{period_label}}</span><!-- END REPEAT --></div>
         </div>
-        <!-- END REPEAT -->
+        <p class="note">Good up to 2.5 s, Poor above 4.0 s (Google). Classified from {{a_single_lab_test_per_period_or_field_p75}}.</p>
+        <details class="plain tv">
+          <summary>Table view</summary>
+          <div class="tbl"><table>
+            <thead><tr><th>Period</th><!-- REPEAT site --><th>{{site_name}}</th><!-- END REPEAT --></tr></thead>
+            <tbody>
+              <!-- REPEAT period -->
+              <tr><td>{{period_label}}</td><!-- REPEAT site --><td class="num">{{value_or_no_data}}</td><!-- END REPEAT --></tr>
+              <!-- END REPEAT -->
+            </tbody>
+          </table></div>
+        </details>
       </div>
-      <p class="note">{{timeline_note}} Only LCP carries a status (shown above). The other milestones are lab results without a classification.</p>
-      <details class="plain tv">
-        <summary>Table view</summary>
-        <div class="tbl"><table>
-          <thead><tr><th>Milestone</th><!-- REPEAT site --><th>{{site_name}}</th><!-- END REPEAT --></tr></thead>
-          <tbody>
-            <!-- REPEAT milestone -->
-            <tr><td>{{milestone}}</td><!-- REPEAT site --><td class="num">{{seconds}} s</td><!-- END REPEAT --></tr>
-            <!-- END REPEAT -->
-          </tbody>
-        </table></div>
-      </details>
+      <!-- REPEAT chart: CLS (bands: Good up to 0.1, Poor above 0.25) and, only when at least one site has field data, INP (bands: Good up to 200 ms, Poor above 500 ms). The same card as LCP. -->
     </div>
-
-    <!-- Performance: what each page downloads, by file type (from each delivery's content breakdown). Always present; a site without the section shows "No data available". -->
-    <div class="card" style="margin-top:16px">
-      <span class="k">What each page downloads · lab</span>
+    <p class="k" style="margin:28px 0 12px">Responsiveness, weight and requests</p>
+    <div class="vbs">
+      <!-- REPEAT chart: Total Blocking Time, page weight and requests. The same card as LCP with the "bands" element deleted. Lab only, not classified. -->
+    </div>
+    <p class="k" style="margin:28px 0 12px">Loading timeline · when the visitor sees something · lab</p>
+    <div class="vbs">
+      <!-- REPEAT chart: First Byte (the lab TTFB), Start Render, FCP, Speed Index, Document Complete, Fully Loaded. The same card as LCP with the "bands" element deleted. LCP has its own chart above. Lab only, no classification. -->
+    </div>
+    <p class="k" style="margin:28px 0 12px">What each page downloads</p>
+    <!-- Content breakdown, latest test: what each page downloads, by file type (from each delivery's content breakdown). Always present; a site without the section shows "No data available". -->
+    <div class="card">
+      <span class="k">What each page downloads · lab · latest test ({{period_label}})</span>
       <div class="legend">
         <!-- REPEAT site key -->
         <span><i class="sw {{site_slot}}"></i>{{site_name}}</span>
@@ -710,50 +770,33 @@ a{color:#000000}
       </details>
     </div>
 
-    <!-- Performance: supporting scores from the WebPageTest delivery. Lab only. Always present. Labeled for what they are, never a headline, never a substitute for Core Web Vitals or for the Security and Accessibility sources. -->
+    <p class="k" style="margin:28px 0 12px">Scores reported by WebPageTest · lab</p>
+    <div class="vbs">
+      <!-- REPEAT chart: Lighthouse Performance, Accessibility, Best Practices and SEO. The same card as LCP on a 0 to 100 axis (ratio = score / 100, ticks 0, 50, 100), with these bands bottom to top: <div class="bands"><i class="bd b" style="height:50%"></i><i class="bd w" style="height:40%"></i><i class="bd g" style="height:10%"></i></div>. Bands: 0 to 49 Poor, 50 to 89 Needs Improvement, 90 to 100 Good (Google). Say the latest tier of each site in the note. Lighthouse Accessibility does not replace the WAVE report. -->
+    </div>
     <div class="card" style="margin-top:16px">
-      <span class="k">Lighthouse scores · lab</span>
+      <span class="k">WebPageTest optimization grades · by period</span>
       <div class="cardlegend">
         <!-- REPEAT site key -->
         <span><i class="sw {{site_slot}}"></i>{{site_name}}</span>
         <!-- END REPEAT -->
       </div>
-      <div class="gb wide">
-        <!-- REPEAT category: Performance, Accessibility, Best Practices, SEO. One scale 0 to 100: ratio = score / 100. Tier word beside the score: Good 90 to 100 (class "good"), Needs Improvement 50 to 89 (class "warn"), Poor 0 to 49 (class "bad"). -->
-        <div class="cat">
-          <span class="name">{{category}}</span>
-          <div class="rows">
-            <!-- REPEAT site -->
-            <div class="b {{site_slot}}"><i style="--p:{{ratio}}"></i><span class="v">{{score}} · <span class="{{good|warn|bad}}">{{tier_word}}</span></span></div>
-            <!-- END REPEAT -->
-          </div>
-        </div>
-        <!-- END REPEAT -->
-      </div>
-      <p class="note">Lighthouse bands: 0 to 49 Poor, 50 to 89 Needs Improvement, 90 to 100 Good (Google), the same for all four categories. Each score comes from one lab test of one page. Lighthouse Accessibility does not replace the WAVE report, and Lighthouse Performance does not replace the Core Web Vitals.</p>
-      <details class="plain tv">
-        <summary>Table view</summary>
-        <div class="tbl"><table>
-          <thead><tr><th>Category</th><!-- REPEAT site --><th>{{site_name}}</th><!-- END REPEAT --></tr></thead>
-          <tbody>
-            <!-- REPEAT category -->
-            <tr><td>{{category}}</td><!-- REPEAT site --><td class="num">{{score}} · {{tier_word}}</td><!-- END REPEAT --></tr>
-            <!-- END REPEAT -->
-          </tbody>
-        </table></div>
-      </details>
-    </div>
-    <div class="card" style="margin-top:16px">
-      <span class="k">WebPageTest optimization grades</span>
-      <div class="tbl"><table class="matrix">
-        <thead><tr><th>Check</th><!-- REPEAT site --><th>{{site_name}}</th><!-- END REPEAT --></tr></thead>
+      <div class="tbl"><table class="grades">
+        <thead>
+          <tr><th rowspan="2">Check</th><!-- REPEAT period --><th colspan="{{number_of_sites}}">{{period_label}}</th><!-- END REPEAT --></tr>
+          <tr><!-- REPEAT period --><!-- REPEAT site --><th><i class="sw {{site_slot}}"></i><span class="vh">{{site_name}}</span></th><!-- END REPEAT --><!-- END REPEAT --></tr>
+        </thead>
         <tbody>
-          <!-- REPEAT check: First Byte Time, Keep-alive Enabled, Compress Transfer, Compress Images, Cache static content, Effective use of CDN, Security score. Write the grade or mark exactly as the delivery reports it. -->
-          <tr><td>{{check_name}}</td><!-- REPEAT site --><td class="num">{{grade_as_reported}}</td><!-- END REPEAT --></tr>
+          <!-- REPEAT check: First Byte Time, Keep-alive Enabled, Compress Transfer, Compress Images, Cache static content, Effective use of CDN, Security score. -->
+          <tr><td>{{check_name}}</td>
+            <!-- REPEAT period --><!-- REPEAT site: the grade exactly as the delivery shows it, on the background color the delivery gives that cell (the delivery uses green #9bce54 for A, A+ and the check mark, yellow #f1c52e for C, red #e33535 for D, white for NA). Text color: black or white, whichever reaches 4.5:1 on that background. If the delivery gives the cell no color, or the site has no delivery that period, use class "gc nc" and no background. Never invent a color. -->
+            <td class="gc" style="background:{{delivery_background}};color:{{text_color}}">{{grade_as_reported}}</td>
+            <!-- END REPEAT --><!-- END REPEAT -->
+          </tr>
           <!-- END REPEAT -->
         </tbody>
       </table></div>
-      <p class="note">Grades as reported by WebPageTest. Each uses its own scale, which can differ from the Core Web Vitals tier of the same metric. The security grade is a quick check of one page and does not replace the HTTP Observatory report.</p>
+      <p class="note">Grades and colors as reported by WebPageTest in each delivery. Each uses its own scale, which can differ from the Core Web Vitals tier of the same metric. The security grade is a quick check of one page and does not replace the HTTP Observatory report.</p>
     </div>
 
     <!-- Security: control matrix, rows are controls, columns are sites -->

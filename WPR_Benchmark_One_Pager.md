@@ -114,6 +114,7 @@ With one dimension, the three KPIs must be distinct (do not repeat the same metr
 - **Cells**: the dimension's headline metric (table above), with its classification label when the dimension is classified. Analytics cells show the value and its trend, without a classification.
 - **Missing data**: "No data available" (for Performance without CrUX, "No field data available", Section 3.2; for a delivery outside the comparability rule, "Not comparable", Section 3.3). Never show it as zero, and it does not affect the site's other cells.
 - **Rows**: sites in the order the user gave them. Do not sort by an overall result.
+- **On a phone** each row stacks as a card, one labeled line per dimension, so the table never needs a horizontal scroll.
 - **One dimension**: add that dimension's secondary metrics as extra columns (e.g., INP and CLS for Performance), since there is room for them.
 
 ### 4.4 Deep-dives
@@ -172,7 +173,7 @@ When most sites have 3 or more comparable periods, each comparison cell adds its
 
 The section opens with trend charts, then the list of changes:
 - **Trend charts**: one line chart per included dimension for its headline metric (Section 4), with one line per site over the periods covered. Performance may add page weight. The legend with each site's color comes first, shared by all charts. Classified metrics (LCP, INP, CLS) show the threshold bands behind the lines. A period with no comparable test is a gap in the line, never a zero or an interpolated point. Each chart has a table view with the same values, and each point a tooltip.
-- **Changes**: each entry has a status word: Improved, Slipped or Unchanged. "Unchanged" carries no status color.
+- **Changes**: each entry has a status word: Improved (green), Slipped (red) or Unchanged. "Unchanged" carries no status color, not even amber.
 
 ### 5.4 Deep-dives (one per included dimension)
 
@@ -316,6 +317,8 @@ If a threshold is unclear, missing, or not officially defined, state this limita
 - Tag every claim with Measured, Market benchmark, External study or Our assessment, with the rules of `WPR_Executive_One_Pager.md` Section 5: causes, predictions and the effect on each site are Our assessment, worded as likely.
 - A metric's status must agree with its thresholds in every place it appears. If any period in the history crossed a threshold, do not write that the metric "stayed Good" or "unchanged"; say that it left the range and came back.
 - A delivery excluded from the report (for example a test with an evident irregularity) is excluded everywhere: comparisons, ranges and changes.
+- **One value, everywhere**: a figure that appears in more than one place (for example the number of images, a total or a date) has the same value in every section, from the cover to the plan and the methodology. Before delivering, list the repeated figures and check they match. If two deliveries give different counts for the same thing, say which delivery each figure comes from.
+- **No causes as facts in the forward message and the questions**: they say "appears to", "after what looks like a change" or name the data to check, never "after a change in Week 43" as if it were known. A cause stays Our assessment wherever it appears.
 - An industry baseline for page weight or request counts comes from `WPR_Analysis_Reference.md` Section 3, one edition, naming the source and year. "Industry practice" without a source is not allowed.
 
 ### 6.8 Chart standards

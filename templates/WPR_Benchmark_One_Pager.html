@@ -310,6 +310,11 @@ a{color:#000000}
   .lc .hit{display:none}}
 @media (max-width:560px){
   .gb .cat{grid-template-columns:1fr}
+  .cmp thead{display:none}
+  .cmp,.cmp tbody,.cmp tr,.cmp td{display:block;width:100%}
+  .cmp tr{border:1px solid var(--line);margin-bottom:12px;background:var(--panel)}
+  .cmp td{white-space:normal;padding:10px 14px}
+  .cmp td[data-label]::before{content:attr(data-label);display:block;margin-bottom:4px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 }
 @media (max-width:880px){
   .method.two{grid-template-columns:1fr}
@@ -423,7 +428,7 @@ a{color:#000000}
           <!-- REPEAT cell: one per dimension. Missing: "No data available"; outside the rule: "Not comparable" -->
           <!-- Analytics column: drop the pill and use <span class="delta">{{trend}}</span> instead.
                No data available, No field data available or Not comparable: write it in place of the value and drop the pill. -->
-          <td><div class="cell"><span class="num">{{headline_value}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span><!-- IF history --><span class="delta">{{movement_word_and_change}}</span><!-- END IF --></div></td>
+          <td data-label="{{dimension}}"><div class="cell"><span class="num">{{headline_value}}</span><span class="pill {{good|warn|bad}}">{{status_word}}</span><!-- IF history --><span class="delta">{{movement_word_and_change}}</span><!-- END IF --></div></td>
           <!-- END REPEAT -->
         </tr>
         <!-- END REPEAT -->
@@ -498,7 +503,8 @@ a{color:#000000}
     <div class="card">
       <ul class="changes">
         <!-- REPEAT change: status word is Improved, Slipped or Unchanged -->
-        <li><span class="pill {{good|warn|bad}}">{{change_status}}</span><span><b>{{site_name}}</b> · {{dimension}}: {{change_description}}</span></li>
+        <!-- Improved: class "good". Slipped: class "bad". Unchanged: no status class, only class "pill". -->
+        <li><span class="pill {{good|bad}}">{{change_status}}</span><span><b>{{site_name}}</b> · {{dimension}}: {{change_description}}</span></li>
         <!-- END REPEAT -->
       </ul>
     </div>

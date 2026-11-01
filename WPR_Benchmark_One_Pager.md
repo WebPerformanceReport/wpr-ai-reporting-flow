@@ -168,7 +168,11 @@ Per section 4.3. Includes:
 
 ### 5.3a Movement (history mode only)
 
-When most sites have 3 or more comparable periods, each comparison cell adds its movement (for example "Improved, LCP -0.4 s") and a "Who improved and who slipped" section follows the table. Each entry has a status word: Improved, Slipped or Unchanged. Comparability follows Section 3.1 and `WPR_Inbox_Workflow.md` Section 3.
+When most sites have 3 or more comparable periods, each comparison cell adds its movement (for example "Improved, LCP -0.4 s") and a "Who improved and who slipped" section follows the table. Comparability follows Section 3.1 and `WPR_Inbox_Workflow.md` Section 3.
+
+The section opens with trend charts, then the list of changes:
+- **Trend charts**: one line chart per included dimension for its headline metric (Section 4), with one line per site over the periods covered. Performance may add page weight. The legend with each site's color comes first, shared by all charts. Classified metrics (LCP, INP, CLS) show the threshold bands behind the lines. A period with no comparable test is a gap in the line, never a zero or an interpolated point. Each chart has a table view with the same values, and each point a tooltip.
+- **Changes**: each entry has a status word: Improved, Slipped or Unchanged. "Unchanged" carries no status color.
 
 ### 5.4 Deep-dives (one per included dimension)
 
@@ -196,7 +200,7 @@ The first panel starts open; the others start closed. A link to a panel's `id` (
 - Analytics: Engagement Rate (GA4).
 
 **5.4.4 Main visualization**
-- Performance: horizontal bars per metric (LCP, INP, CLS, TTFB, weight). One bar per site within each metric. Include Google thresholds as visual references.
+- Performance: horizontal bars per metric (LCP, INP, CLS, TTFB, weight). One bar per site within each metric. Include Google thresholds as visual references. When the deliveries carry a content breakdown, add "What each page downloads": grouped bars by file type (scripts, images, fonts, stylesheets, HTML and "Other"), one bar per site on one shared scale, so that each site's rows add up to its total weight and requests. When a sourced industry baseline exists (`WPR_Analysis_Reference.md` Section 3), show it as a neutral reference bar on the totals row.
 - Security: control matrix (rows = controls, columns = sites), with pass/partial/fail marks.
 - Accessibility: stacked bars per site, using the categories in `WPR_Analysis_Reference.md` Section 1.2: one segment for each of the three largest error types, one for "Other errors" when there are more, and one for Contrast Errors. A text breakdown under each bar lists every error type with its count. The segments add up to the total on the site card. Show Alerts separately, never stacked with errors. Do not chart Features, ARIA or Structural Elements as issues.
 - Analytics: grouped bars per site showing Sessions, Engagement Rate, and Average Engagement Time. Include a secondary indicator for Bounce Rate where available.
@@ -314,6 +318,17 @@ If a threshold is unclear, missing, or not officially defined, state this limita
 - A delivery excluded from the report (for example a test with an evident irregularity) is excluded everywhere: comparisons, ranges and changes.
 - An industry baseline for page weight or request counts comes from `WPR_Analysis_Reference.md` Section 3, one edition, naming the source and year. "Industry practice" without a source is not allowed.
 
+### 6.8 Chart standards
+
+- **Form follows the job**: magnitude across sites is a bar, change over time is a line, a single value is a figure, not a chart.
+- **One axis, one scale**: never a dual axis. Two measures of different units go in two charts. Every site in a chart uses the same scale, and each chart keeps its percentages between 0 and 100 (grouped-bar ratios between 0 and 1).
+- **Site colors**: the Nth site, in the order the user gave them, always takes color slot N (`s1` to `s6`) in every chart, key, swatch and label of the report. A site never changes color. The status colors (Good, Needs Improvement, Poor) are reserved for thresholds and status words and never identify a site. An industry baseline is always neutral gray.
+- **Legend and labels**: a legend is always present with two or more sites. Label sparingly: the end value of a line, the value at the tip of a bar. Never a number on every point. Text uses text colors, never a series color.
+- **Direct end labels only when they do not collide**: if two end labels fall within 14 px of each other, drop them and keep the legend, the tooltips and the table view. With more than 4 sites, drop end labels.
+- **Table view and tooltips**: every chart has a table view with its values, and each mark has a tooltip. A value is never available only on hover.
+- **Composition adds up**: a breakdown (such as file types) must add up to the total shown for each site, with an "Other" row for the remainder. If a delivery does not give the remainder, say what is missing.
+- **Gaps are gaps**: a period without a comparable test breaks the line and is explained in the note under the chart.
+
 ---
 
 ## 7. Template and theme
@@ -328,6 +343,7 @@ The visual system lives in the shared One Pager base, built into `WPR_Benchmark_
 - **Missing or not comparable data** shows its text ("No data available", "No field data available", "Not comparable") without a status pill.
 - **Tones**: the summary is `tone-a` and the comparison is `tone-b`. Every section after it alternates, starting with `tone-a`: Movement when present, then the evidence section (its panels are not sections, so they carry no tone), the plan, "Put it to work" and "Who prepared this".
 - **Use it and Who prepared this**: commissioned or independent follows input 8 (Section 5.6). Do not edit the script; the copy buttons work as they are.
+- **Charts**: follow Section 6.8. Site colors come from the slot classes (`s1` to `s6`) in the order the user gave the sites; the geometry of the line chart is written in the template comments.
 - **Scales**: each chart uses one scale for every site, so bars and markers compare honestly. For Analytics, each metric shares one scale across the site cards. Every percentage stays between 0 and 100.
 
 ---
